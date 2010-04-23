@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using Microsoft.Win32;
 
 namespace pl.polidea.lab.Web_Page_Screensaver
 {
@@ -24,7 +25,9 @@ namespace pl.polidea.lab.Web_Page_Screensaver
 
         private void ScreensaverForm_Load(object sender, EventArgs e)
         {
-            webBrowser.Navigate("http://www.google.com");
+            RegistryKey reg = Registry.CurrentUser.CreateSubKey(Program.KEY);
+            webBrowser.Navigate((string)reg.GetValue("Url", "http://www.polidea.pl"));
+            reg.Close();
         }
 
         private void CloseAfter1Second()
