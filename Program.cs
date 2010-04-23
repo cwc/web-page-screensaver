@@ -19,8 +19,6 @@ namespace pl.polidea.lab.Web_Page_Screensaver
             if (args.Length > 0 && args[0].ToLower().Contains("/p"))
                 return;
 
-            Application.Run(new PreferencesForm());
-
             if(args.Length > 0 && args[0].ToLower().Contains("/c"))
                 Application.Run(new PreferencesForm());
             else
