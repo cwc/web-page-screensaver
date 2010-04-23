@@ -15,5 +15,10 @@ namespace pl.polidea.lab.Web_Page_Screensaver
         {
             InitializeComponent();
         }
+
+        private void ScreensaverForm_Load(object sender, EventArgs e)
+        {
+            webBrowser.Navigate("http://www.google.com");
+        }
     }
 }
