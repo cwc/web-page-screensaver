@@ -50,10 +50,10 @@
             this.linkLabel1.AutoSize = true;
             this.linkLabel1.Location = new System.Drawing.Point(12, 31);
             this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(249, 13);
+            this.linkLabel1.Size = new System.Drawing.Size(233, 13);
             this.linkLabel1.TabIndex = 1;
             this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "http://code.google.com/p/web-page-screensaver/";
+            this.linkLabel1.Text = "http://github.com/cwc/web-page-screensaver/";
             this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
             // label2
