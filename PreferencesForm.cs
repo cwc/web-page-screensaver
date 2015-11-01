@@ -12,6 +12,9 @@ namespace pl.polidea.lab.Web_Page_Screensaver
 {
     public partial class PreferencesForm : Form
     {
+        public const string URL_PREF = "Url";
+        public const string CLOSE_ON_ACTIVITY_PREF = "CloseOnActivity";
+
         public PreferencesForm()
         {
             InitializeComponent();
@@ -20,7 +23,8 @@ namespace pl.polidea.lab.Web_Page_Screensaver
         private void PreferencesForm_Load(object sender, EventArgs e)
         {
             RegistryKey reg = Registry.CurrentUser.CreateSubKey(Program.KEY);
-            textBox1.Text = (string)reg.GetValue("Url", "http://www.polidea.pl");
+            tbUrl.Text = (string)reg.GetValue(URL_PREF, "http://www.polidea.pl");
+            cbCloseOnActivity.Checked = Boolean.Parse((string)reg.GetValue(CLOSE_ON_ACTIVITY_PREF, "True"));
             reg.Close();
         }
 
@@ -29,24 +33,25 @@ namespace pl.polidea.lab.Web_Page_Screensaver
             if (DialogResult == DialogResult.OK)
             {
                 RegistryKey reg = Registry.CurrentUser.CreateSubKey(Program.KEY);
-                reg.SetValue("Url", textBox1.Text);
+                reg.SetValue(URL_PREF, tbUrl.Text);
+                reg.SetValue(CLOSE_ON_ACTIVITY_PREF, cbCloseOnActivity.Checked);
                 reg.Close();
             }
 
             base.OnClosed(e);
         }
 
-        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void llProjectLocationUrl_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start(linkLabel1.Text);
+            System.Diagnostics.Process.Start(llProjectLocationUrl.Text);
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void okButton_Click(object sender, EventArgs e)
         {
             Close();
         }
 
-        private void button2_Click(object sender, EventArgs e)
+        private void cancelButton_Click(object sender, EventArgs e)
         {
             Close();
         }
