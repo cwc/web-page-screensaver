@@ -21,6 +21,8 @@ namespace pl.polidea.lab.Web_Page_Screensaver
             Application.AddMessageFilter(gueh);
 
             InitializeComponent();
+
+            Cursor.Hide();
         }
 
         private void ScreensaverForm_Load(object sender, EventArgs e)
