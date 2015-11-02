@@ -13,6 +13,8 @@ namespace pl.polidea.lab.Web_Page_Screensaver
     public partial class ScreensaverForm : Form
     {
         private DateTime StartTime = DateTime.Now;
+        private Timer timer;
+        private int currentSiteIndex = 0;
 
         public ScreensaverForm()
         {
@@ -25,29 +27,60 @@ namespace pl.polidea.lab.Web_Page_Screensaver
             Cursor.Hide();
         }
 
+        public string[] Urls
+        {
+            get
+            {
+                RegistryKey reg = Registry.CurrentUser.CreateSubKey(Program.KEY);
+                var urls = ((string)reg.GetValue(PreferencesForm.URL_PREF, "http://www.polidea.pl")).Split(' ');
+                reg.Close();
+
+                return urls;
+            }
+        }
+
         private void ScreensaverForm_Load(object sender, EventArgs e)
         {
-            RegistryKey reg = Registry.CurrentUser.CreateSubKey(Program.KEY);
-            webBrowser.Navigate((string)reg.GetValue(PreferencesForm.URL_PREF, "http://www.polidea.pl"));
-            reg.Close();
+            webBrowser.Navigate(Urls[0]);
+
+            if (Urls.Length > 1)
+            {
+                RegistryKey reg = Registry.CurrentUser.CreateSubKey(Program.KEY);
+
+                currentSiteIndex = 0;
+                timer = new Timer();
+                timer.Interval = int.Parse((string)reg.GetValue(PreferencesForm.INTERVAL_PREF, "30")) * 1000;
+                timer.Tick += RotateSite;
+                timer.Start();
+            }
+        }
+
+        private void RotateSite(object sender, EventArgs e)
+        {
+            currentSiteIndex++;
+
+            if (currentSiteIndex >= Urls.Length)
+            {
+                currentSiteIndex = 0;
+            }
+
+            webBrowser.Navigate(Urls[currentSiteIndex]);
         }
 
         private void HandleUserActivity()
         {
+            if (StartTime.AddSeconds(1) > DateTime.Now) return;
+
             RegistryKey reg = Registry.CurrentUser.CreateSubKey(Program.KEY);
 
             if (Boolean.Parse((string)reg.GetValue(PreferencesForm.CLOSE_ON_ACTIVITY_PREF, "True")))
             {
-                if (StartTime.AddSeconds(1) < DateTime.Now)
-                    Close();
+                Close();
             }
             else
             {
-                if (StartTime.AddSeconds(1) < DateTime.Now)
-                {
-                    closeButton.Visible = true;
-                    Cursor.Show();
-                }
+                closeButton.Visible = true;
+                Cursor.Show();
             }
         }
 

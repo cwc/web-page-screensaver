@@ -14,6 +14,7 @@ namespace pl.polidea.lab.Web_Page_Screensaver
     {
         public const string URL_PREF = "Url";
         public const string CLOSE_ON_ACTIVITY_PREF = "CloseOnActivity";
+        public const string INTERVAL_PREF = "RotationInterval";
 
         public PreferencesForm()
         {
@@ -25,6 +26,7 @@ namespace pl.polidea.lab.Web_Page_Screensaver
             RegistryKey reg = Registry.CurrentUser.CreateSubKey(Program.KEY);
             tbUrl.Text = (string)reg.GetValue(URL_PREF, "http://www.polidea.pl");
             cbCloseOnActivity.Checked = Boolean.Parse((string)reg.GetValue(CLOSE_ON_ACTIVITY_PREF, "True"));
+            nudRotationInterval.Value = int.Parse((string)reg.GetValue(INTERVAL_PREF, "30"));
             reg.Close();
         }
 
@@ -35,6 +37,7 @@ namespace pl.polidea.lab.Web_Page_Screensaver
                 RegistryKey reg = Registry.CurrentUser.CreateSubKey(Program.KEY);
                 reg.SetValue(URL_PREF, tbUrl.Text);
                 reg.SetValue(CLOSE_ON_ACTIVITY_PREF, cbCloseOnActivity.Checked);
+                reg.SetValue(INTERVAL_PREF, nudRotationInterval.Value);
                 reg.Close();
             }
 
