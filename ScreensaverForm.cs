@@ -17,7 +17,7 @@ namespace pl.polidea.lab.Web_Page_Screensaver
         public ScreensaverForm()
         {
             GlobalUserEventHandler gueh = new GlobalUserEventHandler();
-            gueh.Event += new GlobalUserEventHandler.UserEvent(CloseAfter1Second);
+            gueh.Event += new GlobalUserEventHandler.UserEvent(HandleUserActivity);
             Application.AddMessageFilter(gueh);
 
             InitializeComponent();
@@ -32,7 +32,7 @@ namespace pl.polidea.lab.Web_Page_Screensaver
             reg.Close();
         }
 
-        private void CloseAfter1Second()
+        private void HandleUserActivity()
         {
             RegistryKey reg = Registry.CurrentUser.CreateSubKey(Program.KEY);
 
@@ -43,7 +43,11 @@ namespace pl.polidea.lab.Web_Page_Screensaver
             }
             else
             {
-                closeButton.Visible = true;
+                if (StartTime.AddSeconds(1) < DateTime.Now)
+                {
+                    closeButton.Visible = true;
+                    Cursor.Show();
+                }
             }
         }
 
@@ -67,10 +71,9 @@ namespace pl.polidea.lab.Web_Page_Screensaver
         public bool PreFilterMessage(ref Message m)
         {
             if ((m.Msg >= WM_MOUSEMOVE && m.Msg <= WM_MBUTTONDBLCLK)
-                || m.Msg == WM_KEYDOWN || m.Msg == WM_KEYUP)
+                || m.Msg == WM_KEYDOWN 
+                || m.Msg == WM_KEYUP)
             {
-                Cursor.Show();
-
                 if (Event != null)
                 {
                     Event();
