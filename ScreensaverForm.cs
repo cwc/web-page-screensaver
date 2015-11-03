@@ -33,7 +33,7 @@ namespace pl.polidea.lab.Web_Page_Screensaver
             get
             {
                 RegistryKey reg = Registry.CurrentUser.CreateSubKey(Program.KEY);
-                var urls = ((string)reg.GetValue(PreferencesForm.URL_PREF, "http://www.polidea.pl")).Split(' ');
+                var urls = ((string)reg.GetValue(PreferencesForm.URL_PREF, PreferencesForm.URL_PREF_DEFAULT)).Split(' ');
                 reg.Close();
 
                 return urls;
@@ -50,7 +50,7 @@ namespace pl.polidea.lab.Web_Page_Screensaver
 
                 currentSiteIndex = 0;
                 timer = new Timer();
-                timer.Interval = int.Parse((string)reg.GetValue(PreferencesForm.INTERVAL_PREF, "30")) * 1000;
+                timer.Interval = int.Parse((string)reg.GetValue(PreferencesForm.INTERVAL_PREF, PreferencesForm.INTERVAL_PREF_DEFAULT)) * 1000;
                 timer.Tick += (s, ee) => RotateSite();
                 timer.Start();
             }
@@ -96,7 +96,7 @@ namespace pl.polidea.lab.Web_Page_Screensaver
 
             RegistryKey reg = Registry.CurrentUser.CreateSubKey(Program.KEY);
 
-            if (Boolean.Parse((string)reg.GetValue(PreferencesForm.CLOSE_ON_ACTIVITY_PREF, "True")))
+            if (Boolean.Parse((string)reg.GetValue(PreferencesForm.CLOSE_ON_ACTIVITY_PREF, PreferencesForm.CLOSE_ON_ACTIVITY_PREF_DEFAULT)))
             {
                 Close();
             }
@@ -105,6 +105,8 @@ namespace pl.polidea.lab.Web_Page_Screensaver
                 closeButton.Visible = true;
                 Cursor.Show();
             }
+
+            reg.Close();
         }
 
         private void closeButton_Click(object sender, EventArgs e)

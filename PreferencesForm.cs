@@ -16,6 +16,10 @@ namespace pl.polidea.lab.Web_Page_Screensaver
         public const string CLOSE_ON_ACTIVITY_PREF = "CloseOnActivity";
         public const string INTERVAL_PREF = "RotationInterval";
 
+        public const string URL_PREF_DEFAULT = "https://www.google.com/trends/hottrends/visualize?nrow=5&ncol=5 https://screensaver.twingly.com/ http://map.ipviking.com/";
+        public const string CLOSE_ON_ACTIVITY_PREF_DEFAULT = "True";
+        public const string INTERVAL_PREF_DEFAULT = "30";
+
         public PreferencesForm()
         {
             InitializeComponent();
@@ -24,9 +28,9 @@ namespace pl.polidea.lab.Web_Page_Screensaver
         private void PreferencesForm_Load(object sender, EventArgs e)
         {
             RegistryKey reg = Registry.CurrentUser.CreateSubKey(Program.KEY);
-            tbUrl.Text = (string)reg.GetValue(URL_PREF, "http://www.polidea.pl");
-            cbCloseOnActivity.Checked = Boolean.Parse((string)reg.GetValue(CLOSE_ON_ACTIVITY_PREF, "True"));
-            nudRotationInterval.Value = int.Parse((string)reg.GetValue(INTERVAL_PREF, "30"));
+            tbUrl.Text = (string)reg.GetValue(URL_PREF, URL_PREF_DEFAULT);
+            cbCloseOnActivity.Checked = Boolean.Parse((string)reg.GetValue(CLOSE_ON_ACTIVITY_PREF, CLOSE_ON_ACTIVITY_PREF_DEFAULT));
+            nudRotationInterval.Value = int.Parse((string)reg.GetValue(INTERVAL_PREF, INTERVAL_PREF_DEFAULT));
             reg.Close();
         }
 
