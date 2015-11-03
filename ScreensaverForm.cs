@@ -7,20 +7,21 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Microsoft.Win32;
+using System.Diagnostics;
 
 namespace pl.polidea.lab.Web_Page_Screensaver
 {
     public partial class ScreensaverForm : Form
     {
-        private DateTime StartTime = DateTime.Now;
+        private DateTime StartTime;
         private Timer timer;
         private int currentSiteIndex = 0;
+        private GlobalUserEventHandler userEventHandler;
 
         public ScreensaverForm()
         {
-            GlobalUserEventHandler gueh = new GlobalUserEventHandler();
-            gueh.Event += new GlobalUserEventHandler.UserEvent(HandleUserActivity);
-            Application.AddMessageFilter(gueh);
+            userEventHandler = new GlobalUserEventHandler();
+            userEventHandler.Event += new GlobalUserEventHandler.UserEvent(HandleUserActivity);
 
             InitializeComponent();
 
@@ -41,7 +42,7 @@ namespace pl.polidea.lab.Web_Page_Screensaver
 
         private void ScreensaverForm_Load(object sender, EventArgs e)
         {
-            webBrowser.Navigate(Urls[0]);
+            BrowseTo(Urls[0]);
 
             if (Urls.Length > 1)
             {
@@ -50,12 +51,32 @@ namespace pl.polidea.lab.Web_Page_Screensaver
                 currentSiteIndex = 0;
                 timer = new Timer();
                 timer.Interval = int.Parse((string)reg.GetValue(PreferencesForm.INTERVAL_PREF, "30")) * 1000;
-                timer.Tick += RotateSite;
+                timer.Tick += (s, ee) => RotateSite();
                 timer.Start();
             }
+
+            StartTime = DateTime.Now;
         }
 
-        private void RotateSite(object sender, EventArgs e)
+        private void BrowseTo(string url)
+        {
+            // Disable the user event handler while navigating
+            Application.RemoveMessageFilter(userEventHandler);
+
+            try
+            {
+                Debug.WriteLine($"Navigating: {url}");
+                webBrowser.Navigate(url);
+            }
+            catch
+            {
+                // This can happen if IE pops up a window that isn't closed before the next call to Navigate()
+            }
+
+            Application.AddMessageFilter(userEventHandler);
+        }
+
+        private void RotateSite()
         {
             currentSiteIndex++;
 
@@ -64,14 +85,9 @@ namespace pl.polidea.lab.Web_Page_Screensaver
                 currentSiteIndex = 0;
             }
 
-            try
-            {
-                webBrowser.Navigate(Urls[currentSiteIndex]);
-            }
-            catch
-            {
-                // This can happen if IE pops up a window that isn't closed before the next call to Navigate()
-            }
+            var url = Urls[currentSiteIndex];
+
+            BrowseTo(url);
         }
 
         private void HandleUserActivity()
