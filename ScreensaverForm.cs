@@ -64,7 +64,14 @@ namespace pl.polidea.lab.Web_Page_Screensaver
                 currentSiteIndex = 0;
             }
 
-            webBrowser.Navigate(Urls[currentSiteIndex]);
+            try
+            {
+                webBrowser.Navigate(Urls[currentSiteIndex]);
+            }
+            catch
+            {
+                // This can happen if IE pops up a window that isn't closed before the next call to Navigate()
+            }
         }
 
         private void HandleUserActivity()
@@ -104,7 +111,7 @@ namespace pl.polidea.lab.Web_Page_Screensaver
         public bool PreFilterMessage(ref Message m)
         {
             if ((m.Msg >= WM_MOUSEMOVE && m.Msg <= WM_MBUTTONDBLCLK)
-                || m.Msg == WM_KEYDOWN 
+                || m.Msg == WM_KEYDOWN
                 || m.Msg == WM_KEYUP)
             {
                 if (Event != null)
