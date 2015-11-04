@@ -23,11 +23,41 @@ namespace pl.polidea.lab.Web_Page_Screensaver
             urlsContextMenu = new ContextMenuStrip();
             urlsContextMenu.Opening += UrlsContextMenu_Opening;
 
+            var moveUrlUp = urlsContextMenu.Items.Add("Move Up");
+            moveUrlUp.Click += MoveUrlUp_Click;
+
+            var moveUrlDown = urlsContextMenu.Items.Add("Move Down");
+            moveUrlDown.Click += MoveUrlDown_Click;
+
             var removeUrl = urlsContextMenu.Items.Add("Remove URL");
             removeUrl.Click += RemoveUrl_Click;
 
             lbUrls.ContextMenuStrip = urlsContextMenu;
             lbUrls.MouseDown += LbUrls_MouseDown;
+        }
+
+        private void MoveUrlDown_Click(object sender, EventArgs e)
+        {
+            var selected = lbUrls.SelectedItem;
+            if (selected != null)
+            {
+                var newIndex = Math.Min(lbUrls.Items.Count - 1, lbUrls.SelectedIndex + 1);
+                lbUrls.Items.RemoveAt(lbUrls.SelectedIndex);
+                lbUrls.Items.Insert(newIndex, selected);
+                lbUrls.SelectedIndex = newIndex;
+            }
+        }
+
+        private void MoveUrlUp_Click(object sender, EventArgs e)
+        {
+            var selected = lbUrls.SelectedItem;
+            if (selected != null)
+            {
+                var newIndex = Math.Max(0, lbUrls.SelectedIndex - 1);
+                lbUrls.Items.RemoveAt(lbUrls.SelectedIndex);
+                lbUrls.Items.Insert(newIndex, selected);
+                lbUrls.SelectedIndex = newIndex;
+            }
         }
 
         private void UrlsContextMenu_Opening(object sender, System.ComponentModel.CancelEventArgs e)
@@ -66,7 +96,7 @@ namespace pl.polidea.lab.Web_Page_Screensaver
             lbUrls.Items.Clear();
 
             var urls = ((string)reg.GetValue(URL_PREF, URL_PREF_DEFAULT)).Split(' ');
-            
+
             foreach (var url in urls)
             {
                 lbUrls.Items.Add(url);
@@ -90,7 +120,7 @@ namespace pl.polidea.lab.Web_Page_Screensaver
         private void saveUrls(RegistryKey reg)
         {
             var urls = String.Join(" ", lbUrls.Items.Cast<String>());
-                       
+
             reg.SetValue(URL_PREF, urls);
         }
 
