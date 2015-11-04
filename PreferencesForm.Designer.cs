@@ -39,6 +39,7 @@
             this.lbUrls = new System.Windows.Forms.ListBox();
             this.tbUrlToAdd = new System.Windows.Forms.TextBox();
             this.addUrlButton = new System.Windows.Forms.Button();
+            this.cbRandomize = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.nudRotationInterval)).BeginInit();
             this.SuspendLayout();
             // 
@@ -98,7 +99,7 @@
             this.cbCloseOnActivity.AutoSize = true;
             this.cbCloseOnActivity.Checked = true;
             this.cbCloseOnActivity.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbCloseOnActivity.Location = new System.Drawing.Point(15, 258);
+            this.cbCloseOnActivity.Location = new System.Drawing.Point(15, 256);
             this.cbCloseOnActivity.Name = "cbCloseOnActivity";
             this.cbCloseOnActivity.Size = new System.Drawing.Size(153, 17);
             this.cbCloseOnActivity.TabIndex = 6;
@@ -107,7 +108,7 @@
             // 
             // nudRotationInterval
             // 
-            this.nudRotationInterval.Location = new System.Drawing.Point(15, 232);
+            this.nudRotationInterval.Location = new System.Drawing.Point(15, 230);
             this.nudRotationInterval.Name = "nudRotationInterval";
             this.nudRotationInterval.Size = new System.Drawing.Size(40, 20);
             this.nudRotationInterval.TabIndex = 7;
@@ -120,7 +121,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(61, 234);
+            this.label3.Location = new System.Drawing.Point(61, 232);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(142, 13);
             this.label3.TabIndex = 8;
@@ -151,6 +152,16 @@
             this.addUrlButton.UseVisualStyleBackColor = true;
             this.addUrlButton.Click += new System.EventHandler(this.addUrlButton_Click);
             // 
+            // cbRandomize
+            // 
+            this.cbRandomize.AutoSize = true;
+            this.cbRandomize.Location = new System.Drawing.Point(15, 279);
+            this.cbRandomize.Name = "cbRandomize";
+            this.cbRandomize.Size = new System.Drawing.Size(121, 17);
+            this.cbRandomize.TabIndex = 12;
+            this.cbRandomize.Text = "Shuffle display order";
+            this.cbRandomize.UseVisualStyleBackColor = true;
+            // 
             // PreferencesForm
             // 
             this.AcceptButton = this.okButton;
@@ -158,6 +169,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cancelButton;
             this.ClientSize = new System.Drawing.Size(277, 332);
+            this.Controls.Add(this.cbRandomize);
             this.Controls.Add(this.addUrlButton);
             this.Controls.Add(this.tbUrlToAdd);
             this.Controls.Add(this.lbUrls);
@@ -195,5 +207,6 @@
         private System.Windows.Forms.ListBox lbUrls;
         private System.Windows.Forms.TextBox tbUrlToAdd;
         private System.Windows.Forms.Button addUrlButton;
+        private System.Windows.Forms.CheckBox cbRandomize;
     }
 }

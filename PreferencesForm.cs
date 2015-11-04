@@ -10,10 +10,13 @@ namespace pl.polidea.lab.Web_Page_Screensaver
         public const string URL_PREF = "Url";
         public const string CLOSE_ON_ACTIVITY_PREF = "CloseOnActivity";
         public const string INTERVAL_PREF = "RotationInterval";
+        public const string RANDOMIZE_PREF = "RandomOrder";
 
-        public const string URL_PREF_DEFAULT = "https://www.google.com/trends/hottrends/visualize?nrow=5&ncol=5 https://screensaver.twingly.com/ http://map.ipviking.com/";
+        public const string URL_PREF_DEFAULT = "https://www.google.com/trends/hottrends/visualize?nrow=5&ncol=5 https://screensaver.twingly.com/";
         public const string CLOSE_ON_ACTIVITY_PREF_DEFAULT = "True";
         public const string INTERVAL_PREF_DEFAULT = "30";
+        public const string RANDOMIZE_PREF_DEFAULT = "False";
+
         private ContextMenuStrip urlsContextMenu;
 
         public PreferencesForm()
@@ -88,6 +91,7 @@ namespace pl.polidea.lab.Web_Page_Screensaver
             loadUrls(reg);
             cbCloseOnActivity.Checked = Boolean.Parse((string)reg.GetValue(CLOSE_ON_ACTIVITY_PREF, CLOSE_ON_ACTIVITY_PREF_DEFAULT));
             nudRotationInterval.Value = int.Parse((string)reg.GetValue(INTERVAL_PREF, INTERVAL_PREF_DEFAULT));
+            cbRandomize.Checked = Boolean.Parse((string)reg.GetValue(RANDOMIZE_PREF, RANDOMIZE_PREF_DEFAULT));
             reg.Close();
         }
 
@@ -111,6 +115,7 @@ namespace pl.polidea.lab.Web_Page_Screensaver
                 saveUrls(reg);
                 reg.SetValue(CLOSE_ON_ACTIVITY_PREF, cbCloseOnActivity.Checked);
                 reg.SetValue(INTERVAL_PREF, nudRotationInterval.Value);
+                reg.SetValue(RANDOMIZE_PREF, cbRandomize.Checked);
                 reg.Close();
             }
 
