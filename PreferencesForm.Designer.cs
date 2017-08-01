@@ -120,6 +120,11 @@
             this.nudRotationInterval.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.nudRotationInterval.Location = new System.Drawing.Point(20, 283);
             this.nudRotationInterval.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.nudRotationInterval.Maximum = new decimal(new int[] {
+            999,
+            0,
+            0,
+            0});
             this.nudRotationInterval.Name = "nudRotationInterval";
             this.nudRotationInterval.Size = new System.Drawing.Size(53, 22);
             this.nudRotationInterval.TabIndex = 7;
