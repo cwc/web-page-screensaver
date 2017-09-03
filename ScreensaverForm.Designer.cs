@@ -36,19 +36,21 @@
             // 
             this.webBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
             this.webBrowser.Location = new System.Drawing.Point(0, 0);
-            this.webBrowser.MinimumSize = new System.Drawing.Size(20, 20);
+            this.webBrowser.Margin = new System.Windows.Forms.Padding(4);
+            this.webBrowser.MinimumSize = new System.Drawing.Size(27, 25);
             this.webBrowser.Name = "webBrowser";
-            this.webBrowser.Size = new System.Drawing.Size(284, 262);
-            this.webBrowser.TabIndex = 0;
             this.webBrowser.ScriptErrorsSuppressed = true;
+            this.webBrowser.Size = new System.Drawing.Size(379, 322);
+            this.webBrowser.TabIndex = 0;
             // 
             // closeButton
             // 
             this.closeButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.closeButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.closeButton.Location = new System.Drawing.Point(242, 12);
+            this.closeButton.Location = new System.Drawing.Point(323, 15);
+            this.closeButton.Margin = new System.Windows.Forms.Padding(4);
             this.closeButton.Name = "closeButton";
-            this.closeButton.Size = new System.Drawing.Size(30, 23);
+            this.closeButton.Size = new System.Drawing.Size(40, 28);
             this.closeButton.TabIndex = 1;
             this.closeButton.Text = "X";
             this.closeButton.UseVisualStyleBackColor = true;
@@ -57,17 +59,20 @@
             // 
             // ScreensaverForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(284, 262);
+            this.BackColor = System.Drawing.Color.Black;
+            this.ClientSize = new System.Drawing.Size(379, 322);
             this.Controls.Add(this.closeButton);
             this.Controls.Add(this.webBrowser);
+            this.ForeColor = System.Drawing.Color.White;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ScreensaverForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Form1";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.ScreensaverForm_Load);
             this.ResumeLayout(false);
 

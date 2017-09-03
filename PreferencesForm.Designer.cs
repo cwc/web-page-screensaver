@@ -1,5 +1,7 @@
 ﻿namespace pl.polidea.lab.Web_Page_Screensaver
 {
+    using global::Web_Page_Screensaver;
+
     partial class PreferencesForm
     {
         /// <summary>
@@ -28,19 +30,25 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.label1 = new System.Windows.Forms.Label();
             this.llProjectLocationUrl = new System.Windows.Forms.LinkLabel();
-            this.label2 = new System.Windows.Forms.Label();
             this.okButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
             this.cbCloseOnActivity = new System.Windows.Forms.CheckBox();
-            this.nudRotationInterval = new System.Windows.Forms.NumericUpDown();
-            this.label3 = new System.Windows.Forms.Label();
-            this.lbUrls = new System.Windows.Forms.ListBox();
-            this.tbUrlToAdd = new System.Windows.Forms.TextBox();
-            this.addUrlButton = new System.Windows.Forms.Button();
-            this.cbRandomize = new System.Windows.Forms.CheckBox();
-            ((System.ComponentModel.ISupportInitialize)(this.nudRotationInterval)).BeginInit();
+            this.screenTabControl = new System.Windows.Forms.TabControl();
+            this.screenTabPage1 = new System.Windows.Forms.TabPage();
+            this.prefsByScreenUserControl1 = new PrefsByScreenUserControl();
+            this.spanScreensButton = new System.Windows.Forms.RadioButton();
+            this.separateScreensButton = new System.Windows.Forms.RadioButton();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.mirrorScreensButton = new System.Windows.Forms.RadioButton();
+            this.multiScreenGroup = new System.Windows.Forms.GroupBox();
+            this.screenModeTooltip = new System.Windows.Forms.ToolTip(this.components);
+            this.screenTabControl.SuspendLayout();
+            this.screenTabPage1.SuspendLayout();
+            this.multiScreenGroup.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -65,22 +73,12 @@
             this.llProjectLocationUrl.Text = "http://github.com/cwc/web-page-screensaver/";
             this.llProjectLocationUrl.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llProjectLocationUrl_LinkClicked);
             // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(16, 69);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(98, 17);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Website URLs";
-            // 
             // okButton
             // 
             this.okButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.okButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.okButton.Location = new System.Drawing.Point(136, 372);
-            this.okButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.okButton.Location = new System.Drawing.Point(127, 441);
+            this.okButton.Margin = new System.Windows.Forms.Padding(4);
             this.okButton.Name = "okButton";
             this.okButton.Size = new System.Drawing.Size(100, 28);
             this.okButton.TabIndex = 4;
@@ -92,8 +90,8 @@
             // 
             this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cancelButton.Location = new System.Drawing.Point(244, 372);
-            this.cancelButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cancelButton.Location = new System.Drawing.Point(235, 441);
+            this.cancelButton.Margin = new System.Windows.Forms.Padding(4);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(100, 28);
             this.cancelButton.TabIndex = 5;
@@ -107,90 +105,122 @@
             this.cbCloseOnActivity.AutoSize = true;
             this.cbCloseOnActivity.Checked = true;
             this.cbCloseOnActivity.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbCloseOnActivity.Location = new System.Drawing.Point(20, 315);
-            this.cbCloseOnActivity.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cbCloseOnActivity.Location = new System.Drawing.Point(20, 411);
+            this.cbCloseOnActivity.Margin = new System.Windows.Forms.Padding(4);
             this.cbCloseOnActivity.Name = "cbCloseOnActivity";
             this.cbCloseOnActivity.Size = new System.Drawing.Size(200, 21);
             this.cbCloseOnActivity.TabIndex = 6;
             this.cbCloseOnActivity.Text = "Close on mouse movement";
             this.cbCloseOnActivity.UseVisualStyleBackColor = true;
             // 
-            // nudRotationInterval
+            // screenTabControl
             // 
-            this.nudRotationInterval.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudRotationInterval.Location = new System.Drawing.Point(20, 283);
-            this.nudRotationInterval.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.nudRotationInterval.Maximum = new decimal(new int[] {
-            999,
-            0,
-            0,
-            0});
-            this.nudRotationInterval.Name = "nudRotationInterval";
-            this.nudRotationInterval.Size = new System.Drawing.Size(53, 22);
-            this.nudRotationInterval.TabIndex = 7;
-            this.nudRotationInterval.Value = new decimal(new int[] {
-            30,
-            0,
-            0,
-            0});
-            // 
-            // label3
-            // 
-            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(81, 286);
-            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(188, 17);
-            this.label3.TabIndex = 8;
-            this.label3.Text = "Seconds to display each site";
-            // 
-            // lbUrls
-            // 
-            this.lbUrls.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.screenTabControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.lbUrls.FormattingEnabled = true;
-            this.lbUrls.ItemHeight = 16;
-            this.lbUrls.Location = new System.Drawing.Point(20, 89);
-            this.lbUrls.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.lbUrls.Name = "lbUrls";
-            this.lbUrls.Size = new System.Drawing.Size(327, 148);
-            this.lbUrls.TabIndex = 9;
+            this.screenTabControl.Controls.Add(this.screenTabPage1);
+            this.screenTabControl.Location = new System.Drawing.Point(20, 119);
+            this.screenTabControl.Name = "screenTabControl";
+            this.screenTabControl.SelectedIndex = 0;
+            this.screenTabControl.Size = new System.Drawing.Size(319, 271);
+            this.screenTabControl.TabIndex = 13;
             // 
-            // tbUrlToAdd
+            // screenTabPage1
             // 
-            this.tbUrlToAdd.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.screenTabPage1.Controls.Add(this.prefsByScreenUserControl1);
+            this.screenTabPage1.Location = new System.Drawing.Point(4, 25);
+            this.screenTabPage1.Name = "screenTabPage1";
+            this.screenTabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.screenTabPage1.Size = new System.Drawing.Size(311, 242);
+            this.screenTabPage1.TabIndex = 0;
+            this.screenTabPage1.Text = "Screen 1";
+            this.screenTabPage1.UseVisualStyleBackColor = true;
+            // 
+            // prefsByScreenUserControl1
+            // 
+            this.prefsByScreenUserControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbUrlToAdd.Location = new System.Drawing.Point(20, 247);
-            this.tbUrlToAdd.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.tbUrlToAdd.Name = "tbUrlToAdd";
-            this.tbUrlToAdd.Size = new System.Drawing.Size(240, 22);
-            this.tbUrlToAdd.TabIndex = 10;
+            this.prefsByScreenUserControl1.BackColor = System.Drawing.Color.White;
+            this.prefsByScreenUserControl1.Location = new System.Drawing.Point(0, 0);
+            this.prefsByScreenUserControl1.Name = "prefsByScreenUserControl1";
+            this.prefsByScreenUserControl1.Size = new System.Drawing.Size(312, 242);
+            this.prefsByScreenUserControl1.TabIndex = 21;
             // 
-            // addUrlButton
+            // spanScreensButton
             // 
-            this.addUrlButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.addUrlButton.Location = new System.Drawing.Point(271, 245);
-            this.addUrlButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.addUrlButton.Name = "addUrlButton";
-            this.addUrlButton.Size = new System.Drawing.Size(77, 28);
-            this.addUrlButton.TabIndex = 11;
-            this.addUrlButton.Text = "Add";
-            this.addUrlButton.UseVisualStyleBackColor = true;
-            this.addUrlButton.Click += new System.EventHandler(this.addUrlButton_Click);
+            this.spanScreensButton.AutoSize = true;
+            this.spanScreensButton.Checked = true;
+            this.spanScreensButton.Location = new System.Drawing.Point(100, 10);
+            this.spanScreensButton.Name = "spanScreensButton";
+            this.spanScreensButton.Size = new System.Drawing.Size(62, 21);
+            this.spanScreensButton.TabIndex = 14;
+            this.spanScreensButton.TabStop = true;
+            this.spanScreensButton.Tag = "MultiScreenMode";
+            this.spanScreensButton.Text = "Span";
+            this.screenModeTooltip.SetToolTip(this.spanScreensButton, "All for One!");
+            this.spanScreensButton.UseVisualStyleBackColor = true;
+            this.spanScreensButton.Click += new System.EventHandler(this.anyMultiScreenModeButton_Click);
             // 
-            // cbRandomize
+            // separateScreensButton
             // 
-            this.cbRandomize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.cbRandomize.AutoSize = true;
-            this.cbRandomize.Location = new System.Drawing.Point(20, 343);
-            this.cbRandomize.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.cbRandomize.Name = "cbRandomize";
-            this.cbRandomize.Size = new System.Drawing.Size(160, 21);
-            this.cbRandomize.TabIndex = 12;
-            this.cbRandomize.Text = "Shuffle display order";
-            this.cbRandomize.UseVisualStyleBackColor = true;
+            this.separateScreensButton.AutoSize = true;
+            this.separateScreensButton.Location = new System.Drawing.Point(238, 10);
+            this.separateScreensButton.Name = "separateScreensButton";
+            this.separateScreensButton.Size = new System.Drawing.Size(87, 21);
+            this.separateScreensButton.TabIndex = 15;
+            this.separateScreensButton.TabStop = true;
+            this.separateScreensButton.Tag = "MultiScreenMode";
+            this.separateScreensButton.Text = "Separate";
+            this.screenModeTooltip.SetToolTip(this.separateScreensButton, "Each to their own.");
+            this.separateScreensButton.UseVisualStyleBackColor = true;
+            this.separateScreensButton.Click += new System.EventHandler(this.anyMultiScreenModeButton_Click);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(4, 12);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(84, 17);
+            this.label4.TabIndex = 16;
+            this.label4.Text = "Multiscreen:";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(16, 97);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(98, 17);
+            this.label2.TabIndex = 2;
+            this.label2.Text = "Website URLs";
+            // 
+            // mirrorScreensButton
+            // 
+            this.mirrorScreensButton.AutoSize = true;
+            this.mirrorScreensButton.Location = new System.Drawing.Point(168, 10);
+            this.mirrorScreensButton.Name = "mirrorScreensButton";
+            this.mirrorScreensButton.Size = new System.Drawing.Size(66, 21);
+            this.mirrorScreensButton.TabIndex = 17;
+            this.mirrorScreensButton.TabStop = true;
+            this.mirrorScreensButton.Tag = "MultiScreenMode";
+            this.mirrorScreensButton.Text = "Mirror";
+            this.screenModeTooltip.SetToolTip(this.mirrorScreensButton, "One for All!");
+            this.mirrorScreensButton.UseVisualStyleBackColor = true;
+            this.mirrorScreensButton.Click += new System.EventHandler(this.anyMultiScreenModeButton_Click);
+            // 
+            // multiScreenGroup
+            // 
+            this.multiScreenGroup.Controls.Add(this.label4);
+            this.multiScreenGroup.Controls.Add(this.mirrorScreensButton);
+            this.multiScreenGroup.Controls.Add(this.spanScreensButton);
+            this.multiScreenGroup.Controls.Add(this.separateScreensButton);
+            this.multiScreenGroup.Location = new System.Drawing.Point(20, 56);
+            this.multiScreenGroup.Name = "multiScreenGroup";
+            this.multiScreenGroup.Size = new System.Drawing.Size(326, 34);
+            this.multiScreenGroup.TabIndex = 18;
+            this.multiScreenGroup.TabStop = false;
             // 
             // PreferencesForm
             // 
@@ -198,28 +228,28 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cancelButton;
-            this.ClientSize = new System.Drawing.Size(369, 409);
-            this.Controls.Add(this.cbRandomize);
-            this.Controls.Add(this.addUrlButton);
-            this.Controls.Add(this.tbUrlToAdd);
-            this.Controls.Add(this.lbUrls);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.nudRotationInterval);
+            this.ClientSize = new System.Drawing.Size(360, 478);
+            this.Controls.Add(this.multiScreenGroup);
+            this.Controls.Add(this.screenTabControl);
             this.Controls.Add(this.cbCloseOnActivity);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.okButton);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.llProjectLocationUrl);
             this.Controls.Add(this.label1);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(378, 428);
             this.Name = "PreferencesForm";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Web Page Screensaver Settings";
             this.Load += new System.EventHandler(this.PreferencesForm_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.nudRotationInterval)).EndInit();
+            this.screenTabControl.ResumeLayout(false);
+            this.screenTabPage1.ResumeLayout(false);
+            this.multiScreenGroup.ResumeLayout(false);
+            this.multiScreenGroup.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -229,15 +259,18 @@
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.LinkLabel llProjectLocationUrl;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button okButton;
         private System.Windows.Forms.Button cancelButton;
         private System.Windows.Forms.CheckBox cbCloseOnActivity;
-        private System.Windows.Forms.NumericUpDown nudRotationInterval;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ListBox lbUrls;
-        private System.Windows.Forms.TextBox tbUrlToAdd;
-        private System.Windows.Forms.Button addUrlButton;
-        private System.Windows.Forms.CheckBox cbRandomize;
+        private System.Windows.Forms.TabControl screenTabControl;
+        private System.Windows.Forms.TabPage screenTabPage1;
+        private System.Windows.Forms.RadioButton spanScreensButton;
+        private System.Windows.Forms.RadioButton separateScreensButton;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.RadioButton mirrorScreensButton;
+        private System.Windows.Forms.GroupBox multiScreenGroup;
+        private PrefsByScreenUserControl prefsByScreenUserControl1;
+        private System.Windows.Forms.ToolTip screenModeTooltip;
     }
 }

@@ -5,6 +5,9 @@ using System.IO;
 
 namespace pl.polidea.lab.Web_Page_Screensaver
 {
+    using System.Collections.Generic;
+    using System.Drawing;
+
     static class Program
     {
         public static readonly string KEY = "Software\\Web-Page-Screensaver";
@@ -23,9 +26,46 @@ namespace pl.polidea.lab.Web_Page_Screensaver
                 return;
 
             if (args.Length > 0 && args[0].ToLower().Contains("/c"))
+            {
                 Application.Run(new PreferencesForm());
+            }
             else
-                Application.Run(new ScreensaverForm());
+            {
+                var formsList = new List<Form>();
+                var screens = (new PreferencesManager()).EffectiveScreensList;
+                foreach (var screen in screens)
+                {
+                    var screensaverForm = new ScreensaverForm(screen.ScreenNum)
+                    {
+                        Location = new Point(screen.Bounds.Left, screen.Bounds.Top),
+                        Size = new Size(screen.Bounds.Width, screen.Bounds.Height)
+                    };
+
+                    FormStartPosition x = screensaverForm.StartPosition;
+
+                    formsList.Add(screensaverForm);
+                }
+
+                Application.Run(new MultiFormContext(formsList));
+            }
+        }
+    }
+
+    public class MultiFormContext : ApplicationContext
+    {
+        public MultiFormContext(List<Form> forms)
+        {
+            foreach (var form in forms)
+            {
+                form.FormClosed += (s, args) =>
+                {
+                    //When we have closed any form, 
+                    //end the program.
+                        ExitThread();
+                };
+
+                form.Show();
+            }
         }
     }
 }
