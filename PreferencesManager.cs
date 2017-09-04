@@ -117,6 +117,13 @@
             public bool IsPrimary { get; set; }
         }
 
+        // TODO: the URLs handling mostly works, but it is overcomplicted and there is a fundamental issue with ordering:
+        // specifically, if the user has a single-screen view of what is actually stored as multiple screens underneath,
+        // and they order a later-screen item before an earlier screen item, those items will still wind up in screen-
+        // order whe reading back for single-screen view.
+        // options: 1) retro-fit more ordering stuff onto screen URLS, 2) make the URLS list just one list again, and 
+        // add another list that specifies which screen each URL is for. (i.e. rewrite URL list handling completely).
+        // 2. is actually the better option.
         private List<List<string>> urlsByScreen;
         public List<string> GetUrlsByScreen(int screenNum)
         {
