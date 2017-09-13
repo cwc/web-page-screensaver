@@ -137,8 +137,6 @@ namespace pl.polidea.lab.Web_Page_Screensaver
         {
             if (StartTime.AddSeconds(1) > DateTime.Now) return;
 
-            RegistryKey reg = Registry.CurrentUser.CreateSubKey(Program.KEY);
-
             if (prefsManager.CloseOnActivity)
             {
                 Close();
@@ -148,8 +146,6 @@ namespace pl.polidea.lab.Web_Page_Screensaver
                 closeButton.Visible = true;
                 Cursor.Show();
             }
-
-            reg.Close();
         }
 
         private void closeButton_Click(object sender, EventArgs e)
