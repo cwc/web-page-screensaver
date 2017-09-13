@@ -315,7 +315,7 @@
                 // look for the non-screen-specific pref setting, and if found, move it from there.
                 // This is a one-off preferences upgrade.
 
-                if (Screen.AllScreens.Length == 1 || Screen.AllScreens.Length < screenNum && Screen.AllScreens[screenNum].Primary)
+                if (Screen.AllScreens.Length == 1 || Screen.AllScreens.Length >= screenNum && Screen.AllScreens[screenNum].Primary)
                 {
                     if (reg.GetValueNames().Contains(prefBaseName))
                     {
