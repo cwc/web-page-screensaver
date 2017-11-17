@@ -163,14 +163,24 @@ namespace pl.polidea.lab.Web_Page_Screensaver
         private const int WM_KEYDOWN = 0x100;
         private const int WM_KEYUP = 0x101;
 
+        // screensavers and especially multi-window apps can get spurrious WM_MOUSEMOVE events
+        // that don't actually involve any movement (cursor chnages and some mouse driver software
+        // can generate them, for example) - so we record the actual mouse position and compare against it for actual movement.
+        private Point? lastMousePos;
+
         public event UserEvent Event;
 
         public bool PreFilterMessage(ref Message m)
         {
-            if ((m.Msg >= WM_MOUSEMOVE && m.Msg <= WM_MBUTTONDBLCLK)
-                || m.Msg == WM_KEYDOWN
-                || m.Msg == WM_KEYUP)
+            if ((m.Msg == WM_MOUSEMOVE) && (this.lastMousePos == null))
             {
+                this.lastMousePos = Cursor.Position;
+            }
+
+            if (((m.Msg == WM_MOUSEMOVE) && (Cursor.Position != this.lastMousePos))
+                || (m.Msg > WM_MOUSEMOVE && m.Msg <= WM_MBUTTONDBLCLK) || m.Msg == WM_KEYDOWN || m.Msg == WM_KEYUP)
+            {
+
                 if (Event != null)
                 {
                     Event();
