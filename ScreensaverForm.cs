@@ -108,7 +108,7 @@ namespace pl.polidea.lab.Web_Page_Screensaver
                 webBrowser.Visible = true;
                 try
                 {
-                    Debug.WriteLine($"Navigating: {url}");
+                    Debug.WriteLine("Navigating: {url}");
                     webBrowser.Navigate(url);
                 }
                 catch
