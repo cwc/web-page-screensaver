@@ -32,9 +32,9 @@ namespace pl.polidea.lab.Web_Page_Screensaver
             else
             {
                 multiScreenGroup.Enabled = true;
-                SetMultiScreenButtonFromMode();
-                ArrangeScreenTabs();
             }
+            SetMultiScreenButtonFromMode();
+            ArrangeScreenTabs();
         }
 
         private void LoadValuesForTab(int screenNum)
