@@ -1,31 +1,42 @@
-﻿using System;
-using System.Windows.Forms;
-using Microsoft.Win32;
+﻿using Microsoft.Win32;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
+using System.Windows.Forms;
 
-namespace pl.polidea.lab.Web_Page_Screensaver
+namespace WebPageScreensaver
 {
-    using System.Collections.Generic;
-    using System.Drawing;
-
     static class Program
     {
-        public static readonly string KEY = "Software\\Web-Page-Screensaver";
+        public const string KeyWebPageScreensaver = @"Software\WebPageScreensaver";
 
+        private const string KeyBrowserEmulation = @"HKEY_CURRENT_USER\Software\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_BROWSER_EMULATION";
+
+        /// <summary>
+        ///  The main entry point for the application.
+        /// </summary>
         [STAThread]
         static void Main(string[] args)
         {
-            // Set version of embedded browser (http://weblog.west-wind.com/posts/2011/May/21/Web-Browser-Control-Specifying-the-IE-Version)
-            var exeName = Path.GetFileName(System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName);
-            Registry.SetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_BROWSER_EMULATION", exeName, 0x2AF8, RegistryValueKind.DWord);
+            var mainModule = System.Diagnostics.Process.GetCurrentProcess().MainModule;
 
+            if (mainModule == null)
+            {
+                throw new NullReferenceException("Current process main module is null.");
+            }
+
+            var exeName = Path.GetFileName(mainModule.FileName);
+            Registry.SetValue(KeyBrowserEmulation, exeName, 0x2AF8, RegistryValueKind.DWord);
+
+            Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            if (args.Length > 0 && args[0].ToLower().Contains("/p"))
+            if (args.Length > 0 && args[0].ToUpperInvariant().Equals("/P"))
                 return;
 
-            if (args.Length > 0 && args[0].ToLower().Contains("/c"))
+            if (args.Length > 0 && args[0].ToUpperInvariant().Equals("/C"))
             {
                 Application.Run(new PreferencesForm());
             }
@@ -40,8 +51,6 @@ namespace pl.polidea.lab.Web_Page_Screensaver
                         Location = new Point(screen.Bounds.Left, screen.Bounds.Top),
                         Size = new Size(screen.Bounds.Width, screen.Bounds.Height)
                     };
-
-                    FormStartPosition x = screensaverForm.StartPosition;
 
                     formsList.Add(screensaverForm);
                 }
@@ -59,9 +68,8 @@ namespace pl.polidea.lab.Web_Page_Screensaver
             {
                 form.FormClosed += (s, args) =>
                 {
-                    //When we have closed any form, 
-                    //end the program.
-                        ExitThread();
+                    // End program on form close
+                    ExitThread();
                 };
 
                 form.Show();
