@@ -1,4 +1,4 @@
-﻿namespace Web_Page_Screensaver
+﻿namespace WebPageScreensaver
 {
     partial class PrefsByScreenUserControl
     {
@@ -82,8 +82,8 @@
             // 
             // lvUrls
             // 
-            this.lvUrls.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.lvUrls.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lvUrls.HideSelection = false;
             this.lvUrls.LabelEdit = true;
