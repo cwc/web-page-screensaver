@@ -1,15 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using Microsoft.Win32;
-using System.Diagnostics;
 
-namespace pl.polidea.lab.Web_Page_Screensaver
+namespace WebPageScreensaver
 {
     public partial class ScreensaverForm : Form
     {
@@ -109,7 +105,7 @@ namespace pl.polidea.lab.Web_Page_Screensaver
                 try
                 {
                     Debug.WriteLine($"Navigating: {url}");
-                    webBrowser.Navigate(url);
+                    webBrowser.NavigateToString(url); // May not be the correct method to call
                 }
                 catch
                 {
