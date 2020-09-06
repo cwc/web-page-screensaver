@@ -1,16 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
-namespace Web_Page_Screensaver
+namespace WebPageScreensaver
 {
-    using pl.polidea.lab.Web_Page_Screensaver;
-
     public partial class PrefsByScreenUserControl : UserControl
     {
         public PrefsByScreenUserControl()
