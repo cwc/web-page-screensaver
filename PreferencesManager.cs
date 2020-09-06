@@ -1,14 +1,13 @@
-﻿namespace pl.polidea.lab.Web_Page_Screensaver
-{
-    using System;
-    using System.Collections;
-    using System.Collections.Generic;
-    using System.Drawing;
-    using System.Linq;
-    using System.Windows.Forms;
-    using Microsoft.Win32;
+﻿using Microsoft.Win32;
+using System;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
+using System.Windows.Forms;
 
-    public class PreferencesManager 
+namespace WebPageScreensaver
+{
+    public class PreferencesManager
     {
         private const string MULTISCREEN_PREF = "MultiScreenMode";
         private const string URL_PREF = "Url";
@@ -25,7 +24,7 @@
         private const string RANDOMIZE_PREF_DEFAULT = "False";
         private const string CLOSE_ON_ACTIVITY_PREF_DEFAULT = "True";
 
-        private static RegistryKey reg = Registry.CurrentUser.CreateSubKey(Program.KEY);
+        private static RegistryKey reg = Registry.CurrentUser.CreateSubKey(Program.KeyWebPageScreensaver);
 
         public PreferencesManager()
         {
@@ -132,7 +131,7 @@
             // this can happen either due to actual screen removal as noted in the LoadUrlsAllScreens() method,
             // OR because we are in Span mode, making just one effective screen,
             // OR we want to treat multiple screens as one (mirror mode).
-            if (MultiScreenMode == MultiScreenModeItem.Mirror  || EffectiveScreensList.Count < urlsByScreen.Count && startAtScreenNum == EffectiveScreensList.Count-1)
+            if (MultiScreenMode == MultiScreenModeItem.Mirror || EffectiveScreensList.Count < urlsByScreen.Count && startAtScreenNum == EffectiveScreensList.Count - 1)
             {
                 // for the GET operation, the last effective screen has the URLS
                 // for additional screens in prefs appended to it's list.
@@ -175,7 +174,7 @@
                     urlsList.RemoveRange(0, urlsList.Count);
                 }
 
-                int defaultRelativeScreenNumForNewUrls = Math.Max(0, RealPrimaryScreenNum()-startAtScreenNum);
+                int defaultRelativeScreenNumForNewUrls = Math.Max(0, RealPrimaryScreenNum() - startAtScreenNum);
 
                 foreach (var url in providedUrlsList)
                 {
@@ -195,7 +194,7 @@
                         // not found - use default
                         relativeScreenNumForThisUrl = defaultRelativeScreenNumForNewUrls;
                     }
-                    
+
                     relativeScreenUrlsList[relativeScreenNumForThisUrl].Add(url);
                 }
             }
@@ -244,7 +243,7 @@
             reg.Close();
         }
 
-        private void LoadPreferences()  
+        private void LoadPreferences()
         {
             MultiScreenMode = (MultiScreenModeItem)Enum.Parse(typeof(MultiScreenModeItem), (string)reg.GetValue(MULTISCREEN_PREF, MULTISCREEN_PREF_DEFAULT));
             CloseOnActivity = bool.Parse((string)reg.GetValue(CLOSE_ON_ACTIVITY_PREF, CLOSE_ON_ACTIVITY_PREF_DEFAULT));
@@ -268,7 +267,7 @@
             // and SetUrlsByScreen() methods.
             const string TempDefaultValue = "DEFAULT VALUE";
             int i = allUrls.Count;
-            string  nextScreenUrlsPrefResult = LoadPrefByScreen<string>(i, URL_PREF, TempDefaultValue, TempDefaultValue);
+            string nextScreenUrlsPrefResult = LoadPrefByScreen<string>(i, URL_PREF, TempDefaultValue, TempDefaultValue);
             while (nextScreenUrlsPrefResult != TempDefaultValue)
             {
                 allUrls.Add(
