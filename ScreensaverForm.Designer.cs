@@ -1,4 +1,4 @@
-﻿namespace pl.polidea.lab.Web_Page_Screensaver
+﻿namespace WebPageScreensaver
 {
     partial class ScreensaverForm
     {
@@ -28,8 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.webBrowser = new System.Windows.Forms.WebBrowser();
+            this.webBrowser = new Microsoft.Web.WebView2.WinForms.WebView2();
             this.closeButton = new System.Windows.Forms.Button();
+
+            ((System.ComponentModel.ISupportInitialize)(this.webBrowser)).BeginInit();
             this.SuspendLayout();
             // 
             // webBrowser
@@ -39,7 +41,6 @@
             this.webBrowser.Margin = new System.Windows.Forms.Padding(4);
             this.webBrowser.MinimumSize = new System.Drawing.Size(27, 25);
             this.webBrowser.Name = "webBrowser";
-            this.webBrowser.ScriptErrorsSuppressed = true;
             this.webBrowser.Size = new System.Drawing.Size(379, 322);
             this.webBrowser.TabIndex = 0;
             // 
@@ -56,7 +57,7 @@
             this.closeButton.UseVisualStyleBackColor = true;
             this.closeButton.Visible = false;
             this.closeButton.Click += new System.EventHandler(this.closeButton_Click);
-            // 
+            //
             // ScreensaverForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -74,14 +75,15 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.ScreensaverForm_Load);
+
+            ((System.ComponentModel.ISupportInitialize)(this.webBrowser)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.WebBrowser webBrowser;
+        private Microsoft.Web.WebView2.WinForms.WebView2 webBrowser;
         private System.Windows.Forms.Button closeButton;
     }
 }
-
