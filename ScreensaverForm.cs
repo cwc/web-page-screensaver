@@ -49,8 +49,14 @@ namespace WebPageScreensaver
             }
         }
 
-        private void ScreensaverForm_Load(object sender, EventArgs e)
+        private async void ScreensaverForm_Load(object sender, EventArgs e)
         {
+            if (webBrowser == null)
+            {
+                throw new NullReferenceException("webBrowser should have been initialized by now.");
+            }
+            await webBrowser.EnsureCoreWebView2Async();
+
             if (Urls.Any())
             {
                 if (Urls.Count > 1)
@@ -105,7 +111,7 @@ namespace WebPageScreensaver
                 try
                 {
                     Debug.WriteLine($"Navigating: {url}");
-                    webBrowser.NavigateToString(url); // May not be the correct method to call
+                    webBrowser.CoreWebView2.Navigate(url);
                 }
                 catch
                 {

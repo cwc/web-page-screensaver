@@ -31,7 +31,6 @@
             this.webBrowser = new Microsoft.Web.WebView2.WinForms.WebView2();
             this.closeButton = new System.Windows.Forms.Button();
 
-            ((System.ComponentModel.ISupportInitialize)(this.webBrowser)).BeginInit();
             this.SuspendLayout();
             // 
             // webBrowser
@@ -43,6 +42,8 @@
             this.webBrowser.Name = "webBrowser";
             this.webBrowser.Size = new System.Drawing.Size(379, 322);
             this.webBrowser.TabIndex = 0;
+            this.webBrowser.Text = "webBrowser";
+            this.webBrowser.ZoomFactor = 1D;
             // 
             // closeButton
             // 
@@ -75,8 +76,6 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.ScreensaverForm_Load);
-
-            ((System.ComponentModel.ISupportInitialize)(this.webBrowser)).EndInit();
             this.ResumeLayout(false);
 
         }
