@@ -14,7 +14,8 @@ namespace pl.polidea.lab.Web_Page_Screensaver
     {
         private PreferencesManager prefsManager = new PreferencesManager();
 
-        private List<PrefsByScreenUserControl> screenUserControls;
+        // Need to initialize in advance to prevent crashes when retrieving screenUserControls by index (LoadValuesForTab or ReadBackValuesFromUI)
+        private List<PrefsByScreenUserControl> screenUserControls = new List<PrefsByScreenUserControl>();
 
         public PreferencesForm()
         {
@@ -31,15 +32,15 @@ namespace pl.polidea.lab.Web_Page_Screensaver
             else
             {
                 multiScreenGroup.Enabled = true;
-                SetMultiScreenButtonFromMode();
-                ArrangeScreenTabs();
             }
+            SetMultiScreenButtonFromMode();
+            ArrangeScreenTabs();
         }
 
         private void LoadValuesForTab(int screenNum)
         {
             var currentPrefsUserControl = screenUserControls[screenNum];
-            loadUrlsForTabToControl(screenNum, currentPrefsUserControl);
+            LoadUrlsForTabToControl(screenNum, currentPrefsUserControl);
             currentPrefsUserControl.nudRotationInterval.Value = prefsManager.GetRotationIntervalByScreen(screenNum);
             currentPrefsUserControl.cbRandomize.Checked = prefsManager.GetRandomizeFlagByScreen(screenNum);
         }
@@ -51,13 +52,17 @@ namespace pl.polidea.lab.Web_Page_Screensaver
                 case PreferencesManager.MultiScreenModeItem.Span:
                     RemoveExtraTabPages();
                     screenTabControl.TabPages[0].Text = "Composite Screen";
-                    screenUserControls = new List<PrefsByScreenUserControl>() { prefsByScreenUserControl1 };
+                    // Need to clear because we only expect one tab
+                    screenUserControls.Clear();
+                    screenUserControls.Add(prefsByScreenUserControl1);
                     LoadValuesForTab(0);
                     break;
                 case PreferencesManager.MultiScreenModeItem.Mirror:
                     RemoveExtraTabPages();
                     screenTabControl.TabPages[0].Text = "Each Screen";
-                    screenUserControls = new List<PrefsByScreenUserControl>() { prefsByScreenUserControl1 };
+                    // Need to clear because we only expect one tab
+                    screenUserControls.Clear();
+                    screenUserControls.Add(prefsByScreenUserControl1);
                     LoadValuesForTab(0);
                     break;
                 case PreferencesManager.MultiScreenModeItem.Separate:
@@ -75,13 +80,14 @@ namespace pl.polidea.lab.Web_Page_Screensaver
                                 var prefsByScreenUserControl = new PrefsByScreenUserControl
                                 {
                                     Name = string.Format("prefsByScreenUserControl{0}", i + 1),
-                                    Location = new Point(0, 0), //prefsByScreenUserControl1.Location,
+                                    Location = new Point(0, 0),
                                     Size = prefsByScreenUserControl1.Size,
                                     Anchor = prefsByScreenUserControl1.Anchor,
                                     BackColor = prefsByScreenUserControl1.BackColor
                                 };
                                 prefsByScreenUserControl.lvUrls.ContextMenuStrip =
                                     prefsByScreenUserControl1.ContextMenuStrip;
+                                // No need to clear because we are re-adding the missing tabs
                                 screenUserControls.Add(prefsByScreenUserControl);
                                 tabPage.Controls.Add(prefsByScreenUserControl);
                             }
@@ -89,8 +95,9 @@ namespace pl.polidea.lab.Web_Page_Screensaver
                         else if (screenTabControl.TabPages.Count == 1)
                         {
                             tabPage = screenTabControl.TabPages[0];
-                            screenUserControls =
-                                new List<PrefsByScreenUserControl>() { prefsByScreenUserControl1 };
+                            // Clearing before adding prevents a crash when going from Separate to Mirror and back to Separate
+                            screenUserControls.Clear();
+                            screenUserControls.Add(prefsByScreenUserControl1);
                         }
 
                         LoadValuesForTab(i);
@@ -127,7 +134,7 @@ namespace pl.polidea.lab.Web_Page_Screensaver
             }
         }
 
-        private void setMultiScreenModeFromButtonState()
+        private void SetMultiScreenModeFromButtonState()
         {
             if (spanScreensButton.Checked)
             {
@@ -145,7 +152,7 @@ namespace pl.polidea.lab.Web_Page_Screensaver
             prefsManager.ResetEffectiveScreensList();
         }
 
-        private void readBackValuesFromUI()
+        private void ReadBackValuesFromUI()
         {
             for (var i = 0; i < screenUserControls.Count; i++)
             {
@@ -160,7 +167,7 @@ namespace pl.polidea.lab.Web_Page_Screensaver
             }
         }
 
-        private void loadUrlsForTabToControl(int screenNum, PrefsByScreenUserControl currentPrefsUserControl)
+        private void LoadUrlsForTabToControl(int screenNum, PrefsByScreenUserControl currentPrefsUserControl)
         {
             currentPrefsUserControl.lvUrls.Items.Clear();
 
@@ -176,7 +183,7 @@ namespace pl.polidea.lab.Web_Page_Screensaver
         {
             if (DialogResult == DialogResult.OK)
             {
-                readBackValuesFromUI();
+                ReadBackValuesFromUI();
                 prefsManager.SavePreferences();
             }
 
@@ -200,8 +207,8 @@ namespace pl.polidea.lab.Web_Page_Screensaver
 
         private void anyMultiScreenModeButton_Click(object sender, EventArgs e)
         {
-            readBackValuesFromUI();
-            setMultiScreenModeFromButtonState();
+            ReadBackValuesFromUI();
+            SetMultiScreenModeFromButtonState();
             ArrangeScreenTabs();
         }
     }
