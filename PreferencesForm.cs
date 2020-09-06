@@ -1,15 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
-using Microsoft.Win32;
 using System.Windows.Forms;
 
-namespace pl.polidea.lab.Web_Page_Screensaver
+namespace WebPageScreensaver
 {
-    using System.Collections.Generic;
-    using System.Drawing;
-
-    using global::Web_Page_Screensaver;
-
     public partial class PreferencesForm : Form
     {
         private PreferencesManager prefsManager = new PreferencesManager();
@@ -68,7 +64,7 @@ namespace pl.polidea.lab.Web_Page_Screensaver
                 case PreferencesManager.MultiScreenModeItem.Separate:
                     for (int i = 0; i < Screen.AllScreens.Length; i++)
                     {
-                        TabPage tabPage = null; 
+                        TabPage tabPage = null;
 
                         if (i >= screenTabControl.TabPages.Count)
                         {
@@ -105,7 +101,7 @@ namespace pl.polidea.lab.Web_Page_Screensaver
                         if (Screen.AllScreens[i].Primary) primaryIndicator = " (main)";
                         tabPage.Text = string.Format("Screen {0}{1}", i + 1, primaryIndicator);
                     }
-                    
+
                     break;
             }
         }
