@@ -11,8 +11,6 @@ namespace WebPageScreensaver
     {
         public const string KeyWebPageScreensaver = @"Software\WebPageScreensaver";
 
-        private const string KeyBrowserEmulation = @"HKEY_CURRENT_USER\Software\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_BROWSER_EMULATION";
-
         /// <summary>
         ///  The main entry point for the application.
         /// </summary>
@@ -25,9 +23,6 @@ namespace WebPageScreensaver
             {
                 throw new NullReferenceException("Current process main module is null.");
             }
-
-            var exeName = Path.GetFileName(mainModule.FileName);
-            Registry.SetValue(KeyBrowserEmulation, exeName, 0x2AF8, RegistryValueKind.DWord);
 
             Application.SetHighDpiMode(HighDpiMode.SystemAware);
             Application.EnableVisualStyles();
