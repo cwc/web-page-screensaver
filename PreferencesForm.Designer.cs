@@ -1,7 +1,5 @@
-﻿namespace pl.polidea.lab.Web_Page_Screensaver
+﻿namespace WebPageScreensaver
 {
-    using global::Web_Page_Screensaver;
-
     partial class PreferencesForm
     {
         /// <summary>
@@ -68,7 +66,7 @@
             this.llProjectLocationUrl.Size = new System.Drawing.Size(233, 13);
             this.llProjectLocationUrl.TabIndex = 1;
             this.llProjectLocationUrl.TabStop = true;
-            this.llProjectLocationUrl.Text = "http://github.com/cwc/web-page-screensaver/";
+            this.llProjectLocationUrl.Text = "http://github.com/carlossanlop/web-page-screensaver/";
             this.llProjectLocationUrl.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.llProjectLocationUrl_LinkClicked);
             // 
             // okButton
@@ -110,8 +108,8 @@
             // 
             // screenTabControl
             // 
-            this.screenTabControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.screenTabControl.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.screenTabControl.Controls.Add(this.screenTabPage1);
             this.screenTabControl.Location = new System.Drawing.Point(15, 97);
@@ -135,8 +133,8 @@
             // 
             // prefsByScreenUserControl1
             // 
-            this.prefsByScreenUserControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.prefsByScreenUserControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.prefsByScreenUserControl1.BackColor = System.Drawing.Color.White;
             this.prefsByScreenUserControl1.Location = new System.Drawing.Point(0, 0);
