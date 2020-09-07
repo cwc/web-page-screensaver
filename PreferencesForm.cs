@@ -20,14 +20,14 @@ namespace WebPageScreensaver
 
         private void PreferencesForm_Load(object sender, EventArgs e)
         {
-            cbCloseOnActivity.Checked = prefsManager.CloseOnActivity;
-            if (Screen.AllScreens.Count() == 1)
+            _checkBoxCloseOnMouseMovement.Checked = prefsManager.CloseOnActivity;
+            if (Screen.AllScreens.Length == 1)
             {
-                multiScreenGroup.Enabled = false;
+                _flowLayoutPanelMultiScreenButtons.Enabled = false;
             }
             else
             {
-                multiScreenGroup.Enabled = true;
+                _flowLayoutPanelMultiScreenButtons.Enabled = true;
             }
             SetMultiScreenButtonFromMode();
             ArrangeScreenTabs();
@@ -37,8 +37,8 @@ namespace WebPageScreensaver
         {
             var currentPrefsUserControl = screenUserControls[screenNum];
             LoadUrlsForTabToControl(screenNum, currentPrefsUserControl);
-            currentPrefsUserControl.nudRotationInterval.Value = prefsManager.GetRotationIntervalByScreen(screenNum);
-            currentPrefsUserControl.cbRandomize.Checked = prefsManager.GetRandomizeFlagByScreen(screenNum);
+            currentPrefsUserControl._numericUpDownSecondsToDisplay.Value = prefsManager.GetRotationIntervalByScreen(screenNum);
+            currentPrefsUserControl._checkBoxShuffle.Checked = prefsManager.GetRandomizeFlagByScreen(screenNum);
         }
 
         private void ArrangeScreenTabs()
@@ -47,29 +47,29 @@ namespace WebPageScreensaver
             {
                 case PreferencesManager.MultiScreenModeItem.Span:
                     RemoveExtraTabPages();
-                    screenTabControl.TabPages[0].Text = "Composite Screen";
+                    _tabControlScreens.TabPages[0].Text = "Composite Screen";
                     // Need to clear because we only expect one tab
                     screenUserControls.Clear();
-                    screenUserControls.Add(prefsByScreenUserControl1);
+                    screenUserControls.Add(_prefsByScreenUserControl);
                     LoadValuesForTab(0);
                     break;
                 case PreferencesManager.MultiScreenModeItem.Mirror:
                     RemoveExtraTabPages();
-                    screenTabControl.TabPages[0].Text = "Each Screen";
+                    _tabControlScreens.TabPages[0].Text = "Each Screen";
                     // Need to clear because we only expect one tab
                     screenUserControls.Clear();
-                    screenUserControls.Add(prefsByScreenUserControl1);
+                    screenUserControls.Add(_prefsByScreenUserControl);
                     LoadValuesForTab(0);
                     break;
                 case PreferencesManager.MultiScreenModeItem.Separate:
                     for (int i = 0; i < Screen.AllScreens.Length; i++)
                     {
-                        TabPage tabPage = null;
+                        TabPage? tabPage = null;
 
-                        if (i >= screenTabControl.TabPages.Count)
+                        if (i >= _tabControlScreens.TabPages.Count)
                         {
                             tabPage = new TabPage();
-                            screenTabControl.TabPages.Add(tabPage);
+                            _tabControlScreens.TabPages.Add(tabPage);
 
                             if (i > 0)
                             {
@@ -77,23 +77,28 @@ namespace WebPageScreensaver
                                 {
                                     Name = string.Format("prefsByScreenUserControl{0}", i + 1),
                                     Location = new Point(0, 0),
-                                    Size = prefsByScreenUserControl1.Size,
-                                    Anchor = prefsByScreenUserControl1.Anchor,
-                                    BackColor = prefsByScreenUserControl1.BackColor
+                                    Size = _prefsByScreenUserControl.Size,
+                                    Anchor = _prefsByScreenUserControl.Anchor,
+                                    BackColor = _prefsByScreenUserControl.BackColor
                                 };
-                                prefsByScreenUserControl.lvUrls.ContextMenuStrip =
-                                    prefsByScreenUserControl1.ContextMenuStrip;
+                                prefsByScreenUserControl._listViewURLs.ContextMenuStrip =
+                                    _prefsByScreenUserControl.ContextMenuStrip;
                                 // No need to clear because we are re-adding the missing tabs
                                 screenUserControls.Add(prefsByScreenUserControl);
                                 tabPage.Controls.Add(prefsByScreenUserControl);
                             }
                         }
-                        else if (screenTabControl.TabPages.Count == 1)
+                        else if (_tabControlScreens.TabPages.Count == 1)
                         {
-                            tabPage = screenTabControl.TabPages[0];
+                            tabPage = _tabControlScreens.TabPages[0];
                             // Clearing before adding prevents a crash when going from Separate to Mirror and back to Separate
                             screenUserControls.Clear();
-                            screenUserControls.Add(prefsByScreenUserControl1);
+                            screenUserControls.Add(_prefsByScreenUserControl);
+                        }
+
+                        if (tabPage == null)
+                        {
+                            throw new NullReferenceException("tabPage should not be null.");
                         }
 
                         LoadValuesForTab(i);
@@ -108,9 +113,9 @@ namespace WebPageScreensaver
 
         private void RemoveExtraTabPages()
         {
-            while (screenTabControl.TabPages.Count > 1)
+            while (_tabControlScreens.TabPages.Count > 1)
             {
-                screenTabControl.TabPages.RemoveAt(screenTabControl.TabPages.Count - 1);
+                _tabControlScreens.TabPages.RemoveAt(_tabControlScreens.TabPages.Count - 1);
             }
         }
 
@@ -119,24 +124,24 @@ namespace WebPageScreensaver
             switch (prefsManager.MultiScreenMode)
             {
                 case PreferencesManager.MultiScreenModeItem.Span:
-                    spanScreensButton.Checked = true;
+                    _radioButtonSpanScreens.Checked = true;
                     break;
                 case PreferencesManager.MultiScreenModeItem.Mirror:
-                    mirrorScreensButton.Checked = true;
+                    _radioButtonMirrorScreens.Checked = true;
                     break;
                 case PreferencesManager.MultiScreenModeItem.Separate:
-                    separateScreensButton.Checked = true;
+                    _radioButtonSeparateScreens.Checked = true;
                     break;
             }
         }
 
         private void SetMultiScreenModeFromButtonState()
         {
-            if (spanScreensButton.Checked)
+            if (_radioButtonSpanScreens.Checked)
             {
                 prefsManager.MultiScreenMode = PreferencesManager.MultiScreenModeItem.Span;
             }
-            else if (mirrorScreensButton.Checked)
+            else if (_radioButtonMirrorScreens.Checked)
             {
                 prefsManager.MultiScreenMode = PreferencesManager.MultiScreenModeItem.Mirror;
             }
@@ -153,25 +158,25 @@ namespace WebPageScreensaver
             for (var i = 0; i < screenUserControls.Count; i++)
             {
                 var currentPrefsUserControl = screenUserControls[i];
-                List<string> urls = (from ListViewItem lvUrlsItem in currentPrefsUserControl.lvUrls.Items
+                List<string> urls = (from ListViewItem lvUrlsItem in currentPrefsUserControl._listViewURLs.Items
                     select lvUrlsItem.Text).ToList();
                 prefsManager.SetUrlsForScreen(i, urls);
                 prefsManager.SetRotationIntervalForScreen(i,
-                    (int)currentPrefsUserControl.nudRotationInterval.Value);
-                prefsManager.SetRandomizeFlagForScreen(i, currentPrefsUserControl.cbRandomize.Checked);
-                prefsManager.CloseOnActivity = cbCloseOnActivity.Checked;
+                    (int)currentPrefsUserControl._numericUpDownSecondsToDisplay.Value);
+                prefsManager.SetRandomizeFlagForScreen(i, currentPrefsUserControl._checkBoxShuffle.Checked);
+                prefsManager.CloseOnActivity = _checkBoxCloseOnMouseMovement.Checked;
             }
         }
 
         private void LoadUrlsForTabToControl(int screenNum, PrefsByScreenUserControl currentPrefsUserControl)
         {
-            currentPrefsUserControl.lvUrls.Items.Clear();
+            currentPrefsUserControl._listViewURLs.Items.Clear();
 
             var urls = prefsManager.GetUrlsByScreen(screenNum);
 
             foreach (var url in urls)
             {
-                currentPrefsUserControl.lvUrls.Items.Add(url);
+                currentPrefsUserControl._listViewURLs.Items.Add(url);
             }
         }
 
@@ -188,7 +193,7 @@ namespace WebPageScreensaver
 
         private void llProjectLocationUrl_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            System.Diagnostics.Process.Start(llProjectLocationUrl.Text);
+            System.Diagnostics.Process.Start(Program.Webpage);
         }
 
         private void okButton_Click(object sender, EventArgs e)

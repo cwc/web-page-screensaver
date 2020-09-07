@@ -17,13 +17,13 @@ namespace WebPageScreensaver
 
             // scan from the bottom up, but don't start moving selected items down until
             // we find an unselected gap to move items(s) down in to.
-            for (int i = lvUrls.Items.Count - 1; i >= 0; i--)
+            for (int i = _listViewURLs.Items.Count - 1; i >= 0; i--)
             {
-                if (lvUrls.Items[i].Selected)
+                if (_listViewURLs.Items[i].Selected)
                 {
                     if (gapFound)
                     {
-                        Swap(lvUrls.Items, i, i + 1);
+                        Swap(_listViewURLs.Items, i, i + 1);
                     }
                 }
                 else
@@ -35,7 +35,7 @@ namespace WebPageScreensaver
             // 'select'ing the list makes sure the selections of items within it are being displayed.
             // Otherwise the button becomes the 'selected' control and the selections within the list
             // are invisible or hard to see.
-            lvUrls.Select();
+            _listViewURLs.Select();
         }
 
         private void MoveAllSelectedUrlsUp_Click(object sender, EventArgs e)
@@ -45,13 +45,13 @@ namespace WebPageScreensaver
 
             // scan through for all selected, but don't start moving selected items up until
             // we find an unselected gap to move items(s) up in to.
-            for (int i = 0; i < lvUrls.Items.Count; i++)
+            for (int i = 0; i < _listViewURLs.Items.Count; i++)
             {
-                if (lvUrls.Items[i].Selected)
+                if (_listViewURLs.Items[i].Selected)
                 {
                     if (gapFound)
                     {
-                        Swap(lvUrls.Items, i, i - 1);
+                        Swap(_listViewURLs.Items, i, i - 1);
                     }
                 }
                 else
@@ -63,7 +63,7 @@ namespace WebPageScreensaver
             // 'select'ing the list makes sure the selections of items within it are being displayed.
             // Otherwise the button becomes the 'selected' control and the selections within the list
             // are invisible or hard to see.
-            lvUrls.Select();
+            _listViewURLs.Select();
         }
 
         private void DeleteAllSelectedUrls_Click(object sender, EventArgs e)
@@ -71,18 +71,18 @@ namespace WebPageScreensaver
             // TODO: undo capability?
             // TODO: make button grey out when no selection.
             // work from the bottom up, deleting any we find
-            for (int i = lvUrls.Items.Count - 1; i >= 0; i--)
+            for (int i = _listViewURLs.Items.Count - 1; i >= 0; i--)
             {
-                if (lvUrls.Items[i].Selected)
+                if (_listViewURLs.Items[i].Selected)
                 {
-                    lvUrls.Items[i].Remove();
+                    _listViewURLs.Items[i].Remove();
                 }
             }
         }
 
-        private void addUrlButton_Click(object sender, EventArgs e)
+        private void AddUrlButton_Click(object sender, EventArgs e)
         {
-            ListViewItem item = lvUrls.Items.Add(String.Empty);
+            ListViewItem item = _listViewURLs.Items.Add(string.Empty);
             item.BeginEdit();
         }
 

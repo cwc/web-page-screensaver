@@ -1,14 +1,14 @@
-﻿using Microsoft.Win32;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.IO;
 using System.Windows.Forms;
 
 namespace WebPageScreensaver
 {
     static class Program
     {
+        public const string Webpage = "http://github.com/carlossanlop/web-page-screensaver/";
+
         public const string KeyWebPageScreensaver = @"Software\WebPageScreensaver";
 
         /// <summary>
@@ -24,7 +24,7 @@ namespace WebPageScreensaver
                 throw new NullReferenceException("Current process main module is null.");
             }
 
-            Application.SetHighDpiMode(HighDpiMode.SystemAware);
+            Application.SetHighDpiMode(HighDpiMode.PerMonitorV2);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 

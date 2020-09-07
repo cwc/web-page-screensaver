@@ -1,11 +1,16 @@
-﻿namespace WebPageScreensaver
+﻿using System;
+using System.ComponentModel;
+using System.Drawing;
+using System.Windows.Forms;
+
+namespace WebPageScreensaver
 {
     partial class PrefsByScreenUserControl
     {
         /// <summary> 
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private IContainer _components = null;
 
         /// <summary> 
         /// Clean up any resources being used.
@@ -13,9 +18,9 @@
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
-            if (disposing && (components != null))
+            if (disposing && (_components != null))
             {
-                components.Dispose();
+                _components.Dispose();
             }
             base.Dispose(disposing);
         }
@@ -28,158 +33,230 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.nudRotationInterval = new System.Windows.Forms.NumericUpDown();
-            this.label3 = new System.Windows.Forms.Label();
-            this.cbRandomize = new System.Windows.Forms.CheckBox();
-            this.lvUrls = new System.Windows.Forms.ListView();
-            this.addUrlButton = new System.Windows.Forms.Button();
-            this.upButton = new System.Windows.Forms.Button();
-            this.urlButtonsTooltip = new System.Windows.Forms.ToolTip(this.components);
-            this.downButton = new System.Windows.Forms.Button();
-            this.deleteButton = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.nudRotationInterval)).BeginInit();
+            this._components = new Container();
+            this._numericUpDownSecondsToDisplay = new NumericUpDown();
+            this._labelSecondsToDisplay = new Label();
+            this._checkBoxShuffle = new CheckBox();
+            this._listViewURLs = new ListView();
+            this._buttonAddURL = new Button();
+            this._buttonUp = new Button();
+            this._toolTipURLButtons = new ToolTip(this._components);
+            this._buttonDown = new Button();
+            this._buttonDeleteURL = new Button();
+            this._tableLayoutPanelMain = new TableLayoutPanel();
+            this._tableLayoutPanelMainTop = new TableLayoutPanel();
+            this._tableLayoutPanelMainBottom = new TableLayoutPanel();
+            ((ISupportInitialize)(this._numericUpDownSecondsToDisplay)).BeginInit();
+            this._tableLayoutPanelMain.SuspendLayout();
+            this._tableLayoutPanelMainTop.SuspendLayout();
+            this._tableLayoutPanelMainBottom.SuspendLayout();
             this.SuspendLayout();
             // 
-            // nudRotationInterval
+            // _numericUpDownSecondsToDisplay
             // 
-            this.nudRotationInterval.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.nudRotationInterval.Location = new System.Drawing.Point(9, 220);
-            this.nudRotationInterval.Maximum = new decimal(new int[] {
+            this._numericUpDownSecondsToDisplay.Anchor = AnchorStyles.Right;
+            this._numericUpDownSecondsToDisplay.Location = new Point(315, 14);
+            this._numericUpDownSecondsToDisplay.Margin = new Padding(4);
+            this._numericUpDownSecondsToDisplay.Maximum = new decimal(new int[] {
             999,
             0,
             0,
             0});
-            this.nudRotationInterval.Name = "nudRotationInterval";
-            this.nudRotationInterval.Size = new System.Drawing.Size(40, 20);
-            this.nudRotationInterval.TabIndex = 6;
-            this.nudRotationInterval.Value = new decimal(new int[] {
+            this._numericUpDownSecondsToDisplay.Name = "_numericUpDownSecondsToDisplay";
+            this._numericUpDownSecondsToDisplay.Size = new Size(80, 39);
+            this._numericUpDownSecondsToDisplay.TabIndex = 6;
+            this._numericUpDownSecondsToDisplay.Value = new decimal(new int[] {
             30,
             0,
             0,
             0});
             // 
-            // label3
+            // _labelSecondsToDisplay
             // 
-            this.label3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(55, 222);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(142, 13);
-            this.label3.TabIndex = 7;
-            this.label3.Text = "Seconds to display each site";
+            this._labelSecondsToDisplay.Anchor = AnchorStyles.Left;
+            this._labelSecondsToDisplay.AutoSize = true;
+            this._labelSecondsToDisplay.Location = new Point(405, 18);
+            this._labelSecondsToDisplay.Margin = new Padding(6, 0, 6, 0);
+            this._labelSecondsToDisplay.Name = "_labelSecondsToDisplay";
+            this._labelSecondsToDisplay.Size = new Size(314, 32);
+            this._labelSecondsToDisplay.TabIndex = 7;
+            this._labelSecondsToDisplay.Text = "Seconds to display each site";
+            this._labelSecondsToDisplay.TextAlign = ContentAlignment.MiddleLeft;
             // 
-            // cbRandomize
+            // _checkBoxShuffle
             // 
-            this.cbRandomize.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.cbRandomize.AutoSize = true;
-            this.cbRandomize.Location = new System.Drawing.Point(10, 195);
-            this.cbRandomize.Name = "cbRandomize";
-            this.cbRandomize.Size = new System.Drawing.Size(121, 17);
-            this.cbRandomize.TabIndex = 5;
-            this.cbRandomize.Text = "Shuffle display order";
-            this.cbRandomize.UseVisualStyleBackColor = true;
+            this._checkBoxShuffle.AutoSize = true;
+            this._checkBoxShuffle.Dock = DockStyle.Left;
+            this._checkBoxShuffle.Location = new Point(6, 7);
+            this._checkBoxShuffle.Margin = new Padding(6, 7, 6, 7);
+            this._checkBoxShuffle.Name = "_checkBoxShuffle";
+            this._checkBoxShuffle.Size = new Size(267, 54);
+            this._checkBoxShuffle.TabIndex = 5;
+            this._checkBoxShuffle.Text = "Shuffle display order";
+            this._checkBoxShuffle.UseVisualStyleBackColor = true;
             // 
-            // lvUrls
+            // _listViewURLs
             // 
-            this.lvUrls.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lvUrls.HideSelection = false;
-            this.lvUrls.LabelEdit = true;
-            this.lvUrls.Location = new System.Drawing.Point(10, 10);
-            this.lvUrls.Margin = new System.Windows.Forms.Padding(2);
-            this.lvUrls.Name = "lvUrls";
-            this.lvUrls.Size = new System.Drawing.Size(230, 150);
-            this.lvUrls.TabIndex = 0;
-            this.lvUrls.UseCompatibleStateImageBehavior = false;
-            this.lvUrls.View = System.Windows.Forms.View.List;
+            this._listViewURLs.Dock = DockStyle.Fill;
+            this._listViewURLs.HideSelection = false;
+            this._listViewURLs.LabelEdit = true;
+            this._listViewURLs.Location = new Point(4, 79);
+            this._listViewURLs.Margin = new Padding(4, 5, 4, 5);
+            this._listViewURLs.Name = "_listViewURLs";
+            this._listViewURLs.Size = new Size(723, 442);
+            this._listViewURLs.TabIndex = 0;
+            this._listViewURLs.UseCompatibleStateImageBehavior = false;
+            this._listViewURLs.View = View.List;
             // 
-            // addUrlButton
+            // _buttonAddURL
             // 
-            this.addUrlButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.addUrlButton.Location = new System.Drawing.Point(9, 165);
-            this.addUrlButton.Margin = new System.Windows.Forms.Padding(0);
-            this.addUrlButton.Name = "addUrlButton";
-            this.addUrlButton.Size = new System.Drawing.Size(50, 25);
-            this.addUrlButton.TabIndex = 11;
-            this.addUrlButton.Text = "Add";
-            this.addUrlButton.UseVisualStyleBackColor = true;
-            this.addUrlButton.Click += new System.EventHandler(this.addUrlButton_Click);
+            this._buttonAddURL.Location = new Point(8, 8);
+            this._buttonAddURL.Margin = new Padding(4);
+            this._buttonAddURL.Name = "_buttonAddURL";
+            this._buttonAddURL.Size = new Size(150, 44);
+            this._buttonAddURL.TabIndex = 11;
+            this._buttonAddURL.Text = "Add URL";
+            this._buttonAddURL.UseVisualStyleBackColor = true;
+            this._buttonAddURL.Click += new EventHandler(this.AddUrlButton_Click);
             // 
-            // upButton
+            // _buttonUp
             // 
-            this.upButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.upButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.upButton.Location = new System.Drawing.Point(190, 165);
-            this.upButton.Margin = new System.Windows.Forms.Padding(0);
-            this.upButton.Name = "upButton";
-            this.upButton.Size = new System.Drawing.Size(25, 25);
-            this.upButton.TabIndex = 3;
-            this.upButton.Text = "▲";
-            this.urlButtonsTooltip.SetToolTip(this.upButton, "Move selected URLs up");
-            this.upButton.UseVisualStyleBackColor = true;
-            this.upButton.Click += new System.EventHandler(this.MoveAllSelectedUrlsUp_Click);
+            this._buttonUp.Anchor = ((AnchorStyles)((AnchorStyles.Top | AnchorStyles.Right)));
+            this._buttonUp.Font = new Font("Microsoft Sans Serif", 6F, FontStyle.Regular, GraphicsUnit.Point);
+            this._buttonUp.Location = new Point(619, 8);
+            this._buttonUp.Margin = new Padding(4);
+            this._buttonUp.Name = "_buttonUp";
+            this._buttonUp.Size = new Size(44, 44);
+            this._buttonUp.TabIndex = 3;
+            this._buttonUp.Text = "▲";
+            this._toolTipURLButtons.SetToolTip(this._buttonUp, "Move selected URLs up");
+            this._buttonUp.UseVisualStyleBackColor = true;
+            this._buttonUp.Click += new EventHandler(this.MoveAllSelectedUrlsUp_Click);
             // 
-            // downButton
+            // _buttonDown
             // 
-            this.downButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.downButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.downButton.Location = new System.Drawing.Point(215, 165);
-            this.downButton.Margin = new System.Windows.Forms.Padding(0);
-            this.downButton.Name = "downButton";
-            this.downButton.Size = new System.Drawing.Size(25, 25);
-            this.downButton.TabIndex = 12;
-            this.downButton.Text = "▼";
-            this.urlButtonsTooltip.SetToolTip(this.downButton, "Move selected URLs down");
-            this.downButton.UseVisualStyleBackColor = true;
-            this.downButton.Click += new System.EventHandler(this.MoveAllSelectedUrlsDown_Click);
+            this._buttonDown.Font = new Font("Microsoft Sans Serif", 6F, FontStyle.Regular, GraphicsUnit.Point);
+            this._buttonDown.Location = new Point(671, 8);
+            this._buttonDown.Margin = new Padding(4);
+            this._buttonDown.Name = "_buttonDown";
+            this._buttonDown.Size = new Size(44, 44);
+            this._buttonDown.TabIndex = 12;
+            this._buttonDown.Text = "▼";
+            this._toolTipURLButtons.SetToolTip(this._buttonDown, "Move selected URLs down");
+            this._buttonDown.UseVisualStyleBackColor = true;
+            this._buttonDown.Click += new EventHandler(this.MoveAllSelectedUrlsDown_Click);
             // 
-            // deleteButton
+            // _buttonDeleteURL
             // 
-            this.deleteButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.deleteButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.deleteButton.ForeColor = System.Drawing.Color.Red;
-            this.deleteButton.Location = new System.Drawing.Point(59, 165);
-            this.deleteButton.Name = "deleteButton";
-            this.deleteButton.Size = new System.Drawing.Size(25, 25);
-            this.deleteButton.TabIndex = 13;
-            this.deleteButton.Text = "X";
-            this.urlButtonsTooltip.SetToolTip(this.deleteButton, "DELETE selected URLs");
-            this.deleteButton.UseVisualStyleBackColor = true;
-            this.deleteButton.Click += new System.EventHandler(this.DeleteAllSelectedUrls_Click);
+            this._buttonDeleteURL.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            this._buttonDeleteURL.ForeColor = Color.Black;
+            this._buttonDeleteURL.Location = new Point(166, 8);
+            this._buttonDeleteURL.Margin = new Padding(4);
+            this._buttonDeleteURL.Name = "_buttonDeleteURL";
+            this._buttonDeleteURL.Size = new Size(150, 44);
+            this._buttonDeleteURL.TabIndex = 13;
+            this._buttonDeleteURL.Text = "Delete URL";
+            this._toolTipURLButtons.SetToolTip(this._buttonDeleteURL, "DELETE selected URLs");
+            this._buttonDeleteURL.UseVisualStyleBackColor = true;
+            this._buttonDeleteURL.Click += new EventHandler(this.DeleteAllSelectedUrls_Click);
+            // 
+            // _tableLayoutPanelMain
+            // 
+            this._tableLayoutPanelMain.AutoSize = true;
+            this._tableLayoutPanelMain.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            this._tableLayoutPanelMain.ColumnCount = 1;
+            this._tableLayoutPanelMain.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            this._tableLayoutPanelMain.Controls.Add(this._tableLayoutPanelMainTop, 0, 0);
+            this._tableLayoutPanelMain.Controls.Add(this._listViewURLs, 0, 1);
+            this._tableLayoutPanelMain.Controls.Add(this._tableLayoutPanelMainBottom, 0, 2);
+            this._tableLayoutPanelMain.Dock = DockStyle.Fill;
+            this._tableLayoutPanelMain.Location = new Point(0, 0);
+            this._tableLayoutPanelMain.Name = "_tableLayoutPanelMain";
+            this._tableLayoutPanelMain.RowCount = 3;
+            this._tableLayoutPanelMain.RowStyles.Add(new RowStyle(SizeType.Absolute, 74F));
+            this._tableLayoutPanelMain.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            this._tableLayoutPanelMain.RowStyles.Add(new RowStyle(SizeType.Absolute, 74F));
+            this._tableLayoutPanelMain.Size = new Size(731, 600);
+            this._tableLayoutPanelMain.TabIndex = 14;
+            // 
+            // _tableLayoutPanelMainTop
+            // 
+            this._tableLayoutPanelMainTop.AutoSize = true;
+            this._tableLayoutPanelMainTop.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            this._tableLayoutPanelMainTop.ColumnCount = 4;
+            this._tableLayoutPanelMainTop.ColumnStyles.Add(new ColumnStyle());
+            this._tableLayoutPanelMainTop.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            this._tableLayoutPanelMainTop.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 52F));
+            this._tableLayoutPanelMainTop.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 52F));
+            this._tableLayoutPanelMainTop.Controls.Add(this._buttonAddURL, 0, 0);
+            this._tableLayoutPanelMainTop.Controls.Add(this._buttonDown, 3, 0);
+            this._tableLayoutPanelMainTop.Controls.Add(this._buttonUp, 2, 0);
+            this._tableLayoutPanelMainTop.Controls.Add(this._buttonDeleteURL, 1, 0);
+            this._tableLayoutPanelMainTop.Dock = DockStyle.Fill;
+            this._tableLayoutPanelMainTop.Location = new Point(4, 4);
+            this._tableLayoutPanelMainTop.Margin = new Padding(4);
+            this._tableLayoutPanelMainTop.Name = "_tableLayoutPanelMainTop";
+            this._tableLayoutPanelMainTop.Padding = new Padding(4);
+            this._tableLayoutPanelMainTop.RowCount = 1;
+            this._tableLayoutPanelMainTop.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            this._tableLayoutPanelMainTop.Size = new Size(723, 66);
+            this._tableLayoutPanelMainTop.TabIndex = 0;
+            // 
+            // _tableLayoutPanelMainBottom
+            // 
+            this._tableLayoutPanelMainBottom.AutoSize = true;
+            this._tableLayoutPanelMainBottom.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            this._tableLayoutPanelMainBottom.ColumnCount = 3;
+            this._tableLayoutPanelMainBottom.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
+            this._tableLayoutPanelMainBottom.ColumnStyles.Add(new ColumnStyle());
+            this._tableLayoutPanelMainBottom.ColumnStyles.Add(new ColumnStyle());
+            this._tableLayoutPanelMainBottom.Controls.Add(this._checkBoxShuffle, 0, 0);
+            this._tableLayoutPanelMainBottom.Controls.Add(this._labelSecondsToDisplay, 2, 0);
+            this._tableLayoutPanelMainBottom.Controls.Add(this._numericUpDownSecondsToDisplay, 1, 0);
+            this._tableLayoutPanelMainBottom.Dock = DockStyle.Fill;
+            this._tableLayoutPanelMainBottom.Location = new Point(3, 529);
+            this._tableLayoutPanelMainBottom.Name = "_tableLayoutPanelMainBottom";
+            this._tableLayoutPanelMainBottom.RowCount = 1;
+            this._tableLayoutPanelMainBottom.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            this._tableLayoutPanelMainBottom.Size = new Size(725, 68);
+            this._tableLayoutPanelMainBottom.TabIndex = 1;
             // 
             // PrefsByScreenUserControl
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.White;
-            this.Controls.Add(this.deleteButton);
-            this.Controls.Add(this.downButton);
-            this.Controls.Add(this.upButton);
-            this.Controls.Add(this.nudRotationInterval);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.cbRandomize);
-            this.Controls.Add(this.lvUrls);
-            this.Controls.Add(this.addUrlButton);
-            this.Margin = new System.Windows.Forms.Padding(2);
+            this.AutoScaleDimensions = new SizeF(13F, 32F);
+            this.AutoScaleMode = AutoScaleMode.Font;
+            this.BackColor = Color.White;
+            this.Controls.Add(this._tableLayoutPanelMain);
+            this.Margin = new Padding(4, 5, 4, 5);
             this.Name = "PrefsByScreenUserControl";
-            this.Size = new System.Drawing.Size(250, 250);
-            ((System.ComponentModel.ISupportInitialize)(this.nudRotationInterval)).EndInit();
+            this.Size = new Size(731, 600);
+            ((ISupportInitialize)(this._numericUpDownSecondsToDisplay)).EndInit();
+            this._tableLayoutPanelMain.ResumeLayout(false);
+            this._tableLayoutPanelMain.PerformLayout();
+            this._tableLayoutPanelMainTop.ResumeLayout(false);
+            this._tableLayoutPanelMainBottom.ResumeLayout(false);
+            this._tableLayoutPanelMainBottom.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
 
         #endregion
-        public System.Windows.Forms.NumericUpDown nudRotationInterval;
-        private System.Windows.Forms.Label label3;
-        public System.Windows.Forms.CheckBox cbRandomize;
-        public System.Windows.Forms.ListView lvUrls;
-        private System.Windows.Forms.ToolTip urlButtonsTooltip;
-        private System.Windows.Forms.Button addUrlButton;
-        private System.Windows.Forms.Button upButton;
-        private System.Windows.Forms.Button downButton;
-        private System.Windows.Forms.Button deleteButton;
+
+        private TableLayoutPanel _tableLayoutPanelMain;
+
+        private TableLayoutPanel _tableLayoutPanelMainTop;
+        private Button _buttonAddURL;
+        private Button _buttonDeleteURL;
+        private Button _buttonUp;
+        private Button _buttonDown;
+
+        public ListView _listViewURLs;
+
+        private TableLayoutPanel _tableLayoutPanelMainBottom;
+        public CheckBox _checkBoxShuffle;
+        public NumericUpDown _numericUpDownSecondsToDisplay;
+        private Label _labelSecondsToDisplay;
+
+        private ToolTip _toolTipURLButtons;
     }
 }

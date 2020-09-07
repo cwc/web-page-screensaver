@@ -31,26 +31,26 @@ namespace WebPageScreensaver
             LoadPreferences();
         }
 
-        private List<BasicScreenInfo> effectiveScreensListField;
+        private List<BasicScreenInfo>? _effectiveScreensListField;
         public List<BasicScreenInfo> EffectiveScreensList
         {
             get
             {
-                if (effectiveScreensListField == null)
+                if (_effectiveScreensListField == null)
                 {
-                    effectiveScreensListField = new List<BasicScreenInfo>();
+                    _effectiveScreensListField = new List<BasicScreenInfo>();
                     switch (MultiScreenMode)
                     {
                         case MultiScreenModeItem.Span:
                             Rectangle enclosingRect = FindEnclosingRect(Screen.AllScreens.Select(r => r.Bounds).ToList());
-                            effectiveScreensListField.Add(
+                            _effectiveScreensListField.Add(
                                 new BasicScreenInfo { ScreenNum = 0, Bounds = enclosingRect, IsPrimary = true });
                             break;
 
                         case MultiScreenModeItem.Mirror:
                             for (int i = 0; i < Screen.AllScreens.Length; i++)
                             {
-                                effectiveScreensListField.Add(
+                                _effectiveScreensListField.Add(
                                     new BasicScreenInfo
                                     {
                                         ScreenNum = i,
@@ -63,7 +63,7 @@ namespace WebPageScreensaver
                         case MultiScreenModeItem.Separate:
                             for (int i = 0; i < Screen.AllScreens.Length; i++)
                             {
-                                effectiveScreensListField.Add(
+                                _effectiveScreensListField.Add(
                                     new BasicScreenInfo
                                     {
                                         ScreenNum = i,
@@ -74,30 +74,33 @@ namespace WebPageScreensaver
                             break;
                     }
                 }
-                return effectiveScreensListField;
+                return _effectiveScreensListField;
             }
         }
 
         public void ResetEffectiveScreensList()
         {
-            effectiveScreensListField = null;
+            _effectiveScreensListField = null;
         }
 
-        private int? realPrimaryScreenNumField;
-        private int RealPrimaryScreenNum()
+        private int _realPrimaryScreenNumField = -1;
+        private int RealPrimaryScreenNumber
         {
-            if (realPrimaryScreenNumField == null)
+            get
             {
-                realPrimaryScreenNumField = 0;
-                for (int i = 0; i < Screen.AllScreens.Length; i++)
+                if (_realPrimaryScreenNumField == -1)
                 {
-                    if (!Screen.AllScreens[i].Primary) continue;
-                    realPrimaryScreenNumField = i;
-                    break;
+                    _realPrimaryScreenNumField = 0;
+                    for (int i = 0; i < Screen.AllScreens.Length; i++)
+                    {
+                        if (!Screen.AllScreens[i].Primary) continue;
+                        _realPrimaryScreenNumField = i;
+                        break;
+                    }
                 }
-            }
 
-            return (int)realPrimaryScreenNumField;
+                return _realPrimaryScreenNumField;
+            }
         }
 
         public bool CloseOnActivity { get; set; }
@@ -123,7 +126,7 @@ namespace WebPageScreensaver
         // options: 1) retro-fit more ordering stuff onto screen URLS, 2) make the URLS list just one list again, and 
         // add another list that specifies which screen each URL is for. (i.e. rewrite URL list handling completely).
         // 2. is actually the better option.
-        private List<List<string>> urlsByScreen;
+        private List<List<string>> _urlsByScreen = new List<List<string>>();
         public List<string> GetUrlsByScreen(int screenNum)
         {
             int startAtScreenNum = MultiScreenMode == MultiScreenModeItem.Mirror ? 0 : screenNum;
@@ -131,12 +134,12 @@ namespace WebPageScreensaver
             // this can happen either due to actual screen removal as noted in the LoadUrlsAllScreens() method,
             // OR because we are in Span mode, making just one effective screen,
             // OR we want to treat multiple screens as one (mirror mode).
-            if (MultiScreenMode == MultiScreenModeItem.Mirror || EffectiveScreensList.Count < urlsByScreen.Count && startAtScreenNum == EffectiveScreensList.Count - 1)
+            if (MultiScreenMode == MultiScreenModeItem.Mirror || EffectiveScreensList.Count < _urlsByScreen.Count && startAtScreenNum == EffectiveScreensList.Count - 1)
             {
                 // for the GET operation, the last effective screen has the URLS
                 // for additional screens in prefs appended to it's list.
-                List<string> urlsList = urlsByScreen[startAtScreenNum].ToList();
-                var urlsForRestOfScreens = urlsByScreen.GetRange(startAtScreenNum + 1, urlsByScreen.Count - startAtScreenNum - 1);
+                List<string> urlsList = _urlsByScreen[startAtScreenNum];
+                var urlsForRestOfScreens = _urlsByScreen.GetRange(startAtScreenNum + 1, _urlsByScreen.Count - startAtScreenNum - 1);
                 foreach (var additionalScreenUrls in urlsForRestOfScreens)
                 {
                     urlsList.AddRange(additionalScreenUrls);
@@ -145,7 +148,7 @@ namespace WebPageScreensaver
             }
             else
             {
-                return urlsByScreen[startAtScreenNum].ToList();
+                return _urlsByScreen[startAtScreenNum];
             }
         }
         public void SetUrlsForScreen(int screenNum, List<string> providedUrlsList)
@@ -154,7 +157,7 @@ namespace WebPageScreensaver
             // special treatment for URLs for the 'last' effective screen
             // this can happen either due to physical screen changes as noted in the LoadUrlsAllScreens() method,
             // OR because we are in Span or Mirror mode, making just one effective screen.
-            if (MultiScreenMode == MultiScreenModeItem.Mirror || EffectiveScreensList.Count < urlsByScreen.Count && startAtScreenNum == EffectiveScreensList.Count - 1)
+            if (MultiScreenMode == MultiScreenModeItem.Mirror || EffectiveScreensList.Count < _urlsByScreen.Count && startAtScreenNum == EffectiveScreensList.Count - 1)
             {
                 // For the SET operation, we want any URLS that came to the last effective screen
                 // from later screens in prefs to go back where they came from rather than directly
@@ -165,7 +168,7 @@ namespace WebPageScreensaver
                 // we only care about Url lists from this screen up.
                 // This screen, whatever it is, is always RELATIVE screen 0.
                 var relativeScreenUrlsList =
-                    urlsByScreen.GetRange(startAtScreenNum, urlsByScreen.Count - startAtScreenNum);
+                    _urlsByScreen.GetRange(startAtScreenNum, _urlsByScreen.Count - startAtScreenNum);
                 // make a deep copy that we can manipulate independantly of the actual list.
                 var originalsUnaccountedFor = relativeScreenUrlsList.Select(t => new List<string>(t)).ToList();
                 // then delete all that actual entries in the actual set to fill in below.
@@ -174,7 +177,7 @@ namespace WebPageScreensaver
                     urlsList.RemoveRange(0, urlsList.Count);
                 }
 
-                int defaultRelativeScreenNumForNewUrls = Math.Max(0, RealPrimaryScreenNum() - startAtScreenNum);
+                int defaultRelativeScreenNumForNewUrls = Math.Max(0, RealPrimaryScreenNumber - startAtScreenNum);
 
                 foreach (var url in providedUrlsList)
                 {
@@ -201,28 +204,28 @@ namespace WebPageScreensaver
             else
             // normal case for normal screen nums is MUCH simpler:
             {
-                urlsByScreen[screenNum] = providedUrlsList;
+                _urlsByScreen[screenNum] = providedUrlsList;
             }
         }
 
-        private List<int> rotationIntervalsByScreen;
+        private List<int>? _rotationIntervalsByScreen;
         public int GetRotationIntervalByScreen(int screenNum)
         {
-            return rotationIntervalsByScreen[TranslateScreenNumToScreenPrefNum(screenNum)];
+            return _rotationIntervalsByScreen[TranslateScreenNumToScreenPrefNum(screenNum)];
         }
         public void SetRotationIntervalForScreen(int screenNum, int value)
         {
-            rotationIntervalsByScreen[TranslateScreenNumToScreenPrefNum(screenNum)] = value;
+            _rotationIntervalsByScreen[TranslateScreenNumToScreenPrefNum(screenNum)] = value;
         }
 
-        private List<bool> randomizeFlagByScreen;
+        private List<bool>? _randomizeFlagByScreen;
         public bool GetRandomizeFlagByScreen(int screenNum)
         {
-            return randomizeFlagByScreen[TranslateScreenNumToScreenPrefNum(screenNum)];
+            return _randomizeFlagByScreen[TranslateScreenNumToScreenPrefNum(screenNum)];
         }
         public void SetRandomizeFlagForScreen(int screenNum, bool randomizeSetting)
         {
-            randomizeFlagByScreen[TranslateScreenNumToScreenPrefNum(screenNum)] = randomizeSetting;
+            _randomizeFlagByScreen[TranslateScreenNumToScreenPrefNum(screenNum)] = randomizeSetting;
         }
 
         private int TranslateScreenNumToScreenPrefNum(int screenNum)
@@ -230,7 +233,7 @@ namespace WebPageScreensaver
             // if the screen they're asking for is an effective primary,
             // then the actual set of prefs to use is the real primary screen's set,
             // regardless of the actual number they asked for.
-            return EffectiveScreensList[screenNum].IsPrimary ? RealPrimaryScreenNum() : screenNum;
+            return EffectiveScreensList[screenNum].IsPrimary ? RealPrimaryScreenNumber : screenNum;
         }
 
         public void SavePreferences()
@@ -238,8 +241,8 @@ namespace WebPageScreensaver
             reg.SetValue(MULTISCREEN_PREF, MultiScreenMode);
             reg.SetValue(CLOSE_ON_ACTIVITY_PREF, CloseOnActivity);
             SaveUrlsAllScreens();
-            SavePrefAllScreens(INTERVAL_PREF, rotationIntervalsByScreen);
-            SavePrefAllScreens(RANDOMIZE_PREF, randomizeFlagByScreen);
+            SavePrefAllScreens(INTERVAL_PREF, _rotationIntervalsByScreen);
+            SavePrefAllScreens(RANDOMIZE_PREF, _randomizeFlagByScreen);
             reg.Close();
         }
 
@@ -247,9 +250,9 @@ namespace WebPageScreensaver
         {
             MultiScreenMode = (MultiScreenModeItem)Enum.Parse(typeof(MultiScreenModeItem), (string)reg.GetValue(MULTISCREEN_PREF, MULTISCREEN_PREF_DEFAULT));
             CloseOnActivity = bool.Parse((string)reg.GetValue(CLOSE_ON_ACTIVITY_PREF, CLOSE_ON_ACTIVITY_PREF_DEFAULT));
-            urlsByScreen = LoadUrlsAllScreens();
-            rotationIntervalsByScreen = LoadPrefAllScreens<int>(INTERVAL_PREF, INTERVAL_PREF_DEFAULT, INTERVAL_PREF_DEFAULT);
-            randomizeFlagByScreen = LoadPrefAllScreens<bool>(RANDOMIZE_PREF, RANDOMIZE_PREF_DEFAULT, RANDOMIZE_PREF_DEFAULT);
+            _urlsByScreen = LoadUrlsAllScreens();
+            _rotationIntervalsByScreen = LoadPrefAllScreens<int>(INTERVAL_PREF, INTERVAL_PREF_DEFAULT, INTERVAL_PREF_DEFAULT);
+            _randomizeFlagByScreen = LoadPrefAllScreens<bool>(RANDOMIZE_PREF, RANDOMIZE_PREF_DEFAULT, RANDOMIZE_PREF_DEFAULT);
         }
 
         private List<List<string>> LoadUrlsAllScreens()
@@ -292,7 +295,7 @@ namespace WebPageScreensaver
 
         private void SaveUrlsAllScreens()
         {
-            SavePrefAllScreens(URL_PREF, urlsByScreen.Select(urlList => String.Join(" ", urlList)).ToList());
+            SavePrefAllScreens(URL_PREF, _urlsByScreen.Select(urlList => string.Join(" ", urlList)).ToList());
         }
 
         private void SavePrefAllScreens<T>(string preferenceName, List<T> prefsList)
