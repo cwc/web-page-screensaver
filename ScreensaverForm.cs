@@ -7,80 +7,65 @@ using System.Windows.Forms;
 
 namespace WebPageScreensaver
 {
-    public partial class ScreensaverForm : Form
+    internal partial class ScreensaverForm : Form
     {
         private DateTime StartTime;
         private Timer timer;
         private int currentSiteIndex = -1;
-        private GlobalUserEventHandler userEventHandler;
-        private bool shuffleOrder;
-        private List<string> urls;
+        private MouseEventHandler userEventHandler;
 
-        private PreferencesManager prefsManager = new PreferencesManager();
-
-        private int screenNum;
+        private ScreenInformation Screen;
 
         [ThreadStatic]
-        private static Random random;
+        private static Random random = new Random();
 
-        public ScreensaverForm(int? screenNumber = null)
+        public ScreensaverForm(ScreenInformation screen, bool showCursor)
         {
-            userEventHandler = new GlobalUserEventHandler();
-            userEventHandler.Event += new GlobalUserEventHandler.UserEvent(HandleUserActivity);
+            userEventHandler = new MouseEventHandler();
+            userEventHandler.Event += new MouseEventHandler.UserEvent(HandleUserActivity);
 
-            if (screenNumber == null) screenNum = prefsManager.EffectiveScreensList.FindIndex(s => s.IsPrimary);
-            else screenNum = (int)screenNumber;
+            Screen = screen;
+
+            Location = new Point(Screen.Bounds.Left, Screen.Bounds.Top);
+            Size = new Size(Screen.Bounds.Width, Screen.Bounds.Height);
 
             InitializeComponent();
 
-            Cursor.Hide();
-        }
-
-        public List<string> Urls
-        {
-            get
+            if (!showCursor)
             {
-                if (urls == null)
-                {
-                    urls = prefsManager.GetUrlsByScreen(screenNum);
-                }
-
-                return urls;
+                Cursor.Hide();
             }
         }
 
         private async void ScreensaverForm_Load(object sender, EventArgs e)
         {
-            if (webBrowser == null)
+            if (_webBrowser == null)
             {
                 throw new NullReferenceException("webBrowser should have been initialized by now.");
             }
-            await webBrowser.EnsureCoreWebView2Async();
+            await _webBrowser.EnsureCoreWebView2Async();
 
-            if (Urls.Any())
+            if (Screen.URLs.Any())
             {
-                if (Urls.Count > 1)
+                if (Screen.URLs.Count > 1)
                 {
-                    // Shuffle the URLs if necessary
-                    shuffleOrder = prefsManager.GetRandomizeFlagByScreen(screenNum);
-                    if (shuffleOrder)
+                    if (Screen.Shuffle)
                     {
-                        random = new Random();
 
-                        int n = urls.Count;
+                        int n = Screen.URLs.Count;
                         while (n > 1)
                         {
                             n--;
                             int k = random.Next(n + 1);
-                            var value = urls[k];
-                            urls[k] = urls[n];
-                            urls[n] = value;
+                            var value = Screen.URLs[k];
+                            Screen.URLs[k] = Screen.URLs[n];
+                            Screen.URLs[n] = value;
                         }
                     }
 
                     // Set up timer to rotate to the next URL
                     timer = new Timer();
-                    timer.Interval = prefsManager.GetRotationIntervalByScreen(screenNum) * 1000;
+                    timer.Interval = Screen.RotationInterval * 1000;
                     timer.Tick += (s, ee) => RotateSite();
                     timer.Start();
                 }
@@ -92,7 +77,7 @@ namespace WebPageScreensaver
             }
             else
             {
-                webBrowser.Visible = false;
+                _webBrowser.Visible = false;
             }
         }
 
@@ -103,21 +88,14 @@ namespace WebPageScreensaver
 
             if (string.IsNullOrWhiteSpace(url))
             {
-                webBrowser.Visible = false;
+                _webBrowser.Visible = false;
             }
             else
             {
-                webBrowser.Visible = true;
-                try
-                {
-                    Debug.WriteLine($"Navigating: {url}");
-                    webBrowser.CoreWebView2.Navigate(url);
-                }
-                catch
-                {
-                    // This can happen if IE pops up a window that isn't closed before the next call to Navigate()
-                }
+                _webBrowser.Visible = true;
+                _webBrowser.CoreWebView2.Navigate(url);
             }
+
             Application.AddMessageFilter(userEventHandler);
         }
 
@@ -125,71 +103,37 @@ namespace WebPageScreensaver
         {
             currentSiteIndex++;
 
-            if (currentSiteIndex >= Urls.Count)
+            if (currentSiteIndex >= Screen.URLs.Count)
             {
                 currentSiteIndex = 0;
             }
 
-            var url = Urls[currentSiteIndex];
+            var url = Screen.URLs[currentSiteIndex];
 
             BrowseTo(url);
         }
 
         private void HandleUserActivity()
         {
-            if (StartTime.AddSeconds(1) > DateTime.Now) return;
+            if (StartTime.AddSeconds(1) > DateTime.Now)
+            {
+                return;
+            }
 
-            if (prefsManager.CloseOnActivity)
+            if (Preferences.CloseOnMouseMovement)
             {
                 Close();
             }
             else
             {
-                closeButton.Visible = true;
+                _closeButton.Visible = true;
                 Cursor.Show();
             }
         }
 
-        private void closeButton_Click(object sender, EventArgs e)
+        private void CloseButton_Click(object sender, EventArgs e)
         {
             Close();
-        }
-    }
-
-    public class GlobalUserEventHandler : IMessageFilter
-    {
-        public delegate void UserEvent();
-
-        private const int WM_MOUSEMOVE = 0x0200;
-        private const int WM_MBUTTONDBLCLK = 0x209;
-        private const int WM_KEYDOWN = 0x100;
-        private const int WM_KEYUP = 0x101;
-
-        // screensavers and especially multi-window apps can get spurrious WM_MOUSEMOVE events
-        // that don't actually involve any movement (cursor chnages and some mouse driver software
-        // can generate them, for example) - so we record the actual mouse position and compare against it for actual movement.
-        private Point? lastMousePos;
-
-        public event UserEvent Event;
-
-        public bool PreFilterMessage(ref Message m)
-        {
-            if ((m.Msg == WM_MOUSEMOVE) && (this.lastMousePos == null))
-            {
-                this.lastMousePos = Cursor.Position;
-            }
-
-            if (((m.Msg == WM_MOUSEMOVE) && (Cursor.Position != this.lastMousePos))
-                || (m.Msg > WM_MOUSEMOVE && m.Msg <= WM_MBUTTONDBLCLK) || m.Msg == WM_KEYDOWN || m.Msg == WM_KEYUP)
-            {
-
-                if (Event != null)
-                {
-                    Event();
-                }
-            }
-            // Always allow message to continue to the next filter control
-            return false;
         }
     }
 }

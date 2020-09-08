@@ -5,7 +5,7 @@
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private System.ComponentModel.IContainer _components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -13,9 +13,9 @@
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
-            if (disposing && (components != null))
+            if (disposing && (_components != null))
             {
-                components.Dispose();
+                _components.Dispose();
             }
             base.Dispose(disposing);
         }
@@ -28,52 +28,49 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.webBrowser = new Microsoft.Web.WebView2.WinForms.WebView2();
-            this.closeButton = new System.Windows.Forms.Button();
+            this._webBrowser = new Microsoft.Web.WebView2.WinForms.WebView2();
+            this._closeButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // webBrowser
             // 
-            this.webBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.webBrowser.Location = new System.Drawing.Point(0, 0);
-            this.webBrowser.Margin = new System.Windows.Forms.Padding(4);
-            this.webBrowser.MinimumSize = new System.Drawing.Size(44, 50);
-            this.webBrowser.Name = "webBrowser";
-            this.webBrowser.Size = new System.Drawing.Size(616, 644);
-            this.webBrowser.Source = new System.Uri("about:blank", System.UriKind.Absolute);
-            this.webBrowser.TabIndex = 0;
-            this.webBrowser.Text = "webBrowser";
-            this.webBrowser.ZoomFactor = 1D;
+            this._webBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._webBrowser.Location = new System.Drawing.Point(0, 0);
+            this._webBrowser.Margin = new System.Windows.Forms.Padding(4);
+            this._webBrowser.MinimumSize = new System.Drawing.Size(44, 50);
+            this._webBrowser.Name = "webBrowser";
+            this._webBrowser.Size = new System.Drawing.Size(616, 644);
+            this._webBrowser.Source = new System.Uri("about:blank", System.UriKind.Absolute);
+            this._webBrowser.TabIndex = 0;
+            this._webBrowser.ZoomFactor = 1D;
             // 
             // closeButton
             // 
-            this.closeButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.closeButton.BackColor = System.Drawing.Color.Transparent;
-            this.closeButton.FlatAppearance.BorderColor = System.Drawing.Color.White;
-            this.closeButton.FlatAppearance.BorderSize = 0;
-            this.closeButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
-            this.closeButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
-            this.closeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.closeButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.closeButton.ForeColor = System.Drawing.Color.Transparent;
-            this.closeButton.Location = new System.Drawing.Point(576, 0);
-            this.closeButton.Margin = new System.Windows.Forms.Padding(4);
-            this.closeButton.Name = "closeButton";
-            this.closeButton.Size = new System.Drawing.Size(40, 44);
-            this.closeButton.TabIndex = 1;
-            this.closeButton.Text = "X";
-            this.closeButton.UseVisualStyleBackColor = false;
-            this.closeButton.Visible = false;
-            this.closeButton.Click += new System.EventHandler(this.closeButton_Click);
+            this._closeButton.AutoSize = true;
+            this._closeButton.BackColor = System.Drawing.Color.Transparent;
+            this._closeButton.FlatAppearance.BorderColor = System.Drawing.Color.White;
+            this._closeButton.FlatAppearance.BorderSize = 0;
+            this._closeButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.Transparent;
+            this._closeButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.Transparent;
+            this._closeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this._closeButton.ForeColor = System.Drawing.Color.Transparent;
+            this._closeButton.Location = new System.Drawing.Point(516, 0);
+            this._closeButton.Margin = new System.Windows.Forms.Padding(4);
+            this._closeButton.Name = "closeButton";
+            this._closeButton.Size = new System.Drawing.Size(100, 100);
+            this._closeButton.TabIndex = 1;
+            this._closeButton.Text = "X";
+            this._closeButton.UseVisualStyleBackColor = false;
+            this._closeButton.Visible = false;
+            this._closeButton.Click += new System.EventHandler(this.CloseButton_Click);
             // 
             // ScreensaverForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 32F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Black;
             this.ClientSize = new System.Drawing.Size(616, 644);
-            this.Controls.Add(this.closeButton);
-            this.Controls.Add(this.webBrowser);
+            this.Controls.Add(this._closeButton);
+            this.Controls.Add(this._webBrowser);
             this.ForeColor = System.Drawing.Color.White;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(4);
@@ -81,15 +78,15 @@
             this.MinimizeBox = false;
             this.Name = "ScreensaverForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
-            this.Text = "Form1";
             this.Load += new System.EventHandler(this.ScreensaverForm_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
 
-        private Microsoft.Web.WebView2.WinForms.WebView2 webBrowser;
-        private System.Windows.Forms.Button closeButton;
+        private Microsoft.Web.WebView2.WinForms.WebView2 _webBrowser;
+        private System.Windows.Forms.Button _closeButton;
     }
 }

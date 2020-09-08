@@ -1,74 +1,71 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Drawing;
+using System.Diagnostics;
 using System.Windows.Forms;
 
 namespace WebPageScreensaver
 {
     static class Program
     {
-        public const string Webpage = "http://github.com/carlossanlop/web-page-screensaver/";
-
-        public const string KeyWebPageScreensaver = @"Software\WebPageScreensaver";
-
         /// <summary>
         ///  The main entry point for the application.
         /// </summary>
         [STAThread]
         static void Main(string[] args)
         {
-            var mainModule = System.Diagnostics.Process.GetCurrentProcess().MainModule;
+            ProcessModule? mainModule = Process.GetCurrentProcess().MainModule;
 
             if (mainModule == null)
             {
                 throw new NullReferenceException("Current process main module is null.");
             }
 
-            Application.SetHighDpiMode(HighDpiMode.PerMonitorV2);
+            Application.SetHighDpiMode(HighDpiMode.DpiUnawareGdiScaled);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            if (args.Length > 0 && args[0].ToUpperInvariant().Equals("/P"))
-                return;
+            // Argument verification - More than 1 argument, or passing
+            // the wrong argument, will silently exit the program
 
-            if (args.Length > 0 && args[0].ToUpperInvariant().Equals("/C"))
+            // No arguments means preview the screensaver (cursor enabled)
+            if (args.Length == 0)
             {
-                Application.Run(new PreferencesForm());
+                ShowScreenSaver(showCursor: true);
             }
-            else
+            else if(args.Length == 1)
             {
-                var formsList = new List<Form>();
-                var screens = (new PreferencesManager()).EffectiveScreensList;
-                foreach (var screen in screens)
+                switch (args[0].ToUpperInvariant())
                 {
-                    var screensaverForm = new ScreensaverForm(screen.ScreenNum)
-                    {
-                        Location = new Point(screen.Bounds.Left, screen.Bounds.Top),
-                        Size = new Size(screen.Bounds.Width, screen.Bounds.Height)
-                    };
-
-                    formsList.Add(screensaverForm);
+                    case "/C":
+                        Application.Run(new PreferencesForm());
+                        break;
+                    case "/P":
+                        ShowScreenSaver(showCursor: true);
+                        break;
+                    case "/S":
+                        ShowScreenSaver(showCursor: false);
+                        break;
                 }
-
-                Application.Run(new MultiFormContext(formsList));
             }
         }
-    }
 
-    public class MultiFormContext : ApplicationContext
-    {
-        public MultiFormContext(List<Form> forms)
+        /// <summary>
+        /// Shows the screensaver form in all the screens, and allows specifying if the
+        /// cursor should be shown.
+        /// </summary>
+        /// <param name="showCursor"><see langword="true" /> if the cursor should be shown
+        /// (for preview mode); <see langword="false" /> otherwise (for show mode).</param>
+        private static void ShowScreenSaver(bool showCursor)
         {
-            foreach (var form in forms)
-            {
-                form.FormClosed += (s, args) =>
-                {
-                    // End program on form close
-                    ExitThread();
-                };
+            var forms = new List<Form>();
 
-                form.Show();
+            foreach (KeyValuePair<int, ScreenInformation> kvp in Preferences.Screens)
+            {
+                var form = new ScreensaverForm(kvp.Value, showCursor);
+                forms.Add(form);
             }
+
+            Application.Run(new MultiFormContext(forms));
         }
     }
 }

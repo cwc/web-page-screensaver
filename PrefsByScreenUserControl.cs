@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace WebPageScreensaver
 {
-    public partial class PrefsByScreenUserControl : UserControl
+    internal partial class PrefsByScreenUserControl : UserControl
     {
         public PrefsByScreenUserControl()
         {
