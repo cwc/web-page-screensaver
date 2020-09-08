@@ -62,9 +62,9 @@ namespace WebPageScreensaver
                 Dictionary<int, ScreenInformation> screens = new Dictionary<int, ScreenInformation>();
 
                 MultiScreenMode multiScreenMode = MultiScreen;
-                for (int screenNumber = 1; screenNumber <= ScreenCount; screenNumber++)
+                for (int screenNumber = 0; screenNumber < ScreenCount; screenNumber++)
                 {
-                    string screenKeyName = $"Screen{screenNumber}";
+                    string screenKeyName = $"Display{screenNumber + 1}"; // To match tab name
                     RegistryKey subKey = RootKey.GetOrCreateSubKey(screenKeyName);
                     ScreenInformation info = new ScreenInformation(subKey, screenNumber, multiScreenMode);
                     screens.Add(screenNumber, info);

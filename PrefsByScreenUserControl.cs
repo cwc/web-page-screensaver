@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace WebPageScreensaver
@@ -8,6 +10,14 @@ namespace WebPageScreensaver
         public PrefsByScreenUserControl()
         {
             InitializeComponent();
+        }
+
+        public void Save(int screenNumber)
+        {
+            ScreenInformation currentScreen = Preferences.Screens[screenNumber];
+            currentScreen.UpdateURLs(from ListViewItem item in _listViewURLs.Items.Cast<ListViewItem>() select item.Text);
+            currentScreen.RotationInterval = (int)_numericUpDownRotationInterval.Value;
+            currentScreen.Shuffle = _checkBoxShuffle.Checked;
         }
 
         private void MoveAllSelectedUrlsDown_Click(object sender, EventArgs e)

@@ -9,25 +9,29 @@ namespace WebPageScreensaver
 {
     internal partial class ScreensaverForm : Form
     {
-        private DateTime StartTime;
-        private Timer timer;
-        private int currentSiteIndex = -1;
-        private MouseEventHandler userEventHandler;
+        private int _currentURLIndex;
 
-        private ScreenInformation Screen;
-
-        [ThreadStatic]
-        private static Random random = new Random();
+        private readonly DateTime _startTime;
+        private readonly Timer _timer;
+        private readonly MouseEventHandler _mouseEventHandler;
+        private readonly bool _closeOnMouseMovement;
+        private readonly int _rotationInterval;
+        private readonly bool _shuffle;
+        private readonly List<string> _urls;
 
         public ScreensaverForm(ScreenInformation screen, bool showCursor)
         {
-            userEventHandler = new MouseEventHandler();
-            userEventHandler.Event += new MouseEventHandler.UserEvent(HandleUserActivity);
+            _mouseEventHandler = new MouseEventHandler();
+            _mouseEventHandler.Event += new MouseEventHandler.UserEvent(HandleUserActivity);
 
-            Screen = screen;
+            _closeOnMouseMovement = Preferences.CloseOnMouseMovement;
+            _rotationInterval = screen.RotationInterval;
+            _shuffle = screen.Shuffle;
+            _urls = screen.URLs.ToList();
+            _currentURLIndex = 0;
 
-            Location = new Point(Screen.Bounds.Left, Screen.Bounds.Top);
-            Size = new Size(Screen.Bounds.Width, Screen.Bounds.Height);
+            Location = new Point(screen.Bounds.Left, screen.Bounds.Top);
+            Size = new Size(screen.Bounds.Width, screen.Bounds.Height);
 
             InitializeComponent();
 
@@ -35,6 +39,9 @@ namespace WebPageScreensaver
             {
                 Cursor.Hide();
             }
+
+            _startTime = DateTime.Now;
+            _timer = new Timer();
         }
 
         private async void ScreensaverForm_Load(object sender, EventArgs e)
@@ -45,35 +52,25 @@ namespace WebPageScreensaver
             }
             await _webBrowser.EnsureCoreWebView2Async();
 
-            if (Screen.URLs.Any())
+            if (_urls.Any())
             {
-                if (Screen.URLs.Count > 1)
+                if (_shuffle)
                 {
-                    if (Screen.Shuffle)
+                    Random random = new Random();
+                    int n = _urls.Count;
+                    while (n > 1)
                     {
-
-                        int n = Screen.URLs.Count;
-                        while (n > 1)
-                        {
-                            n--;
-                            int k = random.Next(n + 1);
-                            var value = Screen.URLs[k];
-                            Screen.URLs[k] = Screen.URLs[n];
-                            Screen.URLs[n] = value;
-                        }
+                        n--;
+                        int k = random.Next(n + 1);
+                        var value = _urls[k];
+                        _urls[k] = _urls[n];
+                        _urls[n] = value;
                     }
-
-                    // Set up timer to rotate to the next URL
-                    timer = new Timer();
-                    timer.Interval = Screen.RotationInterval * 1000;
-                    timer.Tick += (s, ee) => RotateSite();
-                    timer.Start();
                 }
 
-                // Display the first site in the list
-                RotateSite();
-
-                StartTime = DateTime.Now;
+                _timer.Interval = _rotationInterval * 1000;
+                _timer.Tick += (s, ee) => RotateSite();
+                _timer.Start();
             }
             else
             {
@@ -81,10 +78,20 @@ namespace WebPageScreensaver
             }
         }
 
+        private void RotateSite()
+        {
+            if (_currentURLIndex >= _urls.Count)
+            {
+                _currentURLIndex = 0;
+            }
+            BrowseTo(_urls[_currentURLIndex]);
+            _currentURLIndex++;
+        }
+
         private void BrowseTo(string url)
         {
             // Disable the user event handler while navigating
-            Application.RemoveMessageFilter(userEventHandler);
+            Application.RemoveMessageFilter(_mouseEventHandler);
 
             if (string.IsNullOrWhiteSpace(url))
             {
@@ -96,31 +103,17 @@ namespace WebPageScreensaver
                 _webBrowser.CoreWebView2.Navigate(url);
             }
 
-            Application.AddMessageFilter(userEventHandler);
-        }
-
-        private void RotateSite()
-        {
-            currentSiteIndex++;
-
-            if (currentSiteIndex >= Screen.URLs.Count)
-            {
-                currentSiteIndex = 0;
-            }
-
-            var url = Screen.URLs[currentSiteIndex];
-
-            BrowseTo(url);
+            Application.AddMessageFilter(_mouseEventHandler);
         }
 
         private void HandleUserActivity()
         {
-            if (StartTime.AddSeconds(1) > DateTime.Now)
+            if (_startTime.AddSeconds(1) > DateTime.Now)
             {
                 return;
             }
 
-            if (Preferences.CloseOnMouseMovement)
+            if (_closeOnMouseMovement)
             {
                 Close();
             }

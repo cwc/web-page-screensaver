@@ -31,13 +31,12 @@ namespace WebPageScreensaver
         /// </summary>
         private void InitializeComponent()
         {
-            this._components = new System.ComponentModel.Container();
+            this.components = new System.ComponentModel.Container();
             this._linkLabelProjectURL = new System.Windows.Forms.LinkLabel();
             this._tabControlScreens = new System.Windows.Forms.TabControl();
             this._tabPageScreen = new System.Windows.Forms.TabPage();
-            this._prefsByScreenUserControl = new WebPageScreensaver.PrefsByScreenUserControl();
             this._labelWebsiteURLs = new System.Windows.Forms.Label();
-            this._toolTipScreenMode = new System.Windows.Forms.ToolTip(this._components);
+            this._toolTipScreenMode = new System.Windows.Forms.ToolTip(this.components);
             this._radioButtonSeparateScreens = new System.Windows.Forms.RadioButton();
             this._radioButtonMirrorScreens = new System.Windows.Forms.RadioButton();
             this._radioButtonSpanScreens = new System.Windows.Forms.RadioButton();
@@ -50,7 +49,6 @@ namespace WebPageScreensaver
             this._checkBoxCloseOnMouseMovement = new System.Windows.Forms.CheckBox();
             this._flowLayoutPanelMultiScreenButtons = new System.Windows.Forms.FlowLayoutPanel();
             this._tabControlScreens.SuspendLayout();
-            this._tabPageScreen.SuspendLayout();
             this._tableLayoutPanelMain.SuspendLayout();
             this._tableLayoutPanelMainBottom.SuspendLayout();
             this._tableLayoutPanelMainTop.SuspendLayout();
@@ -86,7 +84,6 @@ namespace WebPageScreensaver
             // 
             // _tabPageScreen
             // 
-            this._tabPageScreen.Controls.Add(this._prefsByScreenUserControl);
             this._tabPageScreen.Location = new System.Drawing.Point(8, 46);
             this._tabPageScreen.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this._tabPageScreen.Name = "_tabPageScreen";
@@ -95,18 +92,6 @@ namespace WebPageScreensaver
             this._tabPageScreen.TabIndex = 0;
             this._tabPageScreen.Text = "Screen 1";
             this._tabPageScreen.UseVisualStyleBackColor = true;
-            // 
-            // _prefsByScreenUserControl
-            // 
-            this._prefsByScreenUserControl.AutoSize = true;
-            this._prefsByScreenUserControl.BackColor = System.Drawing.Color.White;
-            this._prefsByScreenUserControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this._prefsByScreenUserControl.Location = new System.Drawing.Point(4, 5);
-            this._prefsByScreenUserControl.Margin = new System.Windows.Forms.Padding(0);
-            this._prefsByScreenUserControl.MinimumSize = new System.Drawing.Size(640, 480);
-            this._prefsByScreenUserControl.Name = "_prefsByScreenUserControl";
-            this._prefsByScreenUserControl.Size = new System.Drawing.Size(966, 480);
-            this._prefsByScreenUserControl.TabIndex = 25;
             // 
             // _labelWebsiteURLs
             // 
@@ -123,6 +108,8 @@ namespace WebPageScreensaver
             // _radioButtonSeparateScreens
             // 
             this._radioButtonSeparateScreens.AutoSize = true;
+            this._radioButtonSeparateScreens.Checked = true;
+            this._radioButtonSeparateScreens.Enabled = true;
             this._radioButtonSeparateScreens.Location = new System.Drawing.Point(233, 9);
             this._radioButtonSeparateScreens.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this._radioButtonSeparateScreens.Name = "_radioButtonSeparateScreens";
@@ -137,6 +124,7 @@ namespace WebPageScreensaver
             // _radioButtonMirrorScreens
             // 
             this._radioButtonMirrorScreens.AutoSize = true;
+            this._radioButtonMirrorScreens.Enabled = true;
             this._radioButtonMirrorScreens.Location = new System.Drawing.Point(114, 9);
             this._radioButtonMirrorScreens.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this._radioButtonMirrorScreens.Name = "_radioButtonMirrorScreens";
@@ -151,7 +139,7 @@ namespace WebPageScreensaver
             // _radioButtonSpanScreens
             // 
             this._radioButtonSpanScreens.AutoSize = true;
-            this._radioButtonSpanScreens.Checked = true;
+            this._radioButtonSpanScreens.Enabled = true;
             this._radioButtonSpanScreens.Location = new System.Drawing.Point(8, 9);
             this._radioButtonSpanScreens.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this._radioButtonSpanScreens.Name = "_radioButtonSpanScreens";
@@ -301,8 +289,6 @@ namespace WebPageScreensaver
             this.Text = "Web Page Screensaver Settings";
             this.Load += new System.EventHandler(this.PreferencesForm_Load);
             this._tabControlScreens.ResumeLayout(false);
-            this._tabPageScreen.ResumeLayout(false);
-            this._tabPageScreen.PerformLayout();
             this._tableLayoutPanelMain.ResumeLayout(false);
             this._tableLayoutPanelMain.PerformLayout();
             this._tableLayoutPanelMainBottom.ResumeLayout(false);
@@ -332,11 +318,11 @@ namespace WebPageScreensaver
         private Label _labelWebsiteURLs;
         private TabControl _tabControlScreens;
         private TabPage _tabPageScreen;
-        private PrefsByScreenUserControl _prefsByScreenUserControl;
 
         private TableLayoutPanel _tableLayoutPanelMainBottom;
         private LinkLabel _linkLabelProjectURL;
         private Button _buttonCancel;
         private Button _buttonOK;
+        private System.ComponentModel.IContainer components;
     }
 }

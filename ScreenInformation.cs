@@ -58,6 +58,7 @@ namespace WebPageScreensaver
             get => int.Parse(RootKey.GetOrCreateValue(SettingName.ScreenNumber));
             set => RootKey.SetValue(SettingName.ScreenNumber, value);
         }
+
         public Rectangle Bounds { get; set; }
 
         public bool IsPrimary
@@ -66,24 +67,27 @@ namespace WebPageScreensaver
             set => RootKey.SetValue(SettingName.IsPrimary, value);
         }
 
-        public List<string> URLs
+        public IEnumerable<string> URLs
         {
             get
             {
                 string urlsString = RootKey.GetOrCreateValue(SettingName.URLs, string.Empty);
-                return urlsString.Split(' ', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries).ToList();
-            }
-            set
-            {
-                string urlsString = string.Join(' ', value);
-                RootKey.SetValue(SettingName.URLs, urlsString);
+                return urlsString.Split(' ', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
             }
         }
+
+        public void UpdateURLs(IEnumerable<string> urls)
+        {
+            string urlsString = string.Join(' ', urls);
+            RootKey.SetValue(SettingName.URLs, urlsString);
+        }
+
         public int RotationInterval
         {
             get => int.Parse(RootKey.GetOrCreateValue(SettingName.RotationInterval, SettingValue.RotationInterval));
             set => RootKey.SetValue(SettingName.RotationInterval, value);
         }
+
         public bool Shuffle
         {
             get => bool.Parse(RootKey.GetOrCreateValue(SettingName.Shuffle, SettingValue.Shuffle));
