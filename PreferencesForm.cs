@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace WebPageScreensaver
@@ -16,63 +15,41 @@ namespace WebPageScreensaver
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Method called when the form is loaded, so the UI gets updated with the registry data.
+        /// </summary>
         private void PreferencesForm_Load(object sender, EventArgs e)
         {
-            Fetch();
-        }
-
-        private void anyMultiScreenModeButton_Click(object sender, EventArgs e)
-        {
-            Save();
-        }
-
-        /// <summary>
-        /// Opens the project website in a new default browser tab.
-        /// </summary>
-        private void LinkLabelProjectURL_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            ProcessStartInfo startInfo = new ProcessStartInfo()
-            {
-                FileName = "cmd",
-                Arguments = $"/c start {Webpage}",
-                CreateNoWindow = true
-            };
-            Process.Start(startInfo);
-        }
-
-        /// <summary>
-        /// Saves the selected settings and closes the window.
-        /// </summary>
-        private void ButtonOK_Click(object sender, EventArgs e)
-        {
-            Save();
-            Close();
-        }
-
-        /// <summary>
-        /// Closes the window without saving the settings.
-        /// </summary>
-        private void ButtonCancel_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
-
-        /// <summary>
-        /// Retrieve shared data and show it in the form.
-        /// </summary>
-        private void Fetch()
-        {
-            MultiScreenMode multiScreenMode = Preferences.MultiScreen;
-
             _checkBoxCloseOnMouseMovement.Checked = Preferences.CloseOnMouseMovement;
 
-            _flowLayoutPanelMultiScreenButtons.Enabled = Screen.AllScreens.Length > 1;
+            MultiScreenMode multiScreenMode = Preferences.MultiScreen;
 
+            // The Checked event will determine what to show in the tabs
             _radioButtonMirrorScreens.Checked = multiScreenMode == MultiScreenMode.Mirror;
             _radioButtonSeparateScreens.Checked = multiScreenMode == MultiScreenMode.Separate;
             _radioButtonSpanScreens.Checked = multiScreenMode == MultiScreenMode.Span;
 
-            _tabControlScreens.TabPages.Clear();
+            //_flowLayoutPanelMultiScreenMode.Enabled = Screen.AllScreens.Length > 1;
+        }
+
+
+        private void RadioButtonMultiScreenMode_Checked(object sender, EventArgs e)
+        {
+            if (!(sender is RadioButton radioButton) || !radioButton.Checked)
+            {
+                return;
+            }
+
+            MultiScreenMode multiScreenMode = radioButton.Name switch
+            {
+                nameof(_radioButtonMirrorScreens) => MultiScreenMode.Mirror,
+                nameof(_radioButtonSeparateScreens) => MultiScreenMode.Separate,
+                nameof(_radioButtonSpanScreens) => MultiScreenMode.Span,
+                _ => throw new IndexOutOfRangeException("Unexpected radio button."),
+            };
+
+            // Save it to the registry
+            Preferences.MultiScreen = multiScreenMode;
 
             int totalTabs = multiScreenMode switch
             {
@@ -89,6 +66,7 @@ namespace WebPageScreensaver
                 _ => throw new IndexOutOfRangeException("Unrecognized MultiScreenMode value.")
             };
 
+            _tabControlScreens.TabPages.Clear();
 
             for (int tabNumber = 0; tabNumber < totalTabs; tabNumber++)
             {
@@ -121,6 +99,37 @@ namespace WebPageScreensaver
                 tab.Controls.Add(currentUserControl);
                 _tabControlScreens.TabPages.Add(tab);
             }
+        }
+
+        /// <summary>
+        /// Opens the project website in a new default browser tab.
+        /// </summary>
+        private void LinkLabelProjectURL_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            ProcessStartInfo startInfo = new ProcessStartInfo()
+            {
+                FileName = "cmd",
+                Arguments = $"/c start {Webpage}",
+                CreateNoWindow = true
+            };
+            Process.Start(startInfo);
+        }
+
+        /// <summary>
+        /// Saves the selected settings and closes the window.
+        /// </summary>
+        private void ButtonOK_Click(object sender, EventArgs e)
+        {
+            Save();
+            Close();
+        }
+
+        /// <summary>
+        /// Closes the window without saving the settings.
+        /// </summary>
+        private void ButtonCancel_Click(object sender, EventArgs e)
+        {
+            Close();
         }
 
         /// <summary>

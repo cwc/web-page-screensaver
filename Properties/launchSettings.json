@@ -2,7 +2,7 @@
   "profiles": {
     "WebPageScreensaver": {
       "commandName": "Project",
-      "commandLineArgs": "/c"
+      "commandLineArgs": ""
     }
   }
 }

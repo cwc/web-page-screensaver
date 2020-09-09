@@ -11,36 +11,28 @@ namespace WebPageScreensaver
     {
         private int _currentURLIndex;
 
-        private readonly DateTime _startTime;
         private readonly Timer _timer;
-        private readonly MouseEventHandler _mouseEventHandler;
         private readonly bool _closeOnMouseMovement;
         private readonly int _rotationInterval;
         private readonly bool _shuffle;
         private readonly List<string> _urls;
+        private readonly Size _savedSize;
+        private readonly Point _savedLocation;
 
-        public ScreensaverForm(ScreenInformation screen, bool showCursor)
+        public ScreensaverForm(ScreenInformation screen)
         {
-            _mouseEventHandler = new MouseEventHandler();
-            _mouseEventHandler.Event += new MouseEventHandler.UserEvent(HandleUserActivity);
-
             _closeOnMouseMovement = Preferences.CloseOnMouseMovement;
             _rotationInterval = screen.RotationInterval;
             _shuffle = screen.Shuffle;
             _urls = screen.URLs.ToList();
             _currentURLIndex = 0;
 
-            Location = new Point(screen.Bounds.Left, screen.Bounds.Top);
-            Size = new Size(screen.Bounds.Width, screen.Bounds.Height);
+            _savedSize = new Size(screen.Bounds.Width, screen.Bounds.Height);
+            _savedLocation = new Point(screen.Bounds.Left, screen.Bounds.Top);
 
+            Cursor.Hide();
             InitializeComponent();
 
-            if (!showCursor)
-            {
-                Cursor.Hide();
-            }
-
-            _startTime = DateTime.Now;
             _timer = new Timer();
         }
 
@@ -90,43 +82,29 @@ namespace WebPageScreensaver
 
         private void BrowseTo(string url)
         {
-            // Disable the user event handler while navigating
-            Application.RemoveMessageFilter(_mouseEventHandler);
-
-            if (string.IsNullOrWhiteSpace(url))
-            {
-                _webBrowser.Visible = false;
-            }
-            else
-            {
-                _webBrowser.Visible = true;
-                _webBrowser.CoreWebView2.Navigate(url);
-            }
-
-            Application.AddMessageFilter(_mouseEventHandler);
+            _webBrowser.Visible = true;
+            _webBrowser.CoreWebView2.Navigate(url);
         }
 
-        private void HandleUserActivity()
+        private void WebBrowser_MouseMove(object sender, MouseEventArgs e)
         {
-            if (_startTime.AddSeconds(1) > DateTime.Now)
-            {
-                return;
-            }
-
             if (_closeOnMouseMovement)
             {
                 Close();
             }
-            else
-            {
-                _closeButton.Visible = true;
-                Cursor.Show();
-            }
         }
 
-        private void CloseButton_Click(object sender, EventArgs e)
+        /// <summary>
+        /// Allows capturing the ESC key to close the form.
+        /// </summary>
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
-            Close();
+            if (keyData == Keys.Escape)
+            {
+                this.Close();
+                return true;
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
         }
     }
 }
