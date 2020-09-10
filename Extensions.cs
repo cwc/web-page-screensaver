@@ -13,7 +13,7 @@ namespace WebPageScreensaver
             }
             if (string.IsNullOrWhiteSpace(subKeyName))
             {
-                throw new ArgumentException(nameof(subKeyName));
+                throw new ArgumentException($"Argument is null or whitespace: {nameof(subKeyName)}");
             }
 
             RegistryKey? key = root.OpenSubKey(subKeyName, writable: true);

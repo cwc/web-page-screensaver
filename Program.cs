@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Runtime.Versioning;
 using System.Windows.Forms;
 
+[assembly: SupportedOSPlatform("windows")]
 namespace WebPageScreensaver
 {
     static class Program

@@ -35,7 +35,7 @@ namespace WebPageScreensaver
 
         private void RadioButtonMultiScreenMode_Checked(object sender, EventArgs e)
         {
-            if (!(sender is RadioButton radioButton) || !radioButton.Checked)
+            if (sender is not RadioButton radioButton || !radioButton.Checked)
             {
                 return;
             }
@@ -70,8 +70,10 @@ namespace WebPageScreensaver
 
             for (int tabNumber = 0; tabNumber < totalTabs; tabNumber++)
             {
-                TabPage tab = new TabPage();
-                tab.Text = $"Display {tabNumber + 1}{tabTextSuffix}"; // Matches registry key name
+                TabPage tab = new TabPage
+                {
+                    Text = $"Display {tabNumber + 1}{tabTextSuffix}" // Matches registry key name
+                };
 
                 var currentUserControl = new PrefsByScreenUserControl
                 {
