@@ -19,29 +19,16 @@ namespace WebPageScreensaver
             public const string RotationInterval = "IntervalRotation";
             public const string Shuffle = "Shuffle";
         }
-        private struct SettingValue
+        private struct SettingDefaultValue
         {
-            public const int RotationInterval = 30;
+            public const int RotationInterval = 10;
             public const bool Shuffle = true;
+            public const string URLsPrimaryScreen = "https://dotnet.microsoft.com/ https://code.visualstudio.com/";
         }
 
         public ScreenInformation(RegistryKey rootKey, int screenNumber, MultiScreenMode multiScreenMode)
         {
-
             RootKey = rootKey;
-            ScreenNumber = multiScreenMode switch
-            {
-                MultiScreenMode.Span => 0,
-                MultiScreenMode.Mirror or MultiScreenMode.Separate => screenNumber,
-                _ => throw new IndexOutOfRangeException("Unrecognized MultiScreenMode value.")
-            };
-
-            IsPrimary = multiScreenMode switch
-            {
-                MultiScreenMode.Span or MultiScreenMode.Mirror => true,
-                MultiScreenMode.Separate => Screen.AllScreens[screenNumber].Primary,
-                _ => throw new IndexOutOfRangeException("Unrecognized MultiScreenMode value.")
-            };
 
             Bounds = multiScreenMode switch
             {
@@ -53,25 +40,13 @@ namespace WebPageScreensaver
 
         public RegistryKey RootKey { get; private set; }
 
-        public int ScreenNumber
-        {
-            get => int.Parse(RootKey.GetOrCreateValue(SettingName.ScreenNumber));
-            set => RootKey.SetValue(SettingName.ScreenNumber, value);
-        }
-
         public Rectangle Bounds { get; set; }
-
-        public bool IsPrimary
-        {
-            get => bool.Parse(RootKey.GetOrCreateValue(SettingName.IsPrimary));
-            set => RootKey.SetValue(SettingName.IsPrimary, value);
-        }
 
         public IEnumerable<string> URLs
         {
             get
             {
-                string urlsString = RootKey.GetOrCreateValue(SettingName.URLs, string.Empty);
+                string urlsString = RootKey.GetOrCreateValue(SettingName.URLs, SettingDefaultValue.URLsPrimaryScreen);
                 return urlsString.Split(' ', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
             }
         }
@@ -84,13 +59,13 @@ namespace WebPageScreensaver
 
         public int RotationInterval
         {
-            get => int.Parse(RootKey.GetOrCreateValue(SettingName.RotationInterval, SettingValue.RotationInterval));
+            get => int.Parse(RootKey.GetOrCreateValue(SettingName.RotationInterval, SettingDefaultValue.RotationInterval));
             set => RootKey.SetValue(SettingName.RotationInterval, value);
         }
 
         public bool Shuffle
         {
-            get => bool.Parse(RootKey.GetOrCreateValue(SettingName.Shuffle, SettingValue.Shuffle));
+            get => bool.Parse(RootKey.GetOrCreateValue(SettingName.Shuffle, SettingDefaultValue.Shuffle));
             set => RootKey.SetValue(SettingName.Shuffle, value);
         }
 
