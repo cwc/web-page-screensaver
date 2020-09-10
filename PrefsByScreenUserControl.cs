@@ -19,7 +19,7 @@ namespace WebPageScreensaver
             currentScreen.Shuffle = _checkBoxShuffle.Checked;
         }
 
-        private void MoveAllSelectedUrlsDown_Click(object sender, EventArgs e)
+        private void ButtonDown_Click(object sender, EventArgs e)
         {
             // TODO: make button grey out when none selected OR when all selected ones are in a bunch at the bottom.
             bool gapFound = false;
@@ -47,7 +47,7 @@ namespace WebPageScreensaver
             _listViewURLs.Select();
         }
 
-        private void MoveAllSelectedUrlsUp_Click(object sender, EventArgs e)
+        private void ButtonUp_Click(object sender, EventArgs e)
         {
             // TODO: make button grey out when none selected OR when all selected ones are in a bunch at the top.
             bool gapFound = false;
@@ -75,7 +75,7 @@ namespace WebPageScreensaver
             _listViewURLs.Select();
         }
 
-        private void DeleteAllSelectedUrls_Click(object sender, EventArgs e)
+        private void ButtonDeleteURL_Click(object sender, EventArgs e)
         {
             // TODO: undo capability?
             // TODO: make button grey out when no selection.
@@ -89,7 +89,7 @@ namespace WebPageScreensaver
             }
         }
 
-        private void AddUrlButton_Click(object sender, EventArgs e)
+        private void ButtonAddURL_Click(object sender, EventArgs e)
         {
             ListViewItem item = _listViewURLs.Items.Add(string.Empty);
             item.BeginEdit();

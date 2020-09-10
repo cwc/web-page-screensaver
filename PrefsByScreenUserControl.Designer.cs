@@ -121,7 +121,7 @@
             this._buttonAddURL.TabIndex = 6;
             this._buttonAddURL.Text = "Add URL";
             this._buttonAddURL.UseVisualStyleBackColor = true;
-            this._buttonAddURL.Click += new System.EventHandler(this.AddUrlButton_Click);
+            this._buttonAddURL.Click += new System.EventHandler(this.ButtonAddURL_Click);
             // 
             // _buttonUp
             // 
@@ -135,7 +135,7 @@
             this._buttonUp.Text = "▲";
             this._toolTipURLButtons.SetToolTip(this._buttonUp, "Move selected URLs up");
             this._buttonUp.UseVisualStyleBackColor = true;
-            this._buttonUp.Click += new System.EventHandler(this.MoveAllSelectedUrlsUp_Click);
+            this._buttonUp.Click += new System.EventHandler(this.ButtonUp_Click);
             // 
             // _buttonDeleteURL
             // 
@@ -150,7 +150,7 @@
             this._buttonDeleteURL.Text = "Delete URL";
             this._toolTipURLButtons.SetToolTip(this._buttonDeleteURL, "DELETE selected URLs");
             this._buttonDeleteURL.UseVisualStyleBackColor = true;
-            this._buttonDeleteURL.Click += new System.EventHandler(this.DeleteAllSelectedUrls_Click);
+            this._buttonDeleteURL.Click += new System.EventHandler(this.ButtonDeleteURL_Click);
             // 
             // _buttonDown
             // 
@@ -164,7 +164,7 @@
             this._buttonDown.Text = "▼";
             this._toolTipURLButtons.SetToolTip(this._buttonDown, "Move selected URLs down");
             this._buttonDown.UseVisualStyleBackColor = true;
-            this._buttonDown.Click += new System.EventHandler(this.MoveAllSelectedUrlsDown_Click);
+            this._buttonDown.Click += new System.EventHandler(this.ButtonDown_Click);
             // 
             // _tableLayoutPanelMain
             // 
