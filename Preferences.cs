@@ -26,7 +26,6 @@ namespace WebPageScreensaver
             public const MultiScreenMode MultiScreen = MultiScreenMode.Separate;
             public const int RotationInterval = 30;
             public const bool Shuffle = false;
-            public const string URLsPrimaryScreen = "https://dotnet.microsoft.com/ https://code.visualstudio.com/";
         }
 
         #endregion
