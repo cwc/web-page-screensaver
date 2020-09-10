@@ -36,8 +36,8 @@
             this._buttonAddURL = new System.Windows.Forms.Button();
             this._buttonUp = new System.Windows.Forms.Button();
             this._toolTipURLButtons = new System.Windows.Forms.ToolTip(this.components);
-            this._buttonDown = new System.Windows.Forms.Button();
             this._buttonDeleteURL = new System.Windows.Forms.Button();
+            this._buttonDown = new System.Windows.Forms.Button();
             this._tableLayoutPanelMain = new System.Windows.Forms.TableLayoutPanel();
             this._tableLayoutPanelMainTop = new System.Windows.Forms.TableLayoutPanel();
             this._tableLayoutPanelMainBottom = new System.Windows.Forms.TableLayoutPanel();
@@ -49,11 +49,9 @@
             // 
             // _numericUpDownRotationInterval
             // 
-            this._numericUpDownRotationInterval.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this._numericUpDownRotationInterval.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this._numericUpDownRotationInterval.Location = new System.Drawing.Point(292, 6);
+            this._numericUpDownRotationInterval.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this._numericUpDownRotationInterval.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this._numericUpDownRotationInterval.Location = new System.Drawing.Point(98, 6);
             this._numericUpDownRotationInterval.Margin = new System.Windows.Forms.Padding(6);
             this._numericUpDownRotationInterval.Maximum = new decimal(new int[] {
             999,
@@ -61,8 +59,8 @@
             0,
             0});
             this._numericUpDownRotationInterval.Name = "_numericUpDownRotationInterval";
-            this._numericUpDownRotationInterval.Size = new System.Drawing.Size(80, 39);
-            this._numericUpDownRotationInterval.TabIndex = 6;
+            this._numericUpDownRotationInterval.Size = new System.Drawing.Size(50, 23);
+            this._numericUpDownRotationInterval.TabIndex = 12;
             this._numericUpDownRotationInterval.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this._numericUpDownRotationInterval.Value = new decimal(new int[] {
             30,
@@ -72,31 +70,26 @@
             // 
             // _labelSecondsToDisplay
             // 
-            this._labelSecondsToDisplay.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this._labelSecondsToDisplay.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this._labelSecondsToDisplay.AutoSize = true;
-            this._labelSecondsToDisplay.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this._labelSecondsToDisplay.Location = new System.Drawing.Point(384, 6);
+            this._labelSecondsToDisplay.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this._labelSecondsToDisplay.Location = new System.Drawing.Point(160, 10);
             this._labelSecondsToDisplay.Margin = new System.Windows.Forms.Padding(6);
             this._labelSecondsToDisplay.Name = "_labelSecondsToDisplay";
-            this._labelSecondsToDisplay.Size = new System.Drawing.Size(314, 44);
-            this._labelSecondsToDisplay.TabIndex = 7;
+            this._labelSecondsToDisplay.Size = new System.Drawing.Size(154, 15);
             this._labelSecondsToDisplay.Text = "Seconds to display each site";
             // 
             // _checkBoxShuffle
             // 
-            this._checkBoxShuffle.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
+            this._checkBoxShuffle.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this._checkBoxShuffle.AutoSize = true;
             this._checkBoxShuffle.CheckAlign = System.Drawing.ContentAlignment.TopLeft;
-            this._checkBoxShuffle.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this._checkBoxShuffle.Location = new System.Drawing.Point(6, 6);
+            this._checkBoxShuffle.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this._checkBoxShuffle.Location = new System.Drawing.Point(6, 8);
             this._checkBoxShuffle.Margin = new System.Windows.Forms.Padding(6);
             this._checkBoxShuffle.Name = "_checkBoxShuffle";
-            this._checkBoxShuffle.Size = new System.Drawing.Size(274, 44);
-            this._checkBoxShuffle.TabIndex = 5;
+            this._checkBoxShuffle.Size = new System.Drawing.Size(63, 19);
+            this._checkBoxShuffle.TabIndex = 11;
             this._checkBoxShuffle.Text = "Shuffle";
             this._checkBoxShuffle.TextAlign = System.Drawing.ContentAlignment.TopLeft;
             this._checkBoxShuffle.UseVisualStyleBackColor = true;
@@ -104,81 +97,74 @@
             // _listViewURLs
             // 
             this._listViewURLs.Dock = System.Windows.Forms.DockStyle.Fill;
-            this._listViewURLs.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this._listViewURLs.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this._listViewURLs.FullRowSelect = true;
             this._listViewURLs.GridLines = true;
             this._listViewURLs.HideSelection = false;
             this._listViewURLs.LabelEdit = true;
-            this._listViewURLs.Location = new System.Drawing.Point(6, 62);
+            this._listViewURLs.Location = new System.Drawing.Point(6, 41);
             this._listViewURLs.Margin = new System.Windows.Forms.Padding(6);
             this._listViewURLs.Name = "_listViewURLs";
-            this._listViewURLs.Size = new System.Drawing.Size(692, 346);
-            this._listViewURLs.TabIndex = 4;
+            this._listViewURLs.Size = new System.Drawing.Size(308, 78);
+            this._listViewURLs.TabIndex = 10;
             this._listViewURLs.UseCompatibleStateImageBehavior = false;
             this._listViewURLs.View = System.Windows.Forms.View.List;
             // 
             // _buttonAddURL
             // 
-            this._buttonAddURL.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this._buttonAddURL.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this._buttonAddURL.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this._buttonAddURL.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this._buttonAddURL.Location = new System.Drawing.Point(6, 6);
             this._buttonAddURL.Margin = new System.Windows.Forms.Padding(6);
             this._buttonAddURL.Name = "_buttonAddURL";
-            this._buttonAddURL.Size = new System.Drawing.Size(150, 44);
-            this._buttonAddURL.TabIndex = 0;
+            this._buttonAddURL.Size = new System.Drawing.Size(75, 23);
+            this._buttonAddURL.TabIndex = 6;
             this._buttonAddURL.Text = "Add URL";
             this._buttonAddURL.UseVisualStyleBackColor = true;
             this._buttonAddURL.Click += new System.EventHandler(this.AddUrlButton_Click);
             // 
             // _buttonUp
             // 
-            this._buttonUp.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this._buttonUp.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this._buttonUp.Location = new System.Drawing.Point(598, 6);
+            this._buttonUp.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this._buttonUp.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this._buttonUp.Location = new System.Drawing.Point(256, 6);
             this._buttonUp.Margin = new System.Windows.Forms.Padding(6);
             this._buttonUp.Name = "_buttonUp";
-            this._buttonUp.Size = new System.Drawing.Size(44, 44);
-            this._buttonUp.TabIndex = 2;
+            this._buttonUp.Size = new System.Drawing.Size(23, 23);
+            this._buttonUp.TabIndex = 8;
             this._buttonUp.Text = "▲";
             this._toolTipURLButtons.SetToolTip(this._buttonUp, "Move selected URLs up");
             this._buttonUp.UseVisualStyleBackColor = true;
             this._buttonUp.Click += new System.EventHandler(this.MoveAllSelectedUrlsUp_Click);
             // 
-            // _buttonDown
-            // 
-            this._buttonDown.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this._buttonDown.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this._buttonDown.Location = new System.Drawing.Point(654, 6);
-            this._buttonDown.Margin = new System.Windows.Forms.Padding(6);
-            this._buttonDown.Name = "_buttonDown";
-            this._buttonDown.Size = new System.Drawing.Size(44, 44);
-            this._buttonDown.TabIndex = 3;
-            this._buttonDown.Text = "▼";
-            this._toolTipURLButtons.SetToolTip(this._buttonDown, "Move selected URLs down");
-            this._buttonDown.UseVisualStyleBackColor = true;
-            this._buttonDown.Click += new System.EventHandler(this.MoveAllSelectedUrlsDown_Click);
-            // 
             // _buttonDeleteURL
             // 
-            this._buttonDeleteURL.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this._buttonDeleteURL.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this._buttonDeleteURL.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this._buttonDeleteURL.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this._buttonDeleteURL.ForeColor = System.Drawing.Color.Black;
-            this._buttonDeleteURL.Location = new System.Drawing.Point(168, 6);
+            this._buttonDeleteURL.Location = new System.Drawing.Point(93, 6);
             this._buttonDeleteURL.Margin = new System.Windows.Forms.Padding(6);
             this._buttonDeleteURL.Name = "_buttonDeleteURL";
-            this._buttonDeleteURL.Size = new System.Drawing.Size(150, 44);
-            this._buttonDeleteURL.TabIndex = 1;
+            this._buttonDeleteURL.Size = new System.Drawing.Size(75, 23);
+            this._buttonDeleteURL.TabIndex = 7;
             this._buttonDeleteURL.Text = "Delete URL";
             this._toolTipURLButtons.SetToolTip(this._buttonDeleteURL, "DELETE selected URLs");
             this._buttonDeleteURL.UseVisualStyleBackColor = true;
             this._buttonDeleteURL.Click += new System.EventHandler(this.DeleteAllSelectedUrls_Click);
+            // 
+            // _buttonDown
+            // 
+            this._buttonDown.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this._buttonDown.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this._buttonDown.Location = new System.Drawing.Point(291, 6);
+            this._buttonDown.Margin = new System.Windows.Forms.Padding(6);
+            this._buttonDown.Name = "_buttonDown";
+            this._buttonDown.Size = new System.Drawing.Size(23, 23);
+            this._buttonDown.TabIndex = 9;
+            this._buttonDown.Text = "▼";
+            this._toolTipURLButtons.SetToolTip(this._buttonDown, "Move selected URLs down");
+            this._buttonDown.UseVisualStyleBackColor = true;
+            this._buttonDown.Click += new System.EventHandler(this.MoveAllSelectedUrlsDown_Click);
             // 
             // _tableLayoutPanelMain
             // 
@@ -194,21 +180,20 @@
             this._tableLayoutPanelMain.Margin = new System.Windows.Forms.Padding(0);
             this._tableLayoutPanelMain.Name = "_tableLayoutPanelMain";
             this._tableLayoutPanelMain.RowCount = 3;
-            this._tableLayoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 56F));
+            this._tableLayoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this._tableLayoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this._tableLayoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 56F));
-            this._tableLayoutPanelMain.Size = new System.Drawing.Size(704, 470);
-            this._tableLayoutPanelMain.TabIndex = 14;
+            this._tableLayoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this._tableLayoutPanelMain.Size = new System.Drawing.Size(320, 160);
             // 
             // _tableLayoutPanelMainTop
             // 
             this._tableLayoutPanelMainTop.AutoSize = true;
             this._tableLayoutPanelMainTop.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this._tableLayoutPanelMainTop.ColumnCount = 4;
-            this._tableLayoutPanelMainTop.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 162F));
+            this._tableLayoutPanelMainTop.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 87F));
             this._tableLayoutPanelMainTop.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this._tableLayoutPanelMainTop.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 56F));
-            this._tableLayoutPanelMainTop.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 56F));
+            this._tableLayoutPanelMainTop.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this._tableLayoutPanelMainTop.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this._tableLayoutPanelMainTop.Controls.Add(this._buttonAddURL, 0, 0);
             this._tableLayoutPanelMainTop.Controls.Add(this._buttonDown, 3, 0);
             this._tableLayoutPanelMainTop.Controls.Add(this._buttonUp, 2, 0);
@@ -219,8 +204,7 @@
             this._tableLayoutPanelMainTop.Name = "_tableLayoutPanelMainTop";
             this._tableLayoutPanelMainTop.RowCount = 1;
             this._tableLayoutPanelMainTop.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this._tableLayoutPanelMainTop.Size = new System.Drawing.Size(704, 56);
-            this._tableLayoutPanelMainTop.TabIndex = 0;
+            this._tableLayoutPanelMainTop.Size = new System.Drawing.Size(320, 35);
             // 
             // _tableLayoutPanelMainBottom
             // 
@@ -234,13 +218,12 @@
             this._tableLayoutPanelMainBottom.Controls.Add(this._labelSecondsToDisplay, 2, 0);
             this._tableLayoutPanelMainBottom.Controls.Add(this._numericUpDownRotationInterval, 1, 0);
             this._tableLayoutPanelMainBottom.Dock = System.Windows.Forms.DockStyle.Fill;
-            this._tableLayoutPanelMainBottom.Location = new System.Drawing.Point(0, 414);
+            this._tableLayoutPanelMainBottom.Location = new System.Drawing.Point(0, 125);
             this._tableLayoutPanelMainBottom.Margin = new System.Windows.Forms.Padding(0);
             this._tableLayoutPanelMainBottom.Name = "_tableLayoutPanelMainBottom";
             this._tableLayoutPanelMainBottom.RowCount = 1;
             this._tableLayoutPanelMainBottom.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this._tableLayoutPanelMainBottom.Size = new System.Drawing.Size(704, 56);
-            this._tableLayoutPanelMainBottom.TabIndex = 1;
+            this._tableLayoutPanelMainBottom.Size = new System.Drawing.Size(320, 35);
             // 
             // PrefsByScreenUserControl
             // 
@@ -249,8 +232,9 @@
             this.BackColor = System.Drawing.Color.White;
             this.Controls.Add(this._tableLayoutPanelMain);
             this.Margin = new System.Windows.Forms.Padding(0);
+            this.MinimumSize = new System.Drawing.Size(320, 160);
             this.Name = "PrefsByScreenUserControl";
-            this.Size = new System.Drawing.Size(704, 470);
+            this.Size = new System.Drawing.Size(320, 160);
             ((System.ComponentModel.ISupportInitialize)(this._numericUpDownRotationInterval)).EndInit();
             this._tableLayoutPanelMain.ResumeLayout(false);
             this._tableLayoutPanelMain.PerformLayout();
@@ -270,7 +254,6 @@
         private System.Windows.Forms.Button _buttonAddURL;
         private System.Windows.Forms.Button _buttonDeleteURL;
         private System.Windows.Forms.Button _buttonUp;
-        private System.Windows.Forms.Button _buttonDown;
 
         public System.Windows.Forms.ListView _listViewURLs;
 
@@ -281,5 +264,6 @@
 
         private System.Windows.Forms.ToolTip _toolTipURLButtons;
         private System.ComponentModel.IContainer components;
+        private System.Windows.Forms.Button _buttonDown;
     }
 }

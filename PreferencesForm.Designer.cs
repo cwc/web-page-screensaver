@@ -58,12 +58,12 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this._linkLabelProjectURL.AutoSize = true;
-            this._linkLabelProjectURL.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this._linkLabelProjectURL.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this._linkLabelProjectURL.Location = new System.Drawing.Point(6, 0);
             this._linkLabelProjectURL.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this._linkLabelProjectURL.Name = "_linkLabelProjectURL";
-            this._linkLabelProjectURL.Size = new System.Drawing.Size(662, 65);
-            this._linkLabelProjectURL.TabIndex = 7;
+            this._linkLabelProjectURL.Size = new System.Drawing.Size(278, 35);
+            this._linkLabelProjectURL.TabIndex = 13;
             this._linkLabelProjectURL.TabStop = true;
             this._linkLabelProjectURL.Text = "Website";
             this._linkLabelProjectURL.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -73,54 +73,44 @@
             // 
             this._tabControlScreens.Controls.Add(this._tabPageScreen);
             this._tabControlScreens.Dock = System.Windows.Forms.DockStyle.Fill;
-            this._tabControlScreens.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this._tabControlScreens.Location = new System.Drawing.Point(0, 181);
+            this._tabControlScreens.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this._tabControlScreens.Location = new System.Drawing.Point(0, 105);
             this._tabControlScreens.Margin = new System.Windows.Forms.Padding(0);
             this._tabControlScreens.Name = "_tabControlScreens";
             this._tabControlScreens.SelectedIndex = 0;
-            this._tabControlScreens.Size = new System.Drawing.Size(998, 451);
-            this._tabControlScreens.TabIndex = 6;
+            this._tabControlScreens.Size = new System.Drawing.Size(464, 221);
             // 
             // _tabPageScreen
             // 
-            this._tabPageScreen.Location = new System.Drawing.Point(8, 46);
-            this._tabPageScreen.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this._tabPageScreen.Location = new System.Drawing.Point(4, 24);
+            this._tabPageScreen.Margin = new System.Windows.Forms.Padding(6);
             this._tabPageScreen.Name = "_tabPageScreen";
-            this._tabPageScreen.Padding = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this._tabPageScreen.Size = new System.Drawing.Size(982, 397);
-            this._tabPageScreen.TabIndex = 0;
-            this._tabPageScreen.Text = "Screen 1";
+            this._tabPageScreen.Size = new System.Drawing.Size(456, 193);
+            this._tabPageScreen.TabIndex = 5;
             this._tabPageScreen.UseVisualStyleBackColor = true;
             // 
             // _labelWebsiteURLs
             // 
-            this._labelWebsiteURLs.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this._labelWebsiteURLs.AutoSize = true;
-            this._labelWebsiteURLs.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this._labelWebsiteURLs.Location = new System.Drawing.Point(6, 122);
+            this._labelWebsiteURLs.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._labelWebsiteURLs.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this._labelWebsiteURLs.Location = new System.Drawing.Point(6, 76);
             this._labelWebsiteURLs.Margin = new System.Windows.Forms.Padding(6);
             this._labelWebsiteURLs.Name = "_labelWebsiteURLs";
-            this._labelWebsiteURLs.Size = new System.Drawing.Size(986, 53);
-            this._labelWebsiteURLs.TabIndex = 5;
+            this._labelWebsiteURLs.Size = new System.Drawing.Size(452, 23);
             this._labelWebsiteURLs.Text = "Website URLs:";
             this._labelWebsiteURLs.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
             // 
             // _radioButtonSeparateScreens
             // 
-            this._radioButtonSeparateScreens.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this._radioButtonSeparateScreens.AutoSize = true;
-            this._radioButtonSeparateScreens.Checked = true;
-            this._radioButtonSeparateScreens.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this._radioButtonSeparateScreens.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._radioButtonSeparateScreens.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this._radioButtonSeparateScreens.Location = new System.Drawing.Point(6, 6);
             this._radioButtonSeparateScreens.Margin = new System.Windows.Forms.Padding(6);
             this._radioButtonSeparateScreens.Name = "_radioButtonSeparateScreens";
-            this._radioButtonSeparateScreens.Size = new System.Drawing.Size(138, 36);
-            this._radioButtonSeparateScreens.TabIndex = 1;
-            this._radioButtonSeparateScreens.TabStop = true;
+            this._radioButtonSeparateScreens.Size = new System.Drawing.Size(70, 19);
+            this._radioButtonSeparateScreens.TabIndex = 2;
             this._radioButtonSeparateScreens.Tag = "MultiScreenMode";
             this._radioButtonSeparateScreens.Text = "Separate";
             this._toolTipScreenMode.SetToolTip(this._radioButtonSeparateScreens, "Each to their own!");
@@ -129,17 +119,14 @@
             // 
             // _radioButtonMirrorScreens
             // 
-            this._radioButtonMirrorScreens.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this._radioButtonMirrorScreens.AutoSize = true;
-            this._radioButtonMirrorScreens.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this._radioButtonMirrorScreens.Location = new System.Drawing.Point(156, 6);
+            this._radioButtonMirrorScreens.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._radioButtonMirrorScreens.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this._radioButtonMirrorScreens.Location = new System.Drawing.Point(88, 6);
             this._radioButtonMirrorScreens.Margin = new System.Windows.Forms.Padding(6);
             this._radioButtonMirrorScreens.Name = "_radioButtonMirrorScreens";
-            this._radioButtonMirrorScreens.Size = new System.Drawing.Size(111, 36);
-            this._radioButtonMirrorScreens.TabIndex = 2;
-            this._radioButtonMirrorScreens.TabStop = true;
+            this._radioButtonMirrorScreens.Size = new System.Drawing.Size(58, 19);
+            this._radioButtonMirrorScreens.TabIndex = 3;
             this._radioButtonMirrorScreens.Tag = "MultiScreenMode";
             this._radioButtonMirrorScreens.Text = "Mirror";
             this._toolTipScreenMode.SetToolTip(this._radioButtonMirrorScreens, "One for All!");
@@ -148,17 +135,14 @@
             // 
             // _radioButtonSpanScreens
             // 
-            this._radioButtonSpanScreens.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this._radioButtonSpanScreens.AutoSize = true;
-            this._radioButtonSpanScreens.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this._radioButtonSpanScreens.Location = new System.Drawing.Point(279, 6);
+            this._radioButtonSpanScreens.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._radioButtonSpanScreens.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this._radioButtonSpanScreens.Location = new System.Drawing.Point(158, 6);
             this._radioButtonSpanScreens.Margin = new System.Windows.Forms.Padding(6);
             this._radioButtonSpanScreens.Name = "_radioButtonSpanScreens";
-            this._radioButtonSpanScreens.Size = new System.Drawing.Size(98, 36);
-            this._radioButtonSpanScreens.TabIndex = 3;
-            this._radioButtonSpanScreens.TabStop = true;
+            this._radioButtonSpanScreens.Size = new System.Drawing.Size(51, 19);
+            this._radioButtonSpanScreens.TabIndex = 4;
             this._radioButtonSpanScreens.Tag = "MultiScreenMode";
             this._radioButtonSpanScreens.Text = "Span";
             this._toolTipScreenMode.SetToolTip(this._radioButtonSpanScreens, "All for One!");
@@ -180,13 +164,11 @@
             this._tableLayoutPanelMain.Margin = new System.Windows.Forms.Padding(0);
             this._tableLayoutPanelMain.Name = "_tableLayoutPanelMain";
             this._tableLayoutPanelMain.RowCount = 4;
-            this._tableLayoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 116F));
-            this._tableLayoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 65F));
+            this._tableLayoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 70F));
+            this._tableLayoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
             this._tableLayoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this._tableLayoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 65F));
-            this._tableLayoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this._tableLayoutPanelMain.Size = new System.Drawing.Size(998, 697);
-            this._tableLayoutPanelMain.TabIndex = 19;
+            this._tableLayoutPanelMain.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 35F));
+            this._tableLayoutPanelMain.Size = new System.Drawing.Size(464, 361);
             // 
             // _tableLayoutPanelMainBottom
             // 
@@ -200,24 +182,23 @@
             this._tableLayoutPanelMainBottom.Controls.Add(this._linkLabelProjectURL, 0, 0);
             this._tableLayoutPanelMainBottom.Controls.Add(this._buttonOK, 1, 0);
             this._tableLayoutPanelMainBottom.Dock = System.Windows.Forms.DockStyle.Fill;
-            this._tableLayoutPanelMainBottom.Location = new System.Drawing.Point(0, 632);
+            this._tableLayoutPanelMainBottom.Location = new System.Drawing.Point(0, 326);
             this._tableLayoutPanelMainBottom.Margin = new System.Windows.Forms.Padding(0);
             this._tableLayoutPanelMainBottom.Name = "_tableLayoutPanelMainBottom";
             this._tableLayoutPanelMainBottom.RowCount = 1;
             this._tableLayoutPanelMainBottom.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this._tableLayoutPanelMainBottom.Size = new System.Drawing.Size(998, 65);
-            this._tableLayoutPanelMainBottom.TabIndex = 0;
+            this._tableLayoutPanelMainBottom.Size = new System.Drawing.Size(464, 35);
             // 
             // _buttonCancel
             // 
             this._buttonCancel.Anchor = System.Windows.Forms.AnchorStyles.None;
             this._buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this._buttonCancel.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this._buttonCancel.Location = new System.Drawing.Point(842, 10);
+            this._buttonCancel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this._buttonCancel.Location = new System.Drawing.Point(383, 6);
             this._buttonCancel.Margin = new System.Windows.Forms.Padding(6);
             this._buttonCancel.Name = "_buttonCancel";
-            this._buttonCancel.Size = new System.Drawing.Size(150, 44);
-            this._buttonCancel.TabIndex = 9;
+            this._buttonCancel.Size = new System.Drawing.Size(75, 23);
+            this._buttonCancel.TabIndex = 15;
             this._buttonCancel.Text = "Cancel";
             this._buttonCancel.UseVisualStyleBackColor = true;
             this._buttonCancel.Click += new System.EventHandler(this.ButtonCancel_Click);
@@ -226,12 +207,12 @@
             // 
             this._buttonOK.Anchor = System.Windows.Forms.AnchorStyles.None;
             this._buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this._buttonOK.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this._buttonOK.Location = new System.Drawing.Point(680, 10);
+            this._buttonOK.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this._buttonOK.Location = new System.Drawing.Point(296, 6);
             this._buttonOK.Margin = new System.Windows.Forms.Padding(6);
             this._buttonOK.Name = "_buttonOK";
-            this._buttonOK.Size = new System.Drawing.Size(150, 44);
-            this._buttonOK.TabIndex = 8;
+            this._buttonOK.Size = new System.Drawing.Size(75, 23);
+            this._buttonOK.TabIndex = 14;
             this._buttonOK.Text = "OK";
             this._buttonOK.UseVisualStyleBackColor = true;
             this._buttonOK.Click += new System.EventHandler(this.ButtonOK_Click);
@@ -241,8 +222,8 @@
             this._tableLayoutPanelMainTop.AutoSize = true;
             this._tableLayoutPanelMainTop.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this._tableLayoutPanelMainTop.ColumnCount = 2;
-            this._tableLayoutPanelMainTop.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this._tableLayoutPanelMainTop.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this._tableLayoutPanelMainTop.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this._tableLayoutPanelMainTop.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
             this._tableLayoutPanelMainTop.Controls.Add(this._checkBoxCloseOnMouseMovement, 0, 0);
             this._tableLayoutPanelMainTop.Controls.Add(this._labelMultiScreen, 1, 0);
             this._tableLayoutPanelMainTop.Controls.Add(this._flowLayoutPanelMultiScreenMode, 1, 1);
@@ -253,60 +234,54 @@
             this._tableLayoutPanelMainTop.RowCount = 2;
             this._tableLayoutPanelMainTop.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this._tableLayoutPanelMainTop.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this._tableLayoutPanelMainTop.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this._tableLayoutPanelMainTop.Size = new System.Drawing.Size(998, 116);
-            this._tableLayoutPanelMainTop.TabIndex = 1;
+            this._tableLayoutPanelMainTop.Size = new System.Drawing.Size(464, 70);
             // 
             // _checkBoxCloseOnMouseMovement
             // 
-            this._checkBoxCloseOnMouseMovement.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this._checkBoxCloseOnMouseMovement.AutoSize = true;
             this._checkBoxCloseOnMouseMovement.Checked = true;
             this._checkBoxCloseOnMouseMovement.CheckState = System.Windows.Forms.CheckState.Checked;
-            this._checkBoxCloseOnMouseMovement.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+            this._checkBoxCloseOnMouseMovement.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._checkBoxCloseOnMouseMovement.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this._checkBoxCloseOnMouseMovement.Location = new System.Drawing.Point(6, 6);
             this._checkBoxCloseOnMouseMovement.Margin = new System.Windows.Forms.Padding(6);
             this._checkBoxCloseOnMouseMovement.Name = "_checkBoxCloseOnMouseMovement";
-            this._checkBoxCloseOnMouseMovement.Size = new System.Drawing.Size(487, 36);
-            this._checkBoxCloseOnMouseMovement.TabIndex = 4;
+            this._checkBoxCloseOnMouseMovement.Size = new System.Drawing.Size(172, 19);
+            this._checkBoxCloseOnMouseMovement.TabIndex = 1;
             this._checkBoxCloseOnMouseMovement.Text = "Close on mouse movement";
             this._checkBoxCloseOnMouseMovement.UseVisualStyleBackColor = true;
             // 
             // _labelMultiScreen
             // 
-            this._labelMultiScreen.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
             this._labelMultiScreen.AutoSize = true;
-            this._labelMultiScreen.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-            this._labelMultiScreen.Location = new System.Drawing.Point(505, 6);
+            this._labelMultiScreen.Dock = System.Windows.Forms.DockStyle.Fill;
+            this._labelMultiScreen.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this._labelMultiScreen.Location = new System.Drawing.Point(190, 6);
             this._labelMultiScreen.Margin = new System.Windows.Forms.Padding(6);
             this._labelMultiScreen.Name = "_labelMultiScreen";
-            this._labelMultiScreen.Size = new System.Drawing.Size(487, 36);
-            this._labelMultiScreen.TabIndex = 0;
+            this._labelMultiScreen.Size = new System.Drawing.Size(268, 19);
             this._labelMultiScreen.Text = "Multiscreen:";
             this._labelMultiScreen.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // _flowLayoutPanelMultiScreenMode
             // 
+            this._flowLayoutPanelMultiScreenMode.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this._flowLayoutPanelMultiScreenMode.AutoSize = true;
             this._flowLayoutPanelMultiScreenMode.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this._flowLayoutPanelMultiScreenMode.Controls.Add(this._radioButtonSeparateScreens);
             this._flowLayoutPanelMultiScreenMode.Controls.Add(this._radioButtonMirrorScreens);
             this._flowLayoutPanelMultiScreenMode.Controls.Add(this._radioButtonSpanScreens);
-            this._flowLayoutPanelMultiScreenMode.Dock = System.Windows.Forms.DockStyle.Fill;
-            this._flowLayoutPanelMultiScreenMode.Location = new System.Drawing.Point(502, 51);
+            this._flowLayoutPanelMultiScreenMode.Location = new System.Drawing.Point(187, 34);
             this._flowLayoutPanelMultiScreenMode.Name = "_flowLayoutPanelMultiScreenMode";
-            this._flowLayoutPanelMultiScreenMode.Size = new System.Drawing.Size(493, 62);
-            this._flowLayoutPanelMultiScreenMode.TabIndex = 20;
+            this._flowLayoutPanelMultiScreenMode.Size = new System.Drawing.Size(274, 33);
             // 
             // PreferencesForm
             // 
             this.AutoSize = true;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(998, 697);
+            this.ClientSize = new System.Drawing.Size(464, 361);
             this.Controls.Add(this._tableLayoutPanelMain);
             this.Margin = new System.Windows.Forms.Padding(6, 7, 6, 7);
             this.MaximizeBox = false;

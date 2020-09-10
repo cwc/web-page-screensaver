@@ -80,12 +80,8 @@ namespace WebPageScreensaver
                     AutoSize = true,
                     BackColor = Color.White,
                     Dock = DockStyle.Fill,
-                    Location = new Point(4, 5),
-                    Margin = new Padding(0),
-                    MinimumSize = new Size(640, 300),
                     Name = $"_prefsByScreenUserControl{tabNumber}",
-                    Size = new Size(640, 300),
-                    TabIndex = 25
+                    TabIndex = 5
                 };
 
                 ScreenInformation currentScreen = Preferences.Screens[tabNumber];
