@@ -28,7 +28,7 @@ namespace WebPageScreensaver
             return key;
         }
 
-        public static string GetOrCreateValue(this RegistryKey root, string valueName, object defaultValue)
+        public static string GetOrCreateValue<T>(this RegistryKey root, string valueName, T defaultValue)
         {
             if (root == null)
             {
@@ -46,31 +46,12 @@ namespace WebPageScreensaver
             object? obj = root.GetValue(valueName);
             if (obj == null)
             {
-                root.SetValue(valueName, defaultValue.ToString() ?? string.Empty);
+                root.SetValue(valueName, defaultValue);
                 obj = root.GetValue(valueName);
                 if (obj == null)
                 {
                     throw new UnauthorizedAccessException($"Could not get/create the registry value: {valueName}");
                 }
-            }
-            return obj.ToString() ?? string.Empty;
-        }
-
-        public static string GetOrCreateValue(this RegistryKey root, string valueName)
-        {
-            if (root == null)
-            {
-                throw new ArgumentNullException(nameof(root));
-            }
-            if (string.IsNullOrWhiteSpace(valueName))
-            {
-                throw new ArgumentNullException(nameof(valueName));
-            }
-
-            object? obj = root.GetValue(valueName);
-            if (obj == null)
-            {
-                throw new UnauthorizedAccessException($"Could not get/create the registry value: {valueName}");
             }
             return obj.ToString() ?? string.Empty;
         }
