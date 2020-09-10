@@ -1,71 +1,66 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.Windows.Forms;
-using Microsoft.Win32;
-using System.IO;
 
-namespace pl.polidea.lab.Web_Page_Screensaver
+namespace WebPageScreensaver
 {
-    using System.Collections.Generic;
-    using System.Drawing;
-
     static class Program
     {
-        public static readonly string KEY = "Software\\Web-Page-Screensaver";
-
+        /// <summary>
+        ///  The main entry point for the application.
+        /// </summary>
         [STAThread]
         static void Main(string[] args)
         {
-            // Set version of embedded browser (http://weblog.west-wind.com/posts/2011/May/21/Web-Browser-Control-Specifying-the-IE-Version)
-            var exeName = Path.GetFileName(System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName);
-            Registry.SetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Internet Explorer\Main\FeatureControl\FEATURE_BROWSER_EMULATION", exeName, 0x2AF8, RegistryValueKind.DWord);
+            ProcessModule? mainModule = Process.GetCurrentProcess().MainModule;
 
+            if (mainModule == null)
+            {
+                throw new NullReferenceException("Current process main module is null.");
+            }
+
+            Application.SetHighDpiMode(HighDpiMode.PerMonitorV2); // Helps respect the specified window sizes
             Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
+            Application.SetCompatibleTextRenderingDefault(true); // Prevents seeing tiny unexpected fonts
 
-            if (args.Length > 0 && args[0].ToLower().Contains("/p"))
-                return;
+            // Argument verification - More than 1 argument, or passing
+            // the wrong argument, will silently exit the program
 
-            if (args.Length > 0 && args[0].ToLower().Contains("/c"))
+            // No arguments is interpreted as "/C"
+            if (args.Length == 0)
             {
                 Application.Run(new PreferencesForm());
             }
-            else
+            else if(args.Length == 1)
             {
-                var formsList = new List<Form>();
-                var screens = (new PreferencesManager()).EffectiveScreensList;
-                foreach (var screen in screens)
+                switch (args[0].ToUpperInvariant())
                 {
-                    var screensaverForm = new ScreensaverForm(screen.ScreenNum)
-                    {
-                        Location = new Point(screen.Bounds.Left, screen.Bounds.Top),
-                        Size = new Size(screen.Bounds.Width, screen.Bounds.Height)
-                    };
-
-                    FormStartPosition x = screensaverForm.StartPosition;
-
-                    formsList.Add(screensaverForm);
+                    case "/C": // Configure
+                        Application.Run(new PreferencesForm());
+                        break;
+                    case "/P": // Preview
+                    case "/S": // Show
+                        ShowScreenSaver();
+                        break;
                 }
-
-                Application.Run(new MultiFormContext(formsList));
             }
         }
-    }
 
-    public class MultiFormContext : ApplicationContext
-    {
-        public MultiFormContext(List<Form> forms)
+        /// <summary>
+        /// Shows the screensaver form in all the screens.
+        /// </summary>
+        private static void ShowScreenSaver()
         {
-            foreach (var form in forms)
-            {
-                form.FormClosed += (s, args) =>
-                {
-                    //When we have closed any form, 
-                    //end the program.
-                        ExitThread();
-                };
+            var forms = new List<Form>();
 
-                form.Show();
+            foreach (KeyValuePair<int, ScreenInformation> kvp in Preferences.Screens)
+            {
+                var form = new ScreensaverForm(kvp.Value);
+                forms.Add(form);
             }
+
+            Application.Run(new MultiFormContext(forms));
         }
     }
 }
