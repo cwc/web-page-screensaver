@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Runtime.Versioning;
 using System.Windows.Forms;
 
-[assembly: SupportedOSPlatform("windows")]
 namespace WebPageScreensaver
 {
     static class Program
@@ -29,10 +27,10 @@ namespace WebPageScreensaver
             // Argument verification - More than 1 argument, or passing
             // the wrong argument, will silently exit the program
 
-            // No arguments is interpreted as "/P" or "/S"
+            // No arguments is interpreted as "/C"
             if (args.Length == 0)
             {
-                ShowScreenSaver();
+                Application.Run(new PreferencesForm());
             }
             else if(args.Length == 1)
             {
