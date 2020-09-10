@@ -34,10 +34,8 @@
             // _webBrowser
             // 
             this._webBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
-            this._webBrowser.Location = _savedLocation;
-            this._webBrowser.Margin = new System.Windows.Forms.Padding(4);
+            this._webBrowser.Margin = new System.Windows.Forms.Padding(0);
             this._webBrowser.Name = "_webBrowser";
-            this._webBrowser.Size = _savedSize;
             this._webBrowser.Source = new System.Uri("about:blank", System.UriKind.Absolute);
             this._webBrowser.TabIndex = 0;
             this._webBrowser.TabStop = false;
@@ -46,18 +44,15 @@
             // ScreensaverForm
             // 
             this.BackColor = System.Drawing.Color.Black;
-            this.ClientSize = _savedSize;
             this.Controls.Add(this._webBrowser);
             this.ForeColor = System.Drawing.Color.White;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Location = _savedLocation;
             this.Margin = new System.Windows.Forms.Padding(0);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ScreensaverForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Load += new System.EventHandler(this.ScreensaverForm_Load);
-            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.WebBrowser_MouseMove);
             this.ResumeLayout(false);
 
         }

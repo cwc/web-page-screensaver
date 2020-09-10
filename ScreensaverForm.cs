@@ -20,17 +20,26 @@ namespace WebPageScreensaver
 
         public ScreensaverForm(ScreenInformation screen)
         {
+            _currentURLIndex = 0;
+
             _closeOnMouseMovement = Preferences.CloseOnMouseMovement;
             _rotationInterval = screen.RotationInterval;
             _shuffle = screen.Shuffle;
             _urls = screen.URLs.ToList();
-            _currentURLIndex = 0;
 
             _savedSize = new Size(screen.Bounds.Width, screen.Bounds.Height);
             _savedLocation = new Point(screen.Bounds.Left, screen.Bounds.Top);
 
             Cursor.Hide();
             InitializeComponent();
+
+            // Manually change size and location, since the `InitializeComponent` code tends to get autoreplaced by the Designer
+            this.SuspendLayout();
+            this._webBrowser.Size = _savedSize;
+            this._webBrowser.Location = _savedLocation;
+            this.ClientSize = _savedSize;
+            this.Location = _savedLocation;
+            this.ResumeLayout(false);
 
             _timer = new Timer();
         }
@@ -62,6 +71,8 @@ namespace WebPageScreensaver
                 _timer.Interval = _rotationInterval * 1000;
                 _timer.Tick += (s, ee) => RotateSite();
                 _timer.Start();
+
+                RotateSite(); // First call, second one will be done _rotationInterval seconds later by _timer
             }
             else
             {
@@ -85,7 +96,7 @@ namespace WebPageScreensaver
             _webBrowser.CoreWebView2.Navigate(url);
         }
 
-        private void WebBrowser_MouseMove(object sender, MouseEventArgs e)
+        private void WebBrowser_MouseMove(object sender, EventArgs e)
         {
             if (_closeOnMouseMovement)
             {
@@ -100,7 +111,7 @@ namespace WebPageScreensaver
         {
             if (keyData == Keys.Escape)
             {
-                this.Close();
+                Close();
                 return true;
             }
             return base.ProcessCmdKey(ref msg, keyData);
