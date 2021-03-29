@@ -13,9 +13,7 @@ namespace WebPageScreensaver
         [STAThread]
         static void Main(string[] args)
         {
-            ProcessModule? mainModule = Process.GetCurrentProcess().MainModule;
-
-            if (mainModule == null)
+            if (Process.GetCurrentProcess().MainModule is not ProcessModule)
             {
                 throw new NullReferenceException("Current process main module is null.");
             }
@@ -24,27 +22,45 @@ namespace WebPageScreensaver
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(true); // Prevents seeing tiny unexpected fonts
 
-            // Argument verification - More than 1 argument, or passing
-            // the wrong argument, will silently exit the program
+            // Argument verification:
+            // - The arguments /C, /P and /S are required by Windows Control Panel.
+            // - More than 1 argument, or passing the wrong argument, will exit the program
 
-            // No arguments is interpreted as "/C"
-            if (args.Length == 0)
+            // Passing no arguments is interpreted as using "/C"
+            switch (args.Length)
             {
-                Application.Run(new PreferencesForm());
+                case 0:
+                    ShowPreferences();
+                    break;
+
+                case 1:
+                    switch (args[0].ToUpperInvariant())
+                    {
+                        case "/C": // Configure
+                            ShowPreferences();
+                            break;
+                        case "/P": // Preview
+                        case "/S": // Show
+                            ShowScreenSaver();
+                            break;
+                        default:
+                            Console.WriteLine($"Unrecognized argument: {args[0]}");
+                            break;
+                    }
+                    break;
+
+                default:
+                    Console.WriteLine("Unexpected number of arguments.");
+                    break;
             }
-            else if(args.Length == 1)
-            {
-                switch (args[0].ToUpperInvariant())
-                {
-                    case "/C": // Configure
-                        Application.Run(new PreferencesForm());
-                        break;
-                    case "/P": // Preview
-                    case "/S": // Show
-                        ShowScreenSaver();
-                        break;
-                }
-            }
+        }
+
+        /// <summary>
+        /// Show the screensaver preferences window.
+        /// </summary>
+        private static void ShowPreferences()
+        {
+            Application.Run(new PreferencesForm());
         }
 
         /// <summary>
@@ -54,9 +70,9 @@ namespace WebPageScreensaver
         {
             var forms = new List<Form>();
 
-            foreach (KeyValuePair<int, ScreenInformation> kvp in Preferences.Screens)
+            foreach ((int _, ScreenInformation info) in Preferences.Screens)
             {
-                var form = new ScreensaverForm(kvp.Value);
+                var form = new ScreensaverForm(info);
                 forms.Add(form);
             }
 

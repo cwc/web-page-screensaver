@@ -1,4 +1,6 @@
-.vs
-bin/
-obj/
-*.user
+**/.vs/
+**/.vscode/
+**/bin/
+**/obj/
+**/Properties/*
+**/*.user

@@ -9,10 +9,12 @@
         /// Same webpage in all screens.
         /// </summary>
         Mirror,
+
         /// <summary>
         /// Each screen has its own individual list of webpages.
         /// </summary>
         Separate,
+
         /// <summary>
         /// Show one webpage split among all the screens.
         /// </summary>

@@ -7,36 +7,16 @@ namespace WebPageScreensaver
 {
     internal static class Preferences
     {
-        #region Setting names and default values
-
-        private struct SettingName
-        {
-            public const string ScreenCount = "ScreenCount";
-            public const string CloseOnMouseMovement = "CloseOnMouseMovement";
-            public const string MultiScreenMode = "MultiScreenMode";
-            public const string RotationInterval = "RotationInterval";
-            public const string Shuffle = "Shuffle";
-            public const string Url = "Url";
-        }
+        private const string CloseOnMouseMovementName = "CloseOnMouseMovement";
+        private const string MultiScreenModeName = "MultiScreenMode";
 
         private struct SettingDefaultValue
         {
-            public const int ScreenCount = 1;
-            public const bool CloseOnMouseMovement = true;
-            public const MultiScreenMode MultiScreen = MultiScreenMode.Separate;
             public const int RotationInterval = 30;
             public const bool Shuffle = false;
         }
 
-        #endregion
-
-        #region Private fields
-
         private const string KeyWebPageScreensaver = @"Software\WebPageScreensaver";
-
-        #endregion
-
-        #region Properties
 
         private static RegistryKey RootKey => Registry.CurrentUser.GetOrCreateSubKey(KeyWebPageScreensaver);
 
@@ -44,35 +24,33 @@ namespace WebPageScreensaver
 
         public static MultiScreenMode MultiScreen
         {
-            get => Enum.Parse<MultiScreenMode>(RootKey.GetOrCreateValue(SettingName.MultiScreenMode, SettingDefaultValue.MultiScreen));
-            set => RootKey.SetValue(SettingName.MultiScreenMode, value);
+            get => Enum.Parse<MultiScreenMode>(RootKey.GetOrCreateValue(MultiScreenModeName, MultiScreenMode.Separate /* default */));
+            set => RootKey.SetValue(MultiScreenModeName, value);
         }
 
         public static bool CloseOnMouseMovement
         {
-            get => bool.Parse(RootKey.GetOrCreateValue(SettingName.CloseOnMouseMovement, SettingDefaultValue.CloseOnMouseMovement));
-            set => RootKey.SetValue(SettingName.CloseOnMouseMovement, value);
+            get => bool.Parse(RootKey.GetOrCreateValue(CloseOnMouseMovementName, true /* default */));
+            set => RootKey.SetValue(CloseOnMouseMovementName, value);
         }
 
         public static Dictionary<int, ScreenInformation> Screens
         {
             get
             {
-                Dictionary<int, ScreenInformation> screens = new Dictionary<int, ScreenInformation>();
+                var screens = new Dictionary<int, ScreenInformation>();
 
                 MultiScreenMode multiScreenMode = MultiScreen;
                 for (int screenNumber = 0; screenNumber < ScreenCount; screenNumber++)
                 {
                     string screenKeyName = $"Display{screenNumber + 1}"; // To match tab name
                     RegistryKey subKey = RootKey.GetOrCreateSubKey(screenKeyName);
-                    ScreenInformation info = new ScreenInformation(subKey, screenNumber, multiScreenMode);
+                    var info = new ScreenInformation(subKey, screenNumber, multiScreenMode);
                     screens.Add(screenNumber, info);
                 }
 
                 return screens;
             }
         }
-
-        #endregion
     }
 }

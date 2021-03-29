@@ -8,7 +8,7 @@ Inspired by its predecesor [cwc/web-page-screensaver](https://github.com/cwc/web
 
 Version|32-bit|64-bit
 ---|---|---
-| 2.0.1-Alpha | Download | Download |
+| 2.0.2-Alpha | Download | Download |
  _Due to 10MB size limit by GitHub (the generated files are ~130MB), need to find an alternative way to publish these._
 
 _Workaround: Follow the [debugging instructions](#Debugging) and generate the files yourself._
@@ -21,18 +21,24 @@ _Workaround: Follow the [debugging instructions](#Debugging) and generate the fi
 * Right click the *.scr file. You have three options to choose from:
   * Select `Test` if you want to preview it in full screen. Note: Press ESC to exit the screensaver.
   * Select `Configure` to modify the screensaver settings. You should see this Window:
-  ![Screenshot](screenshot.png)
+
+    ![Screenshot](screenshot.png)
+
   * Select `Install` if you want it to be added to your list of Windows screensavers. The Windows `Screen Saver Settings` window will pop up with this screensaver selected.
 
 ## Dependencies
 
 Whether you are just installing it or building it, you need the following dependencies:
 
-* .NET 5.0 Desktop Runtime for Windows (>= Preview 8): https://dotnet.microsoft.com/download/dotnet/5.0
+* .NET 5.0 (>= Preview 8) Desktop Runtime for Windows: https://dotnet.microsoft.com/download/dotnet/5.0
 * Microsoft Edge Insider (Canary): https://www.microsoftedgeinsider.com/en-us/download/
-* Windows >= 7.
+* Windows 10.
 
 ## Fixes and improvements
+
+### 2.0.2-Alpha
+* TFM is now targeting net5.0-windows (due to WinForms).
+* Upgraded Microsoft.Web.WebView2 to 1.0.774.44.
 
 ### 2.0.1-Alpha
 * Upgrade to .NET 5.0.

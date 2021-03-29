@@ -10,26 +10,13 @@ namespace WebPageScreensaver
 {
     internal class ScreenInformation
     {
-        private struct SettingName
-        {
-            public const string ScreenNumber = "ScreenNumber";
-            public const string Bounds = "Bounds";
-            public const string IsPrimary = "IsPrimary";
-            public const string URLs = "URLs";
-            public const string RotationInterval = "IntervalRotation";
-            public const string Shuffle = "Shuffle";
-        }
-        private struct SettingDefaultValue
-        {
-            public const int RotationInterval = 10;
-            public const bool Shuffle = true;
-            public const string URLsPrimaryScreen = "https://dotnet.microsoft.com/ https://code.visualstudio.com/";
-        }
+        private const string URLsName = "URLs";
+        private const string RotationIntervalName = "IntervalRotation";
+        private const string ShuffleName = "Shuffle";
 
         public ScreenInformation(RegistryKey rootKey, int screenNumber, MultiScreenMode multiScreenMode)
         {
             RootKey = rootKey;
-
             Bounds = multiScreenMode switch
             {
                 MultiScreenMode.Span => FindEnclosingRectangle(),
@@ -44,35 +31,27 @@ namespace WebPageScreensaver
 
         public IEnumerable<string> URLs
         {
-            get
-            {
-                string urlsString = RootKey.GetOrCreateValue(SettingName.URLs, SettingDefaultValue.URLsPrimaryScreen);
-                return urlsString.Split(' ', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
-            }
-        }
-
-        public void UpdateURLs(IEnumerable<string> urls)
-        {
-            string urlsString = string.Join(' ', urls);
-            RootKey.SetValue(SettingName.URLs, urlsString);
+            get => RootKey
+                    .GetOrCreateValue(URLsName, "https://dotnet.microsoft.com/ https://code.visualstudio.com/" /* default */)
+                    .Split(' ', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+            set => RootKey.SetValue(URLsName, string.Join(' ', value));
         }
 
         public int RotationInterval
         {
-            get => int.Parse(RootKey.GetOrCreateValue(SettingName.RotationInterval, SettingDefaultValue.RotationInterval));
-            set => RootKey.SetValue(SettingName.RotationInterval, value);
+            get => int.Parse(RootKey.GetOrCreateValue(RotationIntervalName, 10 /* default */));
+            set => RootKey.SetValue(RotationIntervalName, value);
         }
 
         public bool Shuffle
         {
-            get => bool.Parse(RootKey.GetOrCreateValue(SettingName.Shuffle, SettingDefaultValue.Shuffle));
-            set => RootKey.SetValue(SettingName.Shuffle, value);
+            get => bool.Parse(RootKey.GetOrCreateValue(ShuffleName, true /* default */));
+            set => RootKey.SetValue(ShuffleName, value);
         }
 
         private static Rectangle FindEnclosingRectangle()
         {
             IEnumerable<Rectangle> bounds = Screen.AllScreens.Select(r => r.Bounds);
-
             return Rectangle.FromLTRB(
                 bounds.Min(r => r.Left),
                 bounds.Min(r => r.Top),
